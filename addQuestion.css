@@ -1,0 +1,55 @@
+body{
+    margin: 0;
+    background-color: #22272f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-transform: capitalize;
+}
+
+#mainSec{
+    height: 60vh;
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    background-color: #683939;
+    justify-content: center; /* left-right center */
+    align-items: center;     /* up-down center */
+}
+.heading{
+    text-align: center;
+}
+.box{
+    width: 45vw;
+    padding: 20px;
+    background-color: #c1181833;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.field{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1cqi;
+}
+
+.field label{
+    width: 30vw;
+}
+
+.field input{
+    width: 20vw;
+}
+
+.field input,
+.field select{
+    margin-left: 10px;
+}
+
+#submit{
+    position: relative;
+    left: 15vw;
+    width: 10vw;
+    
+}

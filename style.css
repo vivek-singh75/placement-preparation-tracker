@@ -1,0 +1,124 @@
+body{
+
+   font-family: 'Times New Roman', Times, serif;
+    background-color: rgb(7, 23, 32);
+    color: aliceblue;
+}
+
+#top{
+    background: #261839;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    color: rgb(215, 209, 209);
+    padding: 1px 5px;
+
+}
+.right{
+    
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    background: #f7f7f7;
+    border-radius: 5px;
+    color: #0e0d0d;
+}
+#main1{
+    gap: 5vh;
+    padding : 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+
+}
+.main11{
+    height: 100px;
+    width:33%;
+    background-color:  #424242 ;
+    border-radius: 10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items: center;
+}
+.main11 .head{
+    padding: 0px 5px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-start;
+    background-color:  #424242;
+    border-radius: 5px;
+}
+
+.main11 .num{
+    margin: 0%;
+    padding: 0px 10px;
+}
+.probMain2 {
+
+padding: 10%;
+border-collapse: collapse;
+margin: 0px auto;
+            
+}
+
+th, td {
+border: 1px solid black;
+padding: 30px;
+text-align: center;
+border-radius: 10px;
+}
+
+th {
+background-color: #1b1111;
+}
+
+#progress{
+    background-color: #281919;
+    padding: 0px 10px;
+    margin-top: 10px;
+    border-radius: 20px;
+   
+}
+#progress .probMain{
+    display: flex;
+    justify-content: center;
+
+
+}
+
+#activity {
+display: flex;
+gap: 10px;
+justify-content: center;
+margin-top: 10px;
+align-items: center;
+}
+.activityBox {
+ width: 300px ;
+ min-height: 200px;
+ border: 2px solid  #424242;
+padding: 15px;
+border-radius: 8px;
+background-color: #424242;
+}   
+
+h3 {
+      margin-top: 10px;
+}
+#activity{
+   display: flex;
+   justify-content: space-around;
+   padding-top: 5px ;
+}
+
+#head{
+    text-align: center;
+}
+.ques th{
+    height: 4%;
+    width:100vw;
+}
+
+
