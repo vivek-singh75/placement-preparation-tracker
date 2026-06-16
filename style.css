@@ -6,7 +6,7 @@ body{
 }
 
 #top{
-    background: #261839;
+    background: black;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -214,14 +214,18 @@ table{
     border-radius: 10px;
     overflow: hidden;
 }
+#topicHead{
+    text-align: center;
+}
 
 thead{
     background-color: #374151;
+    
 }
 
 th{
     padding: 15px;
-    text-align: left;
+    text-align: center;
 }
 
 td{

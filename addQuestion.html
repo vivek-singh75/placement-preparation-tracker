@@ -10,16 +10,17 @@
     <section id="mainSec">
         <div class="heading">
             <h3>Add Solved Question</h3>
-        </div>
-        <div class="box">
-            <div class="field">
+        </div>       
+        <form action="" class="box">
+            <div class="field" >
                 <label for="question">Question Name</label>
-                <input type="text" name="question" placeholder="Enter Question Name" required>
+                <input type="text" id="questionName" name="question" placeholder="Enter Question Name" required>
             </div>
-            <div class="field">
+            <div class="field" id="typeOf">
                 <label for="type">Types of questions:</label>
 
-                <select id="type" name="type">
+                <select id="typeofQ" name="type">
+                    <option value="" disabled selected >Select</option>
                     <option value="Array">Array</option>
                     <option value="String">String</option>
                     <option value="Recursion">Recursion</option>
@@ -30,6 +31,7 @@
                 <label for="level">dificulty level:</label>
 
                 <select id="level" name="level">
+                    <option value="" disabled selected >Select</option>
                     <option value="Easy">Easy</option>
                     <option value="Medium">Medium</option>
                     <option value="Hard">Hard</option>
@@ -39,6 +41,7 @@
                 <label for="Plateform">Plateform:</label>
 
                 <select id="Plateform" name="Plateform">
+                    <option value="" disabled selected >Select</option>
                     <option value="leetcode">leetcode</option>
                     <option value="hackthon">hackthon</option>
 
@@ -48,15 +51,18 @@
                 <label for="Status">Status:</label>
 
                 <select id="Status" name="Status">
-                    <option value="Solved">Solved</option>
-                    <option value="inprogress">inprogress</option>
-                    <option value="untouch">untouch</option>
+                    <option value="" disabled selected >Select</option>
+                    <option value="Solved">first time</option>
+                    <option value="inprogress">second time</option>
+                    <option value="untouch">third time or more</option>
                 </select>
             </div>
             <div class="field" id="submit" >
                  <input type="submit">
             </div>
-        </div>
+        </form>
     </section>
+
+    <script src="addQScript.js"></script>
 </body>
 </html>
