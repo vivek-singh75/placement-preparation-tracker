@@ -7,17 +7,21 @@
      <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header id="top">
-        <div class="left">
-            <h3 id="title">Placement Tracker</h3>
-            <h5 id="wellcome"> Wellcome Vivek</h5>
-        </div>
-        <div class="right">
-            <a href="file:///c%3A/Users/Vivek%20Singh/OneDrive/Desktop/Placement%20Preparation%20Tracker%20%26%20Analytics%20Dashboard/addQuestion.html">add solved question</a>
-            <a href="" >Dashboard </a>
-            <a href="">Logout</a>
-        </div>
-    </header>
+    <header id="navbar">
+
+    <div class="logoSection">
+        <h2>📊 Placement Tracker</h2>
+        <span>Welcome, Vivek</span>
+    </div>
+
+    <nav class="navLinks">
+        <a href="index.html">Dashboard</a>
+        <a href="addQuestion.html">Add Question</a>
+        <a href="#">Analytics</a>
+        <a href="#">Profile</a>
+    </nav>
+
+</header>
     <section id="main1">
         <div id="proble" class ="main11">
             <h4 class="head">Total problem solved</h4>
@@ -92,31 +96,41 @@
 
 </section>
     <section id="activity">
-        <div class="activityBox">
-            <h3>Recent Activity</h3>
-            <ul>
-                <li>Bubble Sort</li>
-                <li>Binary Search</li>
-                <li>Recursion Basics</li>
-                <li>Palindrome String</li>
-            </ul>
+
+    <!-- Recent Activity -->
+
+    <div class="activityBox">
+
+        <div class="activityHeader">
+            <h3 class="activity">Recent Activity</h3>
         </div>
 
-        <div class="activityBox">
-            <h3>Weak Topics</h3>
-            <ul>
-                <li>HashMap</li>
-                <li>Trees</li>
-                <li>Graphs</li>
-        
-            </ul>
+        <div id="recentActivityContainer">
+
+            <!-- JS se cards add honge -->
+
         </div>
 
     </div>
-    </section>
-   <section id="dashboard">
 
-```
+    <!-- Weak Topics -->
+
+    <div class="activityBox">
+
+        <div class="activityHeader">
+            <h3 class="activity">Weak Topics</h3>
+        </div>
+
+        <div id="weakTopicContainer">
+
+            <!-- JS se cards add honge -->
+
+        </div>
+
+    </div>
+
+</section>
+<section id="dashboard">
 <!-- Stats Cards -->
 <div class="stats-container">
 
@@ -235,5 +249,7 @@
 </section>
     
 
+
+    <script src="mainScript.js"></script>
 </body>
 </html>

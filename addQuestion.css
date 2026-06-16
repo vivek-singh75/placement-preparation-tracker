@@ -1,6 +1,6 @@
 body{
     margin: 0;
-    background-color: #22272f;
+    background-color: rgb(7, 23, 32);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,13 +9,16 @@ body{
 }
 
 #mainSec{
+
+    color: aliceblue;
     height: 60vh;
     width: 60vw;
     display: flex;
     flex-direction: column;
-    background-color: #683939;
+    background-color: #313b48;
     justify-content: center; /* left-right center */
     align-items: center;     /* up-down center */
+    border-radius: 50px;
 }
 .heading{
     text-align: center;
@@ -23,10 +26,12 @@ body{
 .box{
     width: 45vw;
     padding: 20px;
-    background-color: #c1181833;
+    background-color: #1d2734;
     display: flex;
     flex-direction: column;
     gap: 15px;
+    border-radius: 30px;
+    
 }
 .field{
     display: flex;
