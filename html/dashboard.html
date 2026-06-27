@@ -4,38 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Placement Preparation Tracker & Analytics Dashboardt</title>
-     <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <header id="navbar">
-
+<header id="navbar">
     <div class="logoSection">
         <h2>📊 Placement Tracker</h2>
         <span>Welcome, Vivek</span>
     </div>
 
+    <button id="menuBtn">☰</button>
     <nav class="navLinks">
-        <a href="index.html">Dashboard</a>
+        <a href="dashboard.html">Dashboard</a>
         <a href="addQuestion.html">Add Question</a>
         <a href="#">Analytics</a>
         <a href="#">Profile</a>
     </nav>
 
 </header>
-    <section id="main1">
-        <div id="proble" class ="main11">
-            <h4 class="head">Total problem solved</h4>
-            <h5 class="num">50</h5>
-        </div>
-        <div id="solved" class ="main11">
-            <h4 class="head">Current Streak</h4>
-            <h5 class="num">7 Days</h5>
-        </div>
-        <div id="read" class ="main11">
-            <h4 class="head">Readiness</h4>
-            <h5 class="num">65%</h5>
-        </div>
-    </section>
+    <section id="stats">
+
+    <div class="stat-card" id="streak-card">
+        <h4 class="stat-title">Current Streak</h4>
+        <h2 class="stat-value" id="streak-value">7 Days</h2>
+    </div>
+
+    <div class="stat-card" id="readiness-card">
+        <h4 class="stat-title">Readiness</h4>
+        <h2 class="stat-value" id="readiness-value">65%</h2>
+    </div>
+
+</section>
    <section id="progress">
 
     <h2>Topic Progress</h2>
@@ -134,28 +133,29 @@
 <!-- Stats Cards -->
 <div class="stats-container">
 
-    <div class="stat-card">
+    <div class="stat-card2">
         <h3>Total Solved</h3>
         <p id="totalSolved">0</p>
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card2">
         <h3>Easy</h3>
         <p id="easyCount">0</p>
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card2">
         <h3>Medium</h3>
         <p id="mediumCount">0</p>
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card2">
         <h3>Hard</h3>
         <p id="hardCount">0</p>
     </div>
 
 </div>
 
+</section>
 
 <!-- Topic Analysis -->
 <section id="topics">
@@ -208,35 +208,45 @@
 </section>
 
 
-<!-- Difficulty Analysis -->
-<section id="difficulty">
+<!-- plateform data -->
+<section id="platform-analysis">
 
-    <h2>Difficulty Analysis</h2>
+    <h2>Platform Analysis</h2>
 
-    <table id="difficultyTable">
+    <table id="platformTable">
 
         <thead>
             <tr>
-                <th>Difficulty</th>
-                <th>Count</th>
+                <th>Platform</th>
+                <th>Problems Solved</th>
             </tr>
         </thead>
 
         <tbody>
 
             <tr>
-                <td>Easy</td>
-                <td id="easyTableCount">0</td>
+                <td>LeetCode</td>
+                <td id="leetcodeCount">0</td>
             </tr>
 
             <tr>
-                <td>Medium</td>
-                <td id="mediumTableCount">0</td>
+                <td>CodeChef</td>
+                <td id="codechefCount">0</td>
             </tr>
 
             <tr>
-                <td>Hard</td>
-                <td id="hardTableCount">0</td>
+                <td>GeeksforGeeks</td>
+                <td id="gfgCount">0</td>
+            </tr>
+
+            <tr>
+                <td>HackerRank</td>
+                <td id="hackerrankCount">0</td>
+            </tr>
+
+            <tr>
+                <td>Others</td>
+                <td id="othersCount">0</td>
             </tr>
 
         </tbody>
@@ -244,12 +254,8 @@
     </table>
 
 </section>
-```
-
-</section>
-    
 
 
-    <script src="mainScript.js"></script>
+    <script src="../javascript/mainScript.js"></script>
 </body>
 </html>

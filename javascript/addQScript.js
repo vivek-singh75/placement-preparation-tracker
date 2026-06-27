@@ -9,8 +9,6 @@ if(data !== null){
     Question = data;
 };
 
-
-
 //let questionName = document
 form.addEventListener("submit", function(dets){
     dets.preventDefault();
@@ -39,13 +37,8 @@ form.addEventListener("submit", function(dets){
     localStorage.setItem("Questions" ,JSON.stringify(Question));
 
 
-
+    form.reset();
 });
-
-
-
-
-
 
 
 //let questionName = document.
