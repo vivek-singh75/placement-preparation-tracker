@@ -20,7 +20,7 @@ body{
 
 #navbar{
     background:rgba(7,10,17,0.9);
-    backdrop-filter:blur(12px);
+    /* backdrop-filter:blur(12px); */
 
     display:flex;
     justify-content:space-between;
@@ -38,6 +38,11 @@ body{
 .logoSection h2{
     color:white;
     margin-bottom:4px;
+    
+}
+.logoSection h2 #navLogo{
+    color: #d1d5db;
+    text-decoration: none;
 }
 
 .logoSection span{
@@ -479,6 +484,10 @@ tbody tr:hover{
     td{
         padding:12px;
     }
+    .activity{
+        display: block;
+        justify-content: center;
+    }
 }
 
 /* =========================
@@ -547,4 +556,12 @@ tbody tr:hover{
     .weakItem{
         font-size:14px;
     }
+}
+
+/* recent and week topic */
+.recentQ{
+    text-align: center;
+}
+.weekQ{
+    text-align: center;
 }
