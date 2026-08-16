@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DevTrack - Skill Tracker</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="../css/mainDashboard.css">
+</head>
+
+<body>
+
+<div id="app" class="min-h-screen">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside id="sidebar">
+
+        <div class="sidebar-logo">
+            <div class="logo-icon">&lt;/&gt;</div>
+
+            <div>
+                <h1>DevTrack</h1>
+                <p>Skill Tracker</p>
+            </div>
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="#" class="nav-link active">
+                <span>⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="dashboardOfDsa.html" class="nav-link">
+                <span>◇</span>
+                <span>DSA</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>○</span>
+                <span>MERN Stack</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>◉</span>
+                <span>Data Science</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>☕</span>
+                <span>Java / Spring Boot</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>◈</span>
+                <span>Cyber Security</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>▣</span>
+                <span>App Development</span>
+            </a>
+
+
+            <div class="nav-divider"></div>
+
+
+            <a href="#" class="nav-link">
+                <span>▤</span>
+                <span>Projects</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>◷</span>
+                <span>Goals</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>▥</span>
+                <span>Analytics</span>
+            </a>
+
+            <a href="#" class="nav-link">
+                <span>⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-quote">
+            <div class="quote-icon">🚀</div>
+
+            <p>Keep Consistency!</p>
+
+            <span>
+                Small progress every day becomes a big result.
+            </span>
+        </div>
+
+    </aside>
+
+
+    <!-- Mobile Overlay -->
+
+    <div id="overlay"></div>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main id="mainContent">
+
+
+        <!-- ================= HEADER ================= -->
+
+        <header id="topbar">
+
+            <div class="top-left">
+
+                <button id="menuBtn">
+                    ☰
+                </button>
+
+                <h2 class="mobile-logo">
+                    <span>Dev</span>Track
+                </h2>
+
+
+                <div class="search-box">
+
+                    <span>⌕</span>
+
+                    <input
+                        type="text"
+                        placeholder="Search anything..."
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="top-right">
+
+                <button class="top-button">
+                    🔔
+                </button>
+
+                <button
+                    id="themeBtn"
+                    class="top-button"
+                >
+                    🌙
+                </button>
+
+                <div class="profile">
+
+                    <div class="profile-avatar">
+                        V
+                    </div>
+
+                    <span>Vivek</span>
+
+                    <span>⌄</span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <div class="content">
+
+
+            <!-- Welcome -->
+
+            <section class="welcome">
+
+                <h1>
+                    Welcome back,
+                    <span>Vivek 👋</span>
+                </h1>
+
+                <p>
+                    Track your progress and build your skills consistently.
+                </p>
+
+            </section>
+
+
+            <!-- ================= STATS ================= -->
+
+            <section class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        📄
+                    </div>
+
+                    <div>
+                        <p>Total Questions</p>
+
+                        <h2 id="totalQuestions">
+                            312
+                        </h2>
+
+                        <small class="green">
+                            +18 this week
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <p>Questions Solved</p>
+
+                        <h2 id="solvedQuestions">
+                            197
+                        </h2>
+
+                        <small class="blue-text">
+                            63.1% of total
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        ◉
+                    </div>
+
+                    <div>
+                        <p>Current Streak</p>
+
+                        <h2>
+                            12 Days
+                        </h2>
+
+                        <small class="orange">
+                            Keep it up!
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange-icon">
+                        🔥
+                    </div>
+
+                    <div>
+                        <p>Longest Streak</p>
+
+                        <h2>
+                            28 Days
+                        </h2>
+
+                        <small class="purple-text">
+                            Your record
+                        </small>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= SKILLS ================= -->
+
+            <section class="skills-section">
+
+                <div class="section-header">
+
+                    <h2>
+                        Your Skills Overview
+                    </h2>
+
+                    <a href="#">
+                        View All Analytics →
+                    </a>
+
+                </div>
+
+
+                <div
+                    id="skillsContainer"
+                    class="skills-grid"
+                ></div>
+
+            </section>
+
+
+            <!-- ================= BOTTOM ================= -->
+
+            <section class="bottom-grid">
+
+
+                <!-- Overall -->
+
+                <div class="dashboard-card">
+
+                    <h2>
+                        Overall Progress
+                    </h2>
+
+
+                    <div class="circle-container">
+
+                        <div class="progress-circle">
+
+                            <div class="circle-inner">
+
+                                <strong>
+                                    19%
+                                </strong>
+
+                                <span>
+                                    Overall
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="progressLegend"></div>
+
+                    <p class="bottom-message">
+                        Keep going! 🚀
+                    </p>
+
+                </div>
+
+
+                <!-- Recent -->
+
+                <div class="dashboard-card">
+
+                    <div class="section-header">
+
+                        <h2>
+                            Recent Activity
+                        </h2>
+
+                        <button>
+                            View All
+                        </button>
+
+                    </div>
+
+
+                    <div id="recentActivity"></div>
+
+                </div>
+
+
+                <!-- Weak Topics -->
+
+                <div class="dashboard-card">
+
+                    <div class="section-header">
+
+                        <h2>
+                            Weak Topics
+                        </h2>
+
+                        <button>
+                            View All
+                        </button>
+
+                    </div>
+
+
+                    <div id="weakTopics"></div>
+
+
+                    <p class="weak-message">
+                        Focus on weak topics to improve your skills. 🎯
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- ================= MOBILE NAV ================= -->
+
+<nav class="mobile-nav">
+
+    <a href="mainDashboard.html" class="selected">
+        <span>⌂</span>
+        <small>Home</small>
+    </a>
+
+    <a href="dashboardOfDsa.html">
+        <span>◇</span>
+        <small>DSA</small>
+    </a>
+
+    <a href="#">
+        <span>○</span>
+        <small>MERN</small>
+    </a>
+
+    <a href="#">
+        <span>•••</span>
+        <small>More</small>
+    </a>
+
+</nav>
+
+
+<script src="../javascript/mainDashboard.js"></script>
+
+</body>
+</html>

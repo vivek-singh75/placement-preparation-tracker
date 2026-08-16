@@ -1,60 +1,335 @@
-body{
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
     margin: 0;
-    background-color: rgb(7, 23, 32);
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body {
+    min-height: 100vh;
+
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
-    text-transform: capitalize;
+    justify-content: center;
+
+    padding: 30px 15px;
+
+    background: #f8fafc;
+
+    color: #0f172a;
+
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
 }
 
-#mainSec{
 
-    color: aliceblue;
-    height: 60vh;
-    width: 60vw;
-    display: flex;
-    flex-direction: column;
-    background-color: #313b48;
-    justify-content: center; /* left-right center */
-    align-items: center;     /* up-down center */
-    border-radius: 50px;
+/* =====================================================
+   MAIN SECTION
+===================================================== */
+
+#mainSec {
+    width: min(650px, 100%);
+
+    padding: 35px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 35px rgba(15, 23, 42, 0.07);
 }
-.heading{
+
+
+/* =====================================================
+   HEADING
+===================================================== */
+
+.heading {
+    margin-bottom: 28px;
+
     text-align: center;
 }
-.box{
-    width: 45vw;
-    padding: 20px;
-    background-color: #1d2734;
+
+
+.heading h3 {
+    color: #0f172a;
+
+    font-size: 27px;
+
+    font-weight: 700;
+}
+
+
+.heading::after {
+    content: "Add your solved DSA question to track your progress";
+
+    display: block;
+
+    margin-top: 8px;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   FORM BOX
+===================================================== */
+
+.box {
+    width: 100%;
+
     display: flex;
+
     flex-direction: column;
-    gap: 15px;
-    border-radius: 30px;
-    
+
+    gap: 18px;
+
+    padding: 25px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 14px;
 }
-.field{
+
+
+/* =====================================================
+   FORM FIELD
+===================================================== */
+
+.field {
     display: flex;
-    align-items: center;
-    margin-bottom: 1cqi;
+
+    flex-direction: column;
+
+    gap: 7px;
 }
 
-.field label{
-    width: 30vw;
+
+.field label {
+    color: #334155;
+
+    font-size: 12px;
+
+    font-weight: 600;
 }
 
-.field input{
-    width: 20vw;
+
+/* =====================================================
+   INPUT + SELECT
+===================================================== */
+
+.field input[type="text"],
+.field select {
+    width: 100%;
+
+    height: 44px;
+
+    padding: 0 13px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    background: #ffffff;
+
+    color: #0f172a;
+
+    font-size: 12px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.field input,
-.field select{
-    margin-left: 10px;
+
+/* Placeholder */
+
+.field input::placeholder {
+    color: #94a3b8;
 }
 
-#submit{
-    position: relative;
-    left: 15vw;
-    width: 10vw;
-    
+
+/* Focus */
+
+.field input[type="text"]:focus,
+.field select:focus {
+    border-color: #7c3aed;
+
+    box-shadow:
+        0 0 0 3px rgba(124, 58, 237, 0.10);
+}
+
+
+/* Select */
+
+.field select {
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   SUBMIT CONTAINER
+===================================================== */
+
+#submit {
+    width: 100%;
+
+    margin-top: 4px;
+}
+
+
+/* =====================================================
+   SUBMIT BUTTON
+===================================================== */
+
+#submit input[type="submit"] {
+    width: 100%;
+
+    height: 44px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #7c3aed;
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+#submit input[type="submit"]:hover {
+    background: #6d28d9;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 15px rgba(124, 58, 237, 0.20);
+}
+
+
+#submit input[type="submit"]:active {
+    transform: translateY(0);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px 10px;
+
+        align-items: flex-start;
+    }
+
+
+    #mainSec {
+        width: 100%;
+
+        margin-top: 15px;
+
+        padding: 22px 16px;
+
+        border-radius: 14px;
+    }
+
+
+    .heading {
+        margin-bottom: 22px;
+    }
+
+
+    .heading h3 {
+        font-size: 22px;
+    }
+
+
+    .heading::after {
+        font-size: 11px;
+    }
+
+
+    .box {
+        padding: 17px;
+
+        gap: 16px;
+    }
+
+
+    .field label {
+        font-size: 11px;
+    }
+
+
+    .field input[type="text"],
+    .field select {
+        height: 43px;
+
+        font-size: 12px;
+    }
+
+
+    #submit input[type="submit"] {
+        height: 43px;
+    }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 380px) {
+
+    body {
+        padding: 10px 8px;
+    }
+
+
+    #mainSec {
+        padding: 18px 12px;
+    }
+
+
+    .box {
+        padding: 14px;
+    }
+
+
+    .heading h3 {
+        font-size: 20px;
+    }
 }

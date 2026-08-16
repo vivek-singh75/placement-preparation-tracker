@@ -1,72 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add question page</title>
-    <link rel="stylesheet" href="../css/addQuestion.css">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Add Question | DevTrack</title>
+    <link
+        rel="stylesheet" href="../css/addQuestion.css" >
+
 </head>
+
+
 <body>
-    <section id="mainSec">
+
+
+    <!-- =========================================
+         MAIN CONTAINER
+    ========================================== -->
+
+    <main id="mainSec">
+
+
+        <!-- =====================================
+             HEADER
+        ====================================== -->
+
         <div class="heading">
-            <h3>Add Solved Question</h3>
-        </div>       
-        <form action="" class="box">
-            <div class="field" >
-                <label for="question">Question Name</label>
-                <input type="text" id="questionName" name="question" placeholder="Enter Question Name" required>
-            </div>
-            <div class="field" id="typeOf">
-                <label for="type">Types of questions:</label>
 
-                <select id="typeofQ" name="type">
-                    <option value="" disabled selected >Select</option>
-                    <option value="Array">Array</option>
-                    <option value="String">String</option>
-                    <option value="Recursion">Recursion</option>
-                    <option value="Tree">Tree</option>
-                    <option value="Graph">Graph</option>
-                    <option value="HashMap">HashMap</option>
-                    <option value="Other">Other</option>
-                </select>
+            <a
+                href="dashboardOfDsa.html"
+                class="backBtn"
+            >
+                ← Back to DSA
+            </a>
+
+
+            <div class="headingContent">
+
+                <p class="headingSmall">
+                    DSA Tracker
+                </p>
+
+                <h1>
+                    Add Solved Question
+                </h1>
+
+                <p>
+                    Record your solved problem and keep
+                    your progress updated.
+                </p>
+
             </div>
+
+        </div>
+
+
+        <!-- =====================================
+             FORM
+        ====================================== -->
+
+        <form
+            id="questionForm"
+            class="box"
+        >
+
+
+            <!-- Question Name -->
+
             <div class="field">
-                <label for="level">dificulty level:</label>
 
-                <select id="level" name="level">
-                    <option value="" disabled selected >Select</option>
-                    <option value="Easy">Easy</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Hard">Hard</option>
-                </select>
+                <label for="questionName">
+                    Question Name
+                </label>
+
+                <input
+                    type="text"
+                    id="questionName"
+                    name="question"
+                    placeholder="e.g. Two Sum"
+                    autocomplete="off"
+                    required
+                >
+
             </div>
+
+
+            <!-- Topic -->
+
             <div class="field">
-                <label for="Plateform">Plateform:</label>
 
-                <select id="Plateform" name="Plateform">
-                    <option value="" disabled selected >Select</option>
-                    <option value="self">Self Study</option>
-                    <option value="leetcode">Leetcode</option>
-                    <option value="hackthon">Hackthon</option>
+                <label for="typeofQ">
+                    Topic
+                </label>
+
+                <select
+                    id="typeofQ"
+                    name="type"
+                    required
+                >
+
+                    <option
+                        value=""
+                        disabled
+                        selected
+                    >
+                        Select topic
+                    </option>
+
+                    <option value="Array">
+                        Array
+                    </option>
+
+                    <option value="String">
+                        String
+                    </option>
+
+                    <option value="Recursion">
+                        Recursion
+                    </option>
+
+                    <option value="Tree">
+                        Tree
+                    </option>
+
+                    <option value="Graph">
+                        Graph
+                    </option>
+
+                    <option value="HashMap">
+                        HashMap
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
 
                 </select>
+
             </div>
+
+
+            <!-- Difficulty -->
+
             <div class="field">
-                <label for="Status">Status:</label>
 
-                <select id="Status" name="Status">
-                    <!-- <option value="" disabled selected >Select</option> -->
-                    <option value="Solved" >First Time</option>
-                    <option value="inprogress">Second Time</option>
-                    <option value="untouch">Third Time or More</option>
+                <label for="level">
+                    Difficulty Level
+                </label>
+
+                <select
+                    id="level"
+                    name="level"
+                    required
+                >
+
+                    <option
+                        value=""
+                        disabled
+                        selected
+                    >
+                        Select difficulty
+                    </option>
+
+                    <option value="Easy">
+                        Easy
+                    </option>
+
+                    <option value="Medium">
+                        Medium
+                    </option>
+
+                    <option value="Hard">
+                        Hard
+                    </option>
+
                 </select>
+
             </div>
-            <div class="field" id="submit" >
-                 <input type="submit">
+
+
+            <!-- Platform -->
+
+            <div class="field">
+
+                <label for="Plateform">
+                    Platform
+                </label>
+
+                <select
+                    id="Plateform"
+                    name="Plateform"
+                    required
+                >
+
+                    <option
+                        value=""
+                        disabled
+                        selected
+                    >
+                        Select platform
+                    </option>
+
+                    <option value="self">
+                        Self Study
+                    </option>
+
+                    <option value="leetcode">
+                        LeetCode
+                    </option>
+
+                    <option value="hackthon">
+                        Hackathon
+                    </option>
+
+                    <option value="gfg">
+                        GeeksForGeeks
+                    </option>
+
+                    <option value="codechef">
+                        CodeChef
+                    </option>
+
+                    <option value="hackerrank">
+                        HackerRank
+                    </option>
+
+                </select>
+
             </div>
+
+
+            <!-- Solve Status -->
+
+            <div class="field">
+
+                <label for="Status">
+                    Solve Status
+                </label>
+
+                <select
+                    id="Status"
+                    name="Status"
+                    required
+                >
+
+                    <option value="First Time">
+                        First Time
+                    </option>
+
+                    <option value="Second Time">
+                        Second Time
+                    </option>
+
+                    <option value="Third Time or More">
+                        Third Time or More
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Submit -->
+
+            <button
+                type="submit"
+                id="submit"
+            >
+                Add Question
+            </button>
+
+
+            <!-- Message -->
+
+            <p
+                id="formMessage"
+                class="formMessage"
+            ></p>
+
+
         </form>
-    </section>
 
-    <script src="../javascript/addQScript.js"></script>
+    </main>
+
+
+    <script
+        src="../javascript/addQScript.js"
+    ></script>
+
 </body>
+
 </html>
