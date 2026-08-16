@@ -11,8 +11,7 @@ const skills = [
         color: "#7c3aed",
         bg: "#f3e8ff",
         button: "Go to DSA",
-        link: "../html/DashboardOfDsa.html"
-    },
+        link: "./html/DashboardOfDsa.html" },
 
     {
         name: "MERN Stack",
