@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+    background-color: #fff;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: rgb(7, 23, 32);;
+}
+
+.login-container{
+    width:350px;
+    padding:30px;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.login-container h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.input-group{
+    margin-bottom:15px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+.input-group input{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button,a{
+    width:100%;
+    padding:10px;
+    border:none;
+    background:#007bff;
+    color:white;
+    font-size:16px;
+    border-radius:5px;
+    cursor:pointer;
+    text-decoration: none;
+}
+
+button a:hover{
+    background-color:#0056b3;
+}
+
+button:hover{
+    background:#0056b3;
+}
+a :hover{
+    
+}
+.createAcc{
+    text-align: center;
+
+}
+
+</style>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+
+        <form>
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter Username" required>
+                <small class="error" id="usernameError"></small>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter Password" required>
+                <small class="error" id="passwordError"></small>
+            </div>
+            <p id="loginError"></p>
+
+            <button type="submit">           
+                Login
+            </button>
+            
+            <div class="createAcc"><br>
+                <a href="./html/createAcc.html">Create Account</a>
+            </div>
+        </form>
+        <div class="resultError">
+            
+        </div>
+    </div>    
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <Script>
+        let usernameInput = document.querySelector("#username");
+        let passwordInput = document.querySelector("#password");
+        let form = document.querySelector("form");
+        let ip = document.querySelector("input");
+        let btn = document.querySelector("button");
+        let loginError = document.querySelector("#loginError");
+
+        let atag= document.querySelector("a");
+        form.addEventListener("submit" ,async function(dets){
+            dets.preventDefault()
+            document.querySelector("#usernameError").textContent = "";
+            document.querySelector("#passwordError").textContent = "";
+            const username = usernameInput.value
+            const password = passwordInput.value
+            console.log(username ,password)
+
+            if(!username  || !password){
+                return document.querySelector("#loginError").textContent = "Enter All Data";
+            }
+            const loginData = {
+                username,password
+            }
+            try {
+                const response = await axios.post("http://localhost:3000/api/user/login" ,loginData , 
+                { withCredentials: true });
+                console.log("login data send to backend");
+                console.log(response.data);
+
+        // Login successful
+                window.location.href = "./html/dashboard.html";
+
+
+            } catch (error) {
+                console.log(`error while login ${error}`);
+                loginError.textContent =error.response?.data?.message || "Login failed";
+                
+            }
+            
+           // btn.textContent = "login successful"          
+            // if(!useridans){
+            //     document.querySelector("#useridError").textContent = "userId is wrong";
+            // }
+            // if(!passwordans){
+            //     document.querySelector("#passwordError").textContent = "password is wrong";
+            // }
+        });
+    </Script>
+</body>
+</html>
+
