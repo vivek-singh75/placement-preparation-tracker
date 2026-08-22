@@ -119,7 +119,7 @@ form.addEventListener("submit", async function (event) {
     // ADD OBJECT TO ARRAY
     // =================================================
     try {
-        const responce  =await axios.post("http://localhost:3000/api/question/addQuestion" , added ,
+        const responce  =await axios.post("https://placement-preparation-tracker-ltlg.onrender.com/api/question/addQuestion" , added ,
         { withCredentials: true });
         console.log("data send to backend")
     } catch (error) {
