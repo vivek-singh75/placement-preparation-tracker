@@ -336,10 +336,7 @@ renderTopicProgress();
 
 function renderRecentActivity() {
 
-    recentActivityContainer.innerHTML =
-        "";
-
-
+    recentActivityContainer.innerHTML ="";
     if (Gdata.length === 0) {
 
         recentActivityContainer.innerHTML = `
@@ -570,16 +567,13 @@ function renderDifficulty() {
             let barClass =
                 "easyBar";
 
-
             if (
                 difficulty === "Medium"
             ) {
 
                 barClass =
                     "mediumBar";
-
             }
-
 
             if (
                 difficulty === "Hard"
@@ -587,10 +581,7 @@ function renderDifficulty() {
 
                 barClass =
                     "hardBar";
-
             }
-
-
             const item =
                 document.createElement("div");
 

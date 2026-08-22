@@ -11,36 +11,35 @@ const form = document.querySelector(".box");
 
 let Question = [];
 
-try {
+// try {
+    
+//     const data = JSON.parse(
+//         localStorage.getItem("Questions")
+//     );
 
-    const data = JSON.parse(
-        localStorage.getItem("Questions")
-    );
+//     if (Array.isArray(data)) {
+//         Question = data;
+//     }
 
-    if (Array.isArray(data)) {
-        Question = data;
-    }
+// } catch (error) {
 
-} catch (error) {
+//     console.log(
+//         "Error reading Questions from Local Storage:",
+//         error
+//     );
 
-    console.log(
-        "Error reading Questions from Local Storage:",
-        error
-    );
+//     Question = [];
 
-    Question = [];
-
-}
+// }
 
 
 // =====================================================
 // FORM SUBMIT
 // =====================================================
 
-form.addEventListener("submit", function (event) {
+form.addEventListener("submit", async function (event) {
 
     event.preventDefault();
-
 
     // =================================================
     // GET VALUES FROM FORM
@@ -49,22 +48,17 @@ form.addEventListener("submit", function (event) {
     const questionName =
         document.querySelector("#questionName").value.trim();
 
-
     const typeofQ =
         document.querySelector("#typeofQ").value;
-
 
     const level =
         document.querySelector("#level").value;
 
-
     const Plateform =
         document.querySelector("#Plateform").value;
 
-
     const Status =
         document.querySelector("#Status").value;
-
 
     // =================================================
     // VALIDATION
@@ -110,32 +104,38 @@ form.addEventListener("submit", function (event) {
 
         questionName: questionName,
 
-        typeofQ: typeofQ,
+        topic: typeofQ,
 
-        level: level,
+        Difficulty_Level: level,
 
-        Plateform: Plateform,
+        Platform: Plateform,
 
-        Status: Status
+        Solved_Status: Status
 
     };
-
+    console.log(added.questionName)
 
     // =================================================
     // ADD OBJECT TO ARRAY
     // =================================================
+    try {
+        const responce  =await axios.post("http://localhost:3000/api/question/addQuestion" , added ,
+        { withCredentials: true });
+        console.log("data send to backend")
+    } catch (error) {
+        console.log(`error while sending data to backend ${error}`)
+    }
 
-    Question.push(added);
 
 
     // =================================================
     // SAVE ARRAY TO LOCAL STORAGE
     // =================================================
 
-    localStorage.setItem(
-        "Questions",
-        JSON.stringify(Question)
-    );
+    // localStorage.setItem(
+    //     "Questions",
+    //     JSON.stringify(Question)
+    // );
 
 
     // =================================================

@@ -29,6 +29,7 @@ async function registerUser(req ,res) {
 
     const token = jwt.sign({
         id : user._id,
+        name : user.name ,
         username : user.username,
         email : user.email
     },process.env.JWT_SECRET_KEY);
@@ -102,5 +103,11 @@ async function loginUser(req, res) {
         });
     }
 }
- 
-module.exports = { registerUser , loginUser }
+
+async function logoutUser(req , res) {
+    res.clearCookie("cookie");
+    res.status(402).json({message : "logout successfully"})
+}
+
+
+module.exports = { registerUser , loginUser,  logoutUser}

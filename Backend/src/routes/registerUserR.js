@@ -6,6 +6,7 @@ const register = require("../Controllers/register.controller");
 
 router.post("/users" , register.registerUser);
 router.post("/login" , register.loginUser);
+router.post("/logout" , register.logoutUser);
 
 
 module.exports = router

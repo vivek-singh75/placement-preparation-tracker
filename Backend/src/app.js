@@ -1,8 +1,14 @@
 const express = require("express");
 const Users = require("./routes/registerUserR");
 const cors = require("cors");
+const questions = require("./routes/questionsR")
+const cookieParser = require("cookie-parser");
+
+
 
 const app = express();
+
+app.use(cookieParser());
 
 const allowedOrigins = [
     "http://127.0.0.1:5500",
@@ -21,8 +27,12 @@ app.use(cors({
     credentials: true
 }));
 
+
+
 app.use(express.json());
 
 app.use("/api/user", Users);
+
+app.use("/api/question", questions);
 
 module.exports = app;

@@ -10,7 +10,7 @@ async function connectDB() {
     } catch (error) {
         console.log("error arrived while connecting to Database" + error);
     }
-    
+     
     
 }
 

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile | Developer Skill Tracker</title>
+
+    <link rel="stylesheet" href="../css/profile.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+
+        <div class="logo">
+            <h2>Developer Skill Tracker</h2>
+            <p>Track. Learn. Improve.</p>
+        </div>
+
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="addQuestion.html">Add Question</a>
+            <a href="profile.html" class="active">Profile</a>
+            <a href="#">Logout</a>
+        </nav>
+
+    </header>
+
+
+    <!-- Main -->
+    <main class="profilePage">
+
+        <!-- Profile Header -->
+        <section class="profileHeader">
+
+            <div class="profileImage">
+
+                <img
+                    id="profileImage"
+                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=300"
+                    alt="Profile"
+                >
+
+                <button id="changeImageBtn">
+                    Change
+                </button>
+
+            </div>
+
+
+            <div class="profileBasic">
+
+                <h1 id="userName">
+                    Vivek Singh
+                </h1>
+
+                <p id="username">
+                    @viveksingh
+                </p>
+
+                <p class="role">
+                    Developer / Student
+                </p>
+
+                <p class="joined">
+                    Joined August 2026
+                </p>
+
+            </div>
+
+
+            <button class="editBtn" id="editProfileBtn">
+                Edit Profile
+            </button>
+
+        </section>
+
+
+        <!-- Information + Stats -->
+        <section class="profileGrid">
+
+
+            <!-- Personal Information -->
+            <div class="profileCard">
+
+                <div class="cardHeader">
+                    <h2>Personal Information</h2>
+                </div>
+
+                <div class="infoGrid">
+
+                    <div class="infoItem">
+                        <span>Full Name</span>
+                        <strong id="fullName">
+                            Vivek Singh
+                        </strong>
+                    </div>
+
+                    <div class="infoItem">
+                        <span>Username</span>
+                        <strong id="userUsername">
+                            @viveksingh
+                        </strong>
+                    </div>
+
+                    <div class="infoItem">
+                        <span>Email</span>
+                        <strong id="userEmail">
+                            vivek@example.com
+                        </strong>
+                    </div>
+
+                    <div class="infoItem">
+                        <span>Account Created</span>
+                        <strong id="createdDate">
+                            August 2026
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Learning Statistics -->
+            <div class="profileCard">
+
+                <div class="cardHeader">
+                    <h2>Learning Statistics</h2>
+                </div>
+
+                <div class="statsGrid">
+
+                    <div class="stat">
+                        <span>Questions</span>
+                        <strong id="totalQuestions">
+                            0
+                        </strong>
+                    </div>
+
+                    <div class="stat">
+                        <span>Revisions</span>
+                        <strong id="totalRevisions">
+                            0
+                        </strong>
+                    </div>
+
+                    <div class="stat">
+                        <span>Skills</span>
+                        <strong id="totalSkills">
+                            1
+                        </strong>
+                    </div>
+
+                    <div class="stat">
+                        <span>Streak</span>
+                        <strong id="streak">
+                            0 Days
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- Skills -->
+        <section class="profileCard skillsSection">
+
+            <div class="cardHeader">
+                <h2>My Skills</h2>
+            </div>
+
+            <div class="skills">
+
+                <div class="skill">
+                    <div class="skillTop">
+                        <span>DSA</span>
+                        <span>65%</span>
+                    </div>
+
+                    <div class="progress">
+                        <div
+                            class="progressFill"
+                            style="width:65%">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="skill">
+                    <div class="skillTop">
+                        <span>MERN Stack</span>
+                        <span>30%</span>
+                    </div>
+
+                    <div class="progress">
+                        <div
+                            class="progressFill"
+                            style="width:30%">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="skill">
+                    <div class="skillTop">
+                        <span>Data Science</span>
+                        <span>15%</span>
+                    </div>
+
+                    <div class="progress">
+                        <div
+                            class="progressFill"
+                            style="width:15%">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Edit Profile Modal -->
+
+        <div class="modal" id="editModal">
+
+            <div class="modalContent">
+
+                <div class="modalHeader">
+                    <h2>Edit Profile</h2>
+
+                    <button id="closeModal">
+                        ×
+                    </button>
+                </div>
+
+
+                <form id="profileForm">
+
+                    <div class="formGroup">
+
+                        <label for="editName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="editName"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="formGroup">
+
+                        <label for="editUsername">
+                            Username
+                        </label>
+
+                        <input
+                            type="text"
+                            id="editUsername"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="formGroup">
+
+                        <label for="editEmail">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="editEmail"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="modalButtons">
+
+                        <button
+                            type="button"
+                            id="cancelBtn"
+                            class="cancelBtn"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="saveBtn"
+                        >
+                            Save Changes
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+    <script src="../javascript/profile.js"></script>
+
+</body>
+</html>
