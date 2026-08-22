@@ -34,7 +34,11 @@ async function registerUser(req ,res) {
         email : user.email
     },process.env.JWT_SECRET_KEY);
     
-    res.cookie("cookie" ,token);
+    res.cookie("cookie", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+        });
 
     res.status(201).json({
         message : "User Created Successfully :) ",
