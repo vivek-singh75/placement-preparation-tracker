@@ -3,10 +3,10 @@ const users = require('./userModel')
 
 const questinSchema = new mongoose.Schema({
   
-userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
-    required: true
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+        required: true
     },
    questionName: {
         type: String,
@@ -15,17 +15,14 @@ userId: {
     topic:{
         type: String,
         enum : ['Array', 'String', 'Recursion' , 'Tree', 'Graph', 'HashMap' , 'Other'],
-        default :'Array'
     },
     Difficulty_Level:{
         type: String,
         enum : ['Easy', 'Medium', 'Hard'],
-        default:"Easy"
     },
     Platform:{
         type: String,
-        enum : ['Self Study', 'Leetcode', 'Hackathon' , 'GeeksForGeeks', 'CodeChef', 'HackerRank'],
-        default: "Self Study"
+        enum : ['Self Study', 'LeetCode', 'Hackathon' , 'GeeksForGeeks', 'CodeChef', 'HackerRank'],
     },
     Solved_Status:{
         type: String,
