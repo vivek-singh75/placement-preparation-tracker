@@ -29,7 +29,7 @@ const questinSchema = new mongoose.Schema({
         enum : ['First Time', 'Second Time', 'Third Time or More' ],
         default : "First Time"
     },
-});
+},{createdAt: true});
 
 const questionModel = mongoose.model("question" , questinSchema);
 
