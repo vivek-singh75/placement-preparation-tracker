@@ -1,12 +1,77 @@
+
+// =====================================================
+// GET DATA FROM BACKEND
+// =====================================================
+
+let Gdata = [];
+let userData = null;
+
+// =====================================================
+// FETCH USER + QUESTION DATA
+// =====================================================
+
+async function getData() {
+
+    try {
+        const response = await axios.get(
+            "https://placement-preparation-tracker-ltlg.onrender.com/api/question/getQuestion",
+            {
+                withCredentials: true
+            }
+        );
+
+        const { user, userQuestionData } =
+            response.data.allData;
+
+        console.log("User:", user);
+        console.log("Questions:", userQuestionData);
+
+        userData = user;
+
+        if (Array.isArray(userQuestionData)) {
+            Gdata = userQuestionData;
+        } else {
+            Gdata = [];
+        }
+        // IMPORTANT:
+        startDashboard()
+       
+
+
+    } catch (error) {
+
+        console.log(
+            "Error in frontend:",
+            error
+        );
+
+    }
+}
+
+
+
 // =====================================================
 // SKILLS DATA
 // =====================================================
+function startDashboard(){
+    // Profile data
+    document.getElementById("profileName").textContent =
+        userData.name;
 
-const skills = [
+    document.getElementById("profileAvatar").textContent =
+        userData.name.charAt(0).toUpperCase();
+
+    document.getElementById("welcomeName").textContent =
+        `${userData.name} 👋`;
+
+    const totalDsaQuestion = Gdata.length
+
+
+    const skills = [
     {
         name: "DSA",
         progress: 65,
-        completed: "197 / 300",
+        completed:` ${totalDsaQuestion} / 4000`,
         icon: "</>",
         color: "#7c3aed",
         bg: "#f3e8ff",
@@ -157,11 +222,12 @@ skills.forEach(skill => {
 // =====================================================
 // OVERALL PROGRESS
 // =====================================================
+const dsaProgress = (totalDsaQuestion /4000)*100
 
 const progressData = [
     {
         name: "DSA",
-        progress: 65,
+        progress: dsaProgress.toFixed(2),
         color: "#7c3aed"
     },
 
@@ -188,6 +254,7 @@ const progressData = [
 const progressLegend =
     document.querySelector("#progressLegend");
 
+progressLegend.innerHTML = ""; 
 
 progressData.forEach(item => {
 
@@ -228,75 +295,75 @@ progressData.forEach(item => {
 // RECENT ACTIVITY
 // =====================================================
 
-const activities = [
-
-    {
-        title: "Solved Two Sum Problem",
-        meta: "DSA • Array",
-        time: "2h ago"
-    },
-
-    {
-        title: "Completed React Components",
-        meta: "MERN • React",
-        time: "1d ago"
-    },
-
-    {
-        title: "Solved Valid Parentheses",
-        meta: "DSA • Stack",
-        time: "2d ago"
-    },
-
-    {
-        title: "Added Question: Binary Search",
-        meta: "DSA • Binary Search",
-        time: "3d ago"
-    }
-
-];
-
-
 const recentActivity =
     document.querySelector("#recentActivity");
 
 
-activities.forEach(activity => {
+function renderRecentActivity() {
 
-    const item =
-        document.createElement("div");
-
-    item.className = "activity-item";
+    recentActivity.innerHTML = "";
 
 
-    item.innerHTML = `
+    // No questions
+    if (Gdata.length === 0) {
 
-        <div class="activity-icon">
-            ✓
-        </div>
+        recentActivity.innerHTML = `
 
-        <div>
+            <div class="emptyState">
 
-            <p class="activity-title">
-                ${activity.title}
-            </p>
+                <div class="emptyStateIcon">
+                    📝
+                </div>
 
-            <p class="activity-meta">
-                ${activity.meta}
-            </p>
+                <p>
+                    No questions added yet.
+                </p>
 
-        </div>
+            </div>
 
-        <span class="activity-time">
-            ${activity.time}
-        </span>
+        `;
 
-    `;
+        return;
+    }
 
 
-    recentActivity.appendChild(item);
+    // Get latest 5 questions
+    const recentQuestions =
+        Gdata
+            .slice(-5)
+            .reverse();
 
-});
+
+    recentQuestions.forEach(question => {
+
+        const item =
+            document.createElement("div");
+
+
+        item.className =
+            "activity-item";
+        item.innerHTML = `
+            <div class="activity-icon">
+                ✓
+            </div>
+            <div>
+                <p class="activity-title">
+                    ${question.questionName || "Unnamed Question"}
+                </p>
+                <p class="activity-meta">
+                    DSA • ${question.topic || "Unknown"}
+                </p>
+            </div>
+            <span class="activity-time">
+                ${question.Solved_Status || "Solved"}
+            </span>
+        `;
+        recentActivity.appendChild(item);
+
+    });
+
+}
+    renderRecentActivity()
 
 
 // =====================================================
@@ -484,3 +551,8 @@ if (savedTheme === "dark") {
     themeBtn.textContent = "☀️";
 
 }
+}
+
+
+
+getData()

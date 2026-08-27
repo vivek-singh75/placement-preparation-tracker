@@ -19,15 +19,18 @@
 
     <aside id="sidebar">
 
-        <div class="sidebar-logo">
-            <div class="logo-icon">&lt;/&gt;</div>
+    <a href="./Dashboard.html" class="sidebar-logo" style="text-decoration: none; color: inherit;">
 
-            <div>
-                <h1>DevTrack</h1>
-                <p>Skill Tracker</p>
-            </div>
+        <div class="logo-icon">
+            &lt;/&gt;
         </div>
 
+        <div>
+            <h1>DevTrack</h1>
+            <p>Skill Tracker</p>
+        </div>
+
+    </a>
 
         <nav class="sidebar-nav">
 
@@ -158,15 +161,15 @@
                     🌙
                 </button>
 
-                <div class="profile">
-                    
-                    <div class="profile-avatar">
-                       <a href="./profile.html">V</a> 
-                    </div>
-                    <span>Vivek</span>
+               <a href="./profile.html" class="profile">
 
-                    </a>
-                </div>
+                    <div class="profile-avatar">
+                        <span id="profileAvatar"></span>
+                    </div>
+
+                    <span id="profileName"></span>
+
+                </a>
 
             </div>
 
@@ -181,10 +184,9 @@
             <!-- Welcome -->
 
             <section class="welcome">
-
                 <h1>
                     Welcome back,
-                    <span>Vivek 👋</span>
+                    <span id="welcomeName"></span>
                 </h1>
 
                 <p>
@@ -436,6 +438,7 @@
 
 </nav>
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script src="../javascript/mainDashboard.js"></script>
 

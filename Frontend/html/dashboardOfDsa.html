@@ -18,7 +18,7 @@
 
         <!-- Logo -->
 
-        <div class="sidebarLogo">
+        <a href="./Dashboard.html" class="sidebarLogo" style="text-decoration: none; color: inherit;">
 
             <div class="logoIcon">
                 &lt;/&gt;
@@ -29,19 +29,19 @@
                 <span>Skill Tracker</span>
             </div>
 
-        </div>
+        </a>
 
 
         <!-- Navigation -->
 
         <nav class="sidebarNav">
 
-            <a href="Dashboard.html" class="navItem">
+            <a href="./Dashboard.html" class="navItem">
                 <span>⌂</span>
                 <span>Dashboard</span>
             </a>
 
-            <a href="dsaDashboard.html"
+            <a href="./dashboardOfDsa.html"
                class="navItem active">
                 <span>◇</span>
                 <span>DSA</span>
@@ -132,8 +132,6 @@
     ====================================================== -->
 
     <main id="mainContent">
-
-
         <!-- =================================================
              TOP NAVBAR
         ================================================== -->
@@ -181,27 +179,18 @@
                     🌙
                 </button>
 
+            <a href="./profile.html" class="profile" style="text-decoration: none; color: inherit;">
 
-                <div class="profile">
-
-                    <div class="profileAvatar">
-                        V
-                    </div>
-
-                    <span class="profileName">
-                        Vivek
-                    </span>
-
-                    <span class="profileArrow">
-                        ▾
-                    </span>
-
+                <div class="profile-avatar">
+                    <span class="profileAvatar" title=""></span>
                 </div>
 
+                <span class="profileName"></span>
+
+            </a>
             </div>
 
         </header>
-
 
         <!-- =================================================
              PAGE CONTENT
@@ -235,7 +224,7 @@
 
 
                 <a
-                    href="addQuestion.html"
+                    href="./addQuestion.html"
                     class="addQuestionBtn"
                 >
                     + Add Question
@@ -569,7 +558,7 @@
 
     <nav class="mobileBottomNav">
 
-        <a href="Dashboard.html">
+        <a href="./Dashboard.html">
 
             <span>⌂</span>
             <small>Home</small>
@@ -578,7 +567,7 @@
 
 
         <a
-            href="dsaDashboard.html"
+            href="./dashboardOfDsa.html"
             class="selected"
         >
 
@@ -605,6 +594,7 @@
 
     </nav>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="../javascript/DSaDashScript.js"></script>
 

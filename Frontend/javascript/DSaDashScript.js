@@ -1,29 +1,55 @@
-// GET DATA FROM LOCAL STORAGE
+// =====================================================
+// GET DATA FROM BACKEND
+// =====================================================
 
 let Gdata = [];
+let userData = null;
 
-try {
+// =====================================================
+// FETCH USER + QUESTION DATA
+// =====================================================
 
-    const storedData =
-        JSON.parse(
-            localStorage.getItem("Questions")
+async function getQuestion() {
+
+    try {
+
+        const response = await axios.get(
+            "https://placement-preparation-tracker-ltlg.onrender.com/api/question/getQuestion",
+            {
+                withCredentials: true
+            }
         );
 
-    if (Array.isArray(storedData)) {
-        Gdata = storedData;
+        const { user, userQuestionData } =
+            response.data.allData;
+
+        console.log("User:", user);
+        console.log("Questions:", userQuestionData);
+
+        userData = user;
+
+        if (Array.isArray(userQuestionData)) {
+            Gdata = userQuestionData;
+        } else {
+            Gdata = [];
+        }
+
+        // IMPORTANT:
+        // API data fetch hone ke baad hi dashboard render hoga
+        renderDashboard();
+
+    } catch (error) {
+
+        console.log(
+            "Error in frontend:",
+            error
+        );
+
     }
-
-} catch (error) {
-
-    console.log(
-        "LocalStorage data is invalid."
-    );
-
-    Gdata = [];
-
 }
 
 
+// =====================================================
 // CONSTANT DATA
 // =====================================================
 
@@ -145,7 +171,7 @@ function getTopicCounts() {
     Gdata.forEach(question => {
 
         const type =
-            question.typeofQ;
+            question.topic;
 
         if (
             Object.prototype.hasOwnProperty.call(
@@ -153,7 +179,9 @@ function getTopicCounts() {
                 type
             )
         ) {
+
             counts[type]++;
+
         }
 
     });
@@ -163,10 +191,6 @@ function getTopicCounts() {
 }
 
 
-const topicCounts =
-    getTopicCounts();
-
-
 // =====================================================
 // DIFFICULTY COUNTS
 // =====================================================
@@ -174,16 +198,18 @@ const topicCounts =
 function getDifficultyCounts() {
 
     const counts = {
+
         Easy: 0,
         Medium: 0,
         Hard: 0
+
     };
 
 
     Gdata.forEach(question => {
 
         const level =
-            question.level;
+            question.Difficulty_Level;
 
         if (
             Object.prototype.hasOwnProperty.call(
@@ -203,41 +229,38 @@ function getDifficultyCounts() {
 }
 
 
-const difficultyCounts =
-    getDifficultyCounts();
-
-
 // =====================================================
 // TOTAL STATS
 // =====================================================
 
-function updateStats() {
+function updateStats(difficultyCounts) {
 
     totalSolvedElement.textContent =
         Gdata.length;
 
+
     easyCountElement.textContent =
         difficultyCounts.Easy;
+
 
     mediumCountElement.textContent =
         difficultyCounts.Medium;
 
+
     hardCountElement.textContent =
         difficultyCounts.Hard;
+
 
     totalTopicText.textContent =
         `${Gdata.length} questions`;
 }
 
 
-updateStats();
-
-
 // =====================================================
 // TOPIC PROGRESS
 // =====================================================
 
-function renderTopicProgress() {
+function renderTopicProgress(topicCounts) {
 
     topicProgressContainer.innerHTML = "";
 
@@ -267,6 +290,7 @@ function renderTopicProgress() {
 
         const card =
             document.createElement("div");
+
 
         card.classList.add(
             "topicCard"
@@ -327,16 +351,15 @@ function renderTopicProgress() {
 }
 
 
-renderTopicProgress();
-
-
 // =====================================================
 // RECENT ACTIVITY
 // =====================================================
 
 function renderRecentActivity() {
 
-    recentActivityContainer.innerHTML ="";
+    recentActivityContainer.innerHTML = "";
+
+
     if (Gdata.length === 0) {
 
         recentActivityContainer.innerHTML = `
@@ -371,6 +394,7 @@ function renderRecentActivity() {
             const item =
                 document.createElement("div");
 
+
             item.classList.add(
                 "activityItem"
             );
@@ -389,10 +413,11 @@ function renderRecentActivity() {
                         ${question.questionName || "Unnamed Question"}
                     </p>
 
+
                     <p class="activityMeta">
-                        ${question.typeofQ || "Unknown"}
+                        ${question.topic || "Unknown"}
                         •
-                        ${question.level || "Unknown"}
+                        ${question.Difficulty_Level || "Unknown"}
                     </p>
 
                 </div>
@@ -415,14 +440,11 @@ function renderRecentActivity() {
 }
 
 
-renderRecentActivity();
-
-
 // =====================================================
 // WEAK TOPICS
 // =====================================================
 
-function renderWeakTopics() {
+function renderWeakTopics(topicCounts) {
 
     weakTopicContainer.innerHTML =
         "";
@@ -433,8 +455,10 @@ function renderWeakTopics() {
             .map(topic => {
 
                 return {
+
                     type: topic,
                     count: topicCounts[topic]
+
                 };
 
             })
@@ -466,6 +490,7 @@ function renderWeakTopics() {
 
             const item =
                 document.createElement("div");
+
 
             item.classList.add(
                 "weakItem"
@@ -530,14 +555,11 @@ function renderWeakTopics() {
 }
 
 
-renderWeakTopics();
-
-
 // =====================================================
 // DIFFICULTY ANALYSIS
 // =====================================================
 
-function renderDifficulty() {
+function renderDifficulty(difficultyCounts) {
 
     difficultyContainer.innerHTML =
         "";
@@ -567,13 +589,16 @@ function renderDifficulty() {
             let barClass =
                 "easyBar";
 
+
             if (
                 difficulty === "Medium"
             ) {
 
                 barClass =
                     "mediumBar";
+
             }
+
 
             if (
                 difficulty === "Hard"
@@ -581,9 +606,13 @@ function renderDifficulty() {
 
                 barClass =
                     "hardBar";
+
             }
+
+
             const item =
                 document.createElement("div");
+
 
             item.classList.add(
                 "difficultyItem"
@@ -633,9 +662,6 @@ function renderDifficulty() {
 }
 
 
-renderDifficulty();
-
-
 // =====================================================
 // PLATFORM ANALYSIS
 // =====================================================
@@ -645,13 +671,9 @@ function getPlatformCounts() {
     const counts = {
 
         leetcode: 0,
-
         codechef: 0,
-
         gfg: 0,
-
         hackerrank: 0,
-
         others: 0
 
     };
@@ -661,8 +683,10 @@ function getPlatformCounts() {
 
         const platform =
             (
-                question.Plateform || ""
-            ).toLowerCase().trim();
+                question.Platform || ""
+            )
+                .toLowerCase()
+                .trim();
 
 
         if (
@@ -673,6 +697,7 @@ function getPlatformCounts() {
 
         }
 
+
         else if (
             platform === "codechef"
         ) {
@@ -681,14 +706,17 @@ function getPlatformCounts() {
 
         }
 
+
         else if (
             platform === "gfg" ||
-            platform === "geeksforgeeks"
+            platform === "geeksforgeeks" ||
+            platform === "geeks for geeks"
         ) {
 
             counts.gfg++;
 
         }
+
 
         else if (
             platform === "hackerrank"
@@ -697,6 +725,7 @@ function getPlatformCounts() {
             counts.hackerrank++;
 
         }
+
 
         else {
 
@@ -711,11 +740,11 @@ function getPlatformCounts() {
 }
 
 
-const platformCounts =
-    getPlatformCounts();
+// =====================================================
+// RENDER PLATFORMS
+// =====================================================
 
-
-function renderPlatforms() {
+function renderPlatforms(platformCounts) {
 
     platformContainer.innerHTML =
         "";
@@ -761,6 +790,7 @@ function renderPlatforms() {
         const card =
             document.createElement("div");
 
+
         card.classList.add(
             "platformCard"
         );
@@ -780,9 +810,11 @@ function renderPlatforms() {
                 </p>
 
                 <p class="platformCount">
-                    ${platformCounts[
-                        platform.key
-                    ]}
+                    ${
+                        platformCounts[
+                            platform.key
+                        ]
+                    }
                 </p>
 
             </div>
@@ -799,14 +831,11 @@ function renderPlatforms() {
 }
 
 
-renderPlatforms();
-
-
 // =====================================================
 // TOPIC TABLE
 // =====================================================
 
-function renderTopicTable() {
+function renderTopicTable(topicCounts) {
 
     topicTableBody.innerHTML =
         "";
@@ -871,8 +900,75 @@ function renderTopicTable() {
 
 }
 
+function profile(){
+    // Profile data
+    document.querySelector(".profileName").textContent =
+        userData.name;
 
-renderTopicTable();
+    document.querySelector(".profileAvatar").textContent =
+        userData.name.charAt(0).toUpperCase();
+}  
+  
+
+
+// =====================================================
+// RENDER COMPLETE DASHBOARD
+// =====================================================
+
+function renderDashboard() {
+
+    // API se data aa chuka hai
+    // Ab counts calculate karo
+    profile()
+
+
+    const topicCounts =
+        getTopicCounts();
+
+
+    const difficultyCounts =
+        getDifficultyCounts();
+
+
+    const platformCounts =
+        getPlatformCounts();
+
+
+    // Render everything
+
+    updateStats(
+        difficultyCounts
+    );
+
+
+    renderTopicProgress(
+        topicCounts
+    );
+
+
+    renderRecentActivity();
+
+
+    renderWeakTopics(
+        topicCounts
+    );
+
+
+    renderDifficulty(
+        difficultyCounts
+    );
+
+
+    renderPlatforms(
+        platformCounts
+    );
+
+
+    renderTopicTable(
+        topicCounts
+    );
+
+}
 
 
 // =====================================================
@@ -884,10 +980,12 @@ const menuBtn =
         "#menuBtn"
     );
 
+
 const sidebar =
     document.querySelector(
         "#sidebar"
     );
+
 
 const overlay =
     document.querySelector(
@@ -895,37 +993,47 @@ const overlay =
     );
 
 
-menuBtn.addEventListener(
-    "click",
-    () => {
+if (menuBtn) {
 
-        sidebar.classList.add(
-            "open"
-        );
+    menuBtn.addEventListener(
+        "click",
+        () => {
 
-        overlay.style.display =
-            "block";
+            sidebar.classList.add(
+                "open"
+            );
 
-    }
-);
+            overlay.style.display =
+                "block";
 
+        }
+    );
 
-overlay.addEventListener(
-    "click",
-    () => {
-
-        sidebar.classList.remove(
-            "open"
-        );
-
-        overlay.style.display =
-            "none";
-
-    }
-);
+}
 
 
-// Close sidebar when clicking nav
+if (overlay) {
+
+    overlay.addEventListener(
+        "click",
+        () => {
+
+            sidebar.classList.remove(
+                "open"
+            );
+
+            overlay.style.display =
+                "none";
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// CLOSE SIDEBAR WHEN CLICKING NAV
+// =====================================================
 
 document
     .querySelectorAll(".navItem")
@@ -987,56 +1095,51 @@ function updateThemeIcon() {
 }
 
 
-themeBtn.addEventListener(
-    "click",
-    () => {
+if (themeBtn) {
 
-        document.body.classList.toggle(
-            "dark"
-        );
-
-
-        const isDark =
-            document.body.classList.contains(
+    themeBtn.addEventListener(
+        "click",
+        () => {
+            document.body.classList.toggle(
                 "dark"
             );
+            const isDark =
+                document.body.classList.contains(
+                    "dark"
+                );
+            localStorage.setItem(
+                "theme",
+                isDark
+                    ? "dark"
+                    : "light"
+            );
 
+            updateThemeIcon();
 
-        localStorage.setItem(
-            "theme",
-            isDark
-                ? "dark"
-                : "light"
-        );
-
-
-        updateThemeIcon();
-
-    }
-);
-
-
-// Load saved theme
-
-const savedTheme =
-    localStorage.getItem(
-        "theme"
-    );
-
-
-if (
-    savedTheme === "dark"
-) {
-
-    document.body.classList.add(
-        "dark"
+        }
     );
 
 }
 
 
-updateThemeIcon();
+// =====================================================
+// LOAD SAVED THEME
+// =====================================================
 
+const savedTheme =
+    localStorage.getItem(
+        "theme"
+    );
+if (
+    savedTheme === "dark"
+) {
+    document.body.classList.add(
+        "dark"
+    );
+}
+if (themeBtn) {
+    updateThemeIcon();
+}
 
 // =====================================================
 // SEARCH
@@ -1046,48 +1149,54 @@ const searchInput =
     document.querySelector(
         "#searchInput"
     );
+if (searchInput) {
+    searchInput.addEventListener(
+        "input",
+        () => {
+             const search =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+            const activityItems =
+                document.querySelectorAll(
+                    ".activityItem"
+                );
+
+            activityItems.forEach(item => {
+
+                const text =
+                    item.textContent
+                        .toLowerCase();
+
+                if (
+                    text.includes(search)
+                ) {
+
+                    item.style.display =
+                        "flex";
+
+                }
+
+                else {
+
+                    item.style.display =
+                        "none";
+
+                }
+            });
+        }
+    );
+}
 
 
-searchInput.addEventListener(
-    "input",
-    () => {
+// =====================================================
+// START APPLICATION
+// =====================================================
 
-        const search =
-            searchInput.value
-                .toLowerCase()
-                .trim();
+// IMPORTANT:
+// Dashboard start from here.
+// after completing getquestion  
+// renderDashboard( )is called.
 
-
-        const activityItems =
-            document.querySelectorAll(
-                ".activityItem"
-            );
-
-
-        activityItems.forEach(item => {
-
-            const text =
-                item.textContent
-                    .toLowerCase();
-
-
-            if (
-                text.includes(search)
-            ) {
-
-                item.style.display =
-                    "flex";
-
-            }
-
-            else {
-
-                item.style.display =
-                    "none";
-
-            }
-
-        });
-
-    }
-);
+getQuestion();
