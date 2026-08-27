@@ -110,10 +110,45 @@ async function loginUser(req, res) {
     }
 }
 
+async function fetchUserdata(req , res) {
+    try {
+        const token = req.cookies.cookie;
+        if (!token) {
+            return res.status(401).json({
+                message: "Unauthorized access"
+            });
+        }
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        
+        const userId = decoded.id;
+        const user = await userModel
+            .findById(userId)
+            .select("-password");
+        if (!user) {
+            return res.status(404).json({
+                message: "User does not exist"
+            });
+        }
+        res.status(200).json({
+            message: "data fetched successfully",
+            user
+        })
+    } catch (error) {
+        console.log(`error while fetching profile data ${error}`);
+
+        res.status(401).json({
+            message: "Unauthorized access"
+        });
+
+    }
+}
+
+
+
 async function logoutUser(req , res) {
     res.clearCookie("cookie");
     res.status(402).json({message : "logout successfully"})
 }
 
 
-module.exports = { registerUser , loginUser,  logoutUser}
+module.exports = { registerUser , loginUser , fetchUserdata ,  logoutUser}
