@@ -8,10 +8,9 @@ router.post("/users" , register.registerUser);
 
 router.post("/login" , register.loginUser);
 
-router.post("/logout" , register.logoutUser);
-
 router.get("/userDetails" , register.fetchUserdata);
 
+router.delete("/logout" , register.logoutUser);
 
 
 module.exports = router
