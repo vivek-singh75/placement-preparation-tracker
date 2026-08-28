@@ -144,11 +144,17 @@ async function fetchUserdata(req , res) {
 }
 
 
+async function logoutUser(req, res) {
 
-async function logoutUser(req , res) {
-    res.clearCookie("cookie");
-    res.status(402).json({message : "logout successfully"})
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    });
+
+    res.status(200).json({
+        message: "logout successfully"
+    });
 }
-
 
 module.exports = { registerUser , loginUser , fetchUserdata ,  logoutUser}
