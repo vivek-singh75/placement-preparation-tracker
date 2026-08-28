@@ -143,18 +143,38 @@ async function fetchUserdata(req , res) {
     }
 }
 
-
 async function logoutUser(req, res) {
+    try {
 
-    res.clearCookie("token", {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none"
-    });
+        const token = req.cookies.cookie;
 
-    res.status(200).json({
-        message: "logout successfully"
-    });
+        if (!token) {
+            return res.status(401).json({
+                success: false,
+                message: "User is not logged in"
+            });
+        }
+
+        res.clearCookie("cookie", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none"
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Logout successfully"
+        });
+
+    } catch (error) {
+
+        return res.status(500).json({
+            success: false,
+            message: "Error while logout"
+        });
+
+    }
 }
+
 
 module.exports = { registerUser , loginUser , fetchUserdata ,  logoutUser}
