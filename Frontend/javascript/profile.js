@@ -51,6 +51,27 @@ async function getProfile() {
     
 }
 
+async function logout() {
+    try {
+        const response = await axios.delete(
+            "https://placement-preparation-tracker-ltlg.onrender.com/api/user/logout",
+            {
+                withCredentials: true
+            }
+        );
+
+        console.log("Logout successful");
+
+        return true;
+
+    } catch (error) {
+        console.log(`error while logout ${error}`);
+
+        return false;
+    }
+}
+
+
 /* Open Edit Modal */
 function profile(){
 
@@ -91,6 +112,48 @@ function profile(){
         userData.name.charAt(0).toUpperCase();
 
 
+    //logout function
+
+    const logoutBtn = document.querySelector("#logoutBtn");
+
+    const logoutPopup = document.querySelector("#logoutPopup");
+
+    const cancelLogout = document.querySelector("#cancelLogout");
+
+    const confirmLogout = document.querySelector("#confirmLogout");
+
+
+    // Open popup
+
+    logoutBtn.addEventListener("click", function(event) {
+
+        event.preventDefault();
+
+        logoutPopup.classList.add("show");
+
+    });
+
+
+    // Cancel
+
+    cancelLogout.addEventListener("click", function() {
+
+        logoutPopup.classList.remove("show");
+
+    });
+
+
+    // Confirm logout
+
+  confirmLogout.addEventListener("click", async function() {
+
+    const success = await logout();
+
+    if (success) {
+        window.location.href = "../index.html";
+    }
+
+});
 
 /* Close Modal */
 
