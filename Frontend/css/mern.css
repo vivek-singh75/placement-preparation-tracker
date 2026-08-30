@@ -1,0 +1,1000 @@
+/* ==================================================
+   RESET
+================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ==================================================
+   BODY
+================================================== */
+
+body {
+
+    font-family: Arial, sans-serif;
+
+    background: #0f172a;
+
+    color: #f8fafc;
+
+    min-height: 100vh;
+}
+
+
+/* ==================================================
+   NAVBAR
+================================================== */
+
+.navbar {
+
+    min-height: 75px;
+
+    padding: 15px 5%;
+
+    background: #111827;
+
+    border-bottom: 1px solid #263244;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    flex-wrap: wrap;
+}
+
+
+/* Brand */
+
+.brand h2 {
+
+    font-size: 20px;
+
+    font-weight: 700;
+}
+
+
+.brand p {
+
+    color: #4ade80;
+
+    font-size: 13px;
+
+    margin-top: 4px;
+}
+
+
+/* Navigation */
+
+.navbar nav {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+}
+
+
+.navbar nav a {
+
+    text-decoration: none;
+
+    color: #94a3b8;
+
+    padding: 9px 14px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    transition: all 0.2s ease;
+}
+
+
+.navbar nav a:hover {
+
+    background: #1e293b;
+
+    color: white;
+}
+
+
+.navbar nav a.active {
+
+    background: #22c55e1a;
+
+    color: #4ade80;
+
+    border: 1px solid #22c55e33;
+}
+
+
+/* ==================================================
+   MAIN
+================================================== */
+
+.mernPage {
+
+    width: 90%;
+
+    max-width: 1200px;
+
+    margin: 35px auto 60px;
+}
+
+
+/* ==================================================
+   PAGE HEADER
+================================================== */
+
+.pageHeading {
+
+    background: #111827;
+
+    border: 1px solid #263244;
+
+    border-radius: 16px;
+
+    padding: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+
+.smallTitle {
+
+    color: #4ade80;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 8px;
+}
+
+
+.pageHeading h1 {
+
+    font-size: 32px;
+
+    margin-bottom: 8px;
+}
+
+
+.headingContent > p:last-child {
+
+    color: #94a3b8;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* ==================================================
+   OVERALL PROGRESS
+================================================== */
+
+.overallProgress {
+
+    width: 260px;
+
+    flex-shrink: 0;
+}
+
+
+.overallTop {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 10px;
+}
+
+
+.overallTop span {
+
+    color: #94a3b8;
+
+    font-size: 13px;
+}
+
+
+.overallTop strong {
+
+    color: #4ade80;
+
+    font-size: 30px;
+}
+
+
+.progressBar {
+
+    width: 100%;
+
+    height: 9px;
+
+    background: #1e293b;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+.progressFill {
+
+    width: 0%;
+
+    height: 100%;
+
+    background: #22c55e;
+
+    border-radius: 20px;
+
+    transition: width 0.4s ease;
+}
+
+
+/* ==================================================
+   SECTION
+================================================== */
+
+.section {
+
+    margin-top: 30px;
+}
+
+
+.sectionHeader {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+
+    gap: 20px;
+}
+
+
+.sectionHeader h2 {
+
+    font-size: 20px;
+}
+
+
+.sectionHeader p {
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    margin-top: 5px;
+}
+
+
+/* ==================================================
+   TECHNOLOGY GRID
+================================================== */
+
+.technologyGrid {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 16px;
+}
+
+
+/* Technology Card */
+
+.techCard {
+
+    background: #111827;
+
+    border: 1px solid #263244;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+
+.techCard:hover {
+
+    transform: translateY(-3px);
+
+    border-color: #22c55e;
+}
+
+
+.techCard.active {
+
+    border-color: #22c55e;
+
+    background: #13231b;
+
+    box-shadow:
+        0 0 0 1px #22c55e22,
+        0 10px 30px #00000022;
+}
+
+
+/* Technology Top */
+
+.techTop {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 16px;
+}
+
+
+.techName {
+
+    font-size: 17px;
+
+    font-weight: bold;
+}
+
+
+.techPercentage {
+
+    color: #4ade80;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+/* Technology Info */
+
+.techInfo {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    margin-bottom: 8px;
+}
+
+
+/* Technology Progress */
+
+.techProgress {
+
+    height: 7px;
+
+    background: #1e293b;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+.techProgressFill {
+
+    height: 100%;
+
+    background: #22c55e;
+
+    border-radius: 20px;
+
+    transition: width 0.4s ease;
+}
+
+
+/* ==================================================
+   TOPICS
+================================================== */
+
+.topicsGrid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+
+/* Topic Card */
+
+.topicCard {
+
+    background: #111827;
+
+    border: 1px solid #263244;
+
+    border-radius: 11px;
+
+    padding: 18px;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+
+.topicCard:hover {
+
+    transform: translateY(-2px);
+
+    border-color: #475569;
+}
+
+
+/* Topic top */
+
+.topicTop {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+
+.topicName {
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+}
+
+
+.topicTechnology {
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    margin-top: 10px;
+}
+
+
+/* ==================================================
+   STATUS BADGES
+================================================== */
+
+.status {
+
+    font-size: 11px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    white-space: nowrap;
+}
+
+
+.status.completed {
+
+    background: #22c55e1a;
+
+    color: #4ade80;
+
+    border: 1px solid #22c55e22;
+}
+
+
+.status.progress {
+
+    background: #eab3081a;
+
+    color: #facc15;
+
+    border: 1px solid #eab30822;
+}
+
+
+.status.pending {
+
+    background: #64748b1a;
+
+    color: #94a3b8;
+
+    border: 1px solid #64748b22;
+}
+
+
+/* ==================================================
+   EMPTY TOPICS
+================================================== */
+
+.emptyTopics {
+
+    grid-column: 1 / -1;
+
+    padding: 50px 20px;
+
+    text-align: center;
+
+    color: #64748b;
+
+    background: #111827;
+
+    border: 1px dashed #334155;
+
+    border-radius: 12px;
+}
+
+
+/* ==================================================
+   STATUS MODAL
+================================================== */
+
+.statusModal {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.72);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 9999;
+}
+
+
+.statusModal.show {
+
+    display: flex;
+}
+
+
+/* Modal Box */
+
+.statusBox {
+
+    width: 100%;
+
+    max-width: 440px;
+
+    background: #111827;
+
+    border: 1px solid #334155;
+
+    border-radius: 15px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.55);
+}
+
+
+/* ==================================================
+   MODAL HEADER
+================================================== */
+
+.modalHeader {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+
+.modalSmallTitle {
+
+    color: #4ade80;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+
+.modalHeader h2 {
+
+    font-size: 20px;
+
+    margin-top: 5px;
+
+    line-height: 1.3;
+}
+
+
+.closeModal {
+
+    background: transparent;
+
+    border: none;
+
+    color: #94a3b8;
+
+    font-size: 28px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.closeModal:hover {
+
+    color: white;
+}
+
+
+/* ==================================================
+   STATUS OPTIONS
+================================================== */
+
+.statusOptions {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+.statusOption {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 14px;
+
+    border: 1px solid #263244;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+
+.statusOption:hover {
+
+    background: #1e293b;
+
+    border-color: #475569;
+}
+
+
+.statusOption:has(input:checked) {
+
+    border-color: #22c55e;
+
+    background: #22c55e0d;
+}
+
+
+.statusOption input {
+
+    width: 17px;
+
+    height: 17px;
+
+    accent-color: #22c55e;
+
+    flex-shrink: 0;
+}
+
+
+.statusOption div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.statusOption strong {
+
+    font-size: 14px;
+}
+
+
+.statusOption span {
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+/* ==================================================
+   MODAL BUTTONS
+================================================== */
+
+.modalButtons {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+
+.modalButtons button {
+
+    border: none;
+
+    padding: 10px 18px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+
+/* Cancel */
+
+.cancelBtn {
+
+    background: #334155;
+
+    color: white;
+}
+
+
+.cancelBtn:hover {
+
+    background: #475569;
+}
+
+
+/* Save */
+
+.saveBtn {
+
+    background: #22c55e;
+
+    color: white;
+}
+
+
+.saveBtn:hover {
+
+    background: #16a34a;
+}
+
+
+/* ==================================================
+   TABLET
+================================================== */
+
+@media (max-width: 900px) {
+
+    .technologyGrid {
+
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .topicsGrid {
+
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width: 600px) {
+
+
+    /* Navbar */
+
+    .navbar {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        text-align: center;
+
+        padding: 15px 20px;
+    }
+
+
+    .navbar nav {
+
+        justify-content: center;
+
+        gap: 5px;
+    }
+
+
+    .navbar nav a {
+
+        font-size: 12px;
+
+        padding: 8px 10px;
+    }
+
+
+    /* Main */
+
+    .mernPage {
+
+        width: 94%;
+
+        margin-top: 20px;
+    }
+
+
+    /* Header */
+
+    .pageHeading {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        padding: 22px;
+    }
+
+
+    .pageHeading h1 {
+
+        font-size: 27px;
+    }
+
+
+    .overallProgress {
+
+        width: 100%;
+    }
+
+
+    /* Technology */
+
+    .technologyGrid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    /* Topics */
+
+    .topicsGrid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    /* Section */
+
+    .sectionHeader {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    /* Modal */
+
+    .statusBox {
+
+        padding: 20px;
+    }
+
+
+    .modalButtons {
+
+        flex-direction: column;
+    }
+
+
+    .modalButtons button {
+
+        width: 100%;
+    }
+
+}
+
+
+/* ==================================================
+   SMALL MOBILE
+================================================== */
+
+@media (max-width: 380px) {
+
+
+    .navbar nav {
+
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .navbar nav a {
+
+        width: 100%;
+    }
+
+
+    .statusBox {
+
+        padding: 18px;
+    }
+
+}

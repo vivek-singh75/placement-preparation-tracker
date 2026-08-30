@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>MERN Stack | Developer Skill Tracker</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/mern.css"
+    >
+</head>
+<body>
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="brand">
+            <h2>
+                Developer Skill Tracker
+            </h2>
+
+            <p>
+                MERN Stack
+            </p>
+        </div>
+
+
+        <nav>
+
+            <a href="./Dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="./dashboardOfDsa.html">
+                DSA
+            </a>
+
+            <a
+                href="./mern.html"
+                class="active"
+            >
+                MERN
+            </a>
+
+            <a href="./profile.html">
+                Profile
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="mernPage">
+
+
+        <!-- ================= PAGE HEADER ================= -->
+
+        <section class="pageHeading">
+
+
+            <div class="headingContent">
+
+                <p class="smallTitle">
+                    MY LEARNING
+                </p>
+
+                <h1>
+                    MERN Stack
+                </h1>
+
+                <p>
+                    Track your learning progress across
+                    MongoDB, Express, React and Node.js.
+                </p>
+
+            </div>
+
+
+
+            <!-- Overall Progress -->
+
+            <div class="overallProgress">
+
+                <div class="overallTop">
+
+                    <span>
+                        Overall Progress
+                    </span>
+
+                    <strong id="overallPercentage">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="progressBar">
+
+                    <div
+                        id="overallProgressBar"
+                        class="progressFill"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= TECHNOLOGIES ================= -->
+
+        <section class="section">
+
+
+            <div class="sectionHeader">
+
+                <div>
+
+                    <h2>
+                        Technologies
+                    </h2>
+
+                    <p>
+                        Select a technology to view its topics.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                id="technologyContainer"
+                class="technologyGrid"
+            >
+
+                <!-- JavaScript will create cards -->
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= TOPICS ================= -->
+
+        <section
+            id="topicsSection"
+            class="section"
+        >
+
+
+            <div class="sectionHeader">
+
+                <div>
+
+                    <h2 id="selectedTechnology">
+                        Select a Technology
+                    </h2>
+
+                    <p>
+                        Click on a topic to update its status.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                id="topicsContainer"
+                class="topicsGrid"
+            >
+
+                <div class="emptyTopics">
+
+                    Select a technology above
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= STATUS MODAL ================= -->
+
+    <div
+        id="statusModal"
+        class="statusModal"
+    >
+
+
+        <div class="statusBox">
+
+
+            <!-- Modal Header -->
+
+            <div class="modalHeader">
+
+
+                <div>
+
+                    <p class="modalSmallTitle">
+                        UPDATE TOPIC
+                    </p>
+
+                    <h2 id="modalTopicName">
+                        Topic
+                    </h2>
+
+                </div>
+
+
+                <button
+                    id="closeModal"
+                    class="closeModal"
+                >
+                    ×
+                </button>
+
+
+            </div>
+
+
+
+            <!-- Status Options -->
+
+            <div class="statusOptions">
+
+
+                <!-- Completed -->
+
+                <label class="statusOption">
+
+                    <input
+                        type="radio"
+                        name="topicStatus"
+                        value="completed"
+                    >
+
+                    <div>
+
+                        <strong>
+                            Completed
+                        </strong>
+
+                        <span>
+                            I have completed this topic.
+                        </span>
+
+                    </div>
+
+                </label>
+
+
+
+                <!-- Progress -->
+
+                <label class="statusOption">
+
+                    <input
+                        type="radio"
+                        name="topicStatus"
+                        value="progress"
+                    >
+
+                    <div>
+
+                        <strong>
+                            In Progress
+                        </strong>
+
+                        <span>
+                            I am currently learning this.
+                        </span>
+
+                    </div>
+
+                </label>
+
+
+
+                <!-- Pending -->
+
+                <label class="statusOption">
+
+                    <input
+                        type="radio"
+                        name="topicStatus"
+                        value="pending"
+                    >
+
+                    <div>
+
+                        <strong>
+                            Pending
+                        </strong>
+
+                        <span>
+                            I haven't started this topic.
+                        </span>
+
+                    </div>
+
+                </label>
+
+
+            </div>
+
+
+
+            <!-- Modal Buttons -->
+
+            <div class="modalButtons">
+
+                <button
+                    id="cancelStatus"
+                    class="cancelBtn"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    id="saveStatus"
+                    class="saveBtn"
+                >
+                    Save Status
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <script src="../javascript/mern.js"></script>
+
+</body>
+
+</html>

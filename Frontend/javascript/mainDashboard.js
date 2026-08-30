@@ -86,7 +86,7 @@ function startDashboard(){
         color: "#10b981",
         bg: "#ecfdf5",
         button: "Explore",
-        link : "#"
+        link : "../html/mern.html"
         
     },
 
