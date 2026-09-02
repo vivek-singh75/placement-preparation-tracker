@@ -41,6 +41,8 @@ form.addEventListener("submit", async function (event) {
 
     event.preventDefault();
 
+   
+
     // =================================================
     // GET VALUES FROM FORM
     // =================================================
@@ -67,7 +69,6 @@ form.addEventListener("submit", async function (event) {
     if (questionName === "") {
 
         alert("Please enter question name.");
-
         return;
     }
 
@@ -75,7 +76,6 @@ form.addEventListener("submit", async function (event) {
     if (typeofQ === "") {
 
         alert("Please select question type.");
-
         return;
     }
 
@@ -83,7 +83,6 @@ form.addEventListener("submit", async function (event) {
     if (level === "") {
 
         alert("Please select difficulty level.");
-
         return;
     }
 
@@ -95,7 +94,7 @@ form.addEventListener("submit", async function (event) {
         return;
     }
 
-
+    await showLoader();        //loader added here
     // =================================================
     // CREATE QUESTION OBJECT
     // =================================================
@@ -152,6 +151,8 @@ form.addEventListener("submit", async function (event) {
     // =================================================
     // RESET FORM
     // =================================================
+
+    hideLoader();    //remove loader
 
     form.reset();
 

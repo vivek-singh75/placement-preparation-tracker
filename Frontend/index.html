@@ -80,6 +80,7 @@ a :hover{
 }
 
 </style>
+<link rel="stylesheet" href="./css/loader.css">
 </head>
 
 <body>
@@ -115,7 +116,7 @@ a :hover{
     </div>    
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+     <script src="./javascript/loader.js"></script>
     <Script>
         let usernameInput = document.querySelector("#username");
         let passwordInput = document.querySelector("#password");
@@ -125,8 +126,14 @@ a :hover{
         let loginError = document.querySelector("#loginError");
 
         let atag= document.querySelector("a");
+
+
         form.addEventListener("submit" ,async function(dets){
             dets.preventDefault()
+
+            //loader animation
+            await showLoader();
+
             document.querySelector("#usernameError").textContent = "";
             document.querySelector("#passwordError").textContent = "";
             const username = usernameInput.value
@@ -134,11 +141,15 @@ a :hover{
             console.log(username ,password)
 
             if(!username  || !password){
+                hideLoader();
                 return document.querySelector("#loginError").textContent = "Enter All Data";
+                
             }
+
             const loginData = {
                 username,password
             }
+
             try {
                 const response = await axios.post("https://placement-preparation-tracker-ltlg.onrender.com/api/user/login" ,loginData , 
                 { withCredentials: true });
@@ -150,6 +161,7 @@ a :hover{
 
 
             } catch (error) {
+                hideLoader();
                 console.log(`error while login ${error}`);
                 loginError.textContent =error.response?.data?.message || "Login failed";
                 
@@ -164,6 +176,7 @@ a :hover{
             // }
         });
     </Script>
+  
 </body>
 </html>
 
