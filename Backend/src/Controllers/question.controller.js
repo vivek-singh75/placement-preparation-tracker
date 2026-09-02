@@ -53,7 +53,7 @@ async function getQuestion(req, res) {
         if (!token) {
             return res.status(401).json({
                 message: "Unauthorized access"
-            });
+            }); 
         }
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
         

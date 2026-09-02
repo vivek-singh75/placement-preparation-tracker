@@ -1,6 +1,10 @@
 const userModel = require("../models/userModel");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const emailService = require("../services/emailServices")
+
+
+
 
 async function registerUser(req ,res) {
     const {name , username , email , password , confirmPassword} = req.body;
@@ -20,13 +24,13 @@ async function registerUser(req ,res) {
     const hash = await bcrypt.hash(password, 10);
 
 
-    const user = userModel.create({
+    const user =await userModel.create({
         name,
         username,
         email,
         password: hash,
     });
-
+    console.log(user)
     const token = jwt.sign({
         id : user._id,
         name : user.name ,
@@ -40,6 +44,12 @@ async function registerUser(req ,res) {
         sameSite: "none"
         });
 
+
+    await emailService.sendRegisterEmail(
+        user.email,
+        user.name
+    );  
+
     res.status(201).json({
         message : "User Created Successfully :) ",
         user:{
@@ -47,9 +57,9 @@ async function registerUser(req ,res) {
             name : user.name,
             username: user.username,
             email : user.email,
-
         }
     });
+    
     console.log("user created")
     
 }
