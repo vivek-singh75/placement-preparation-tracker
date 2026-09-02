@@ -45,10 +45,10 @@ async function registerUser(req ,res) {
         });
 
 
-    await emailService.sendRegisterEmail(
-        user.email,
-        user.name
-    );  
+    // await emailService.sendRegisterEmail(
+    //     user.email,
+    //     user.name
+    // );  
 
     res.status(201).json({
         message : "User Created Successfully :) ",
