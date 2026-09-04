@@ -30,13 +30,14 @@ async function getData() {
 
         if (Array.isArray(userQuestionData)) {
             Gdata = userQuestionData;
+
         } else {
             Gdata = [];
         }
+
         // IMPORTANT:
         startDashboard()
        
-
 
     } catch (error) {
 
@@ -533,7 +534,7 @@ themeBtn.addEventListener("click", () => {
 
     }
 
-});n  
+});
 
 
 // =====================================================

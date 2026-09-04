@@ -116,7 +116,7 @@ a :hover{
     </div>    
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-     <script src="./javascript/loader.js"></script>
+    <script src="./javascript/loader.js"></script>
     <Script>
         let usernameInput = document.querySelector("#username");
         let passwordInput = document.querySelector("#password");
@@ -151,7 +151,11 @@ a :hover{
             }
 
             try {
+
+                //for deployment
                 const response = await axios.post("https://placement-preparation-tracker-ltlg.onrender.com/api/user/login" ,loginData , 
+                //for testing on localhost
+                //const response = await axios.post("http://localhost:3000/api/user/login" ,loginData , 
                 { withCredentials: true });
                 console.log("login data send to backend");
                 console.log(response.data);
