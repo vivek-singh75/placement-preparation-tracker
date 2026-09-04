@@ -77,7 +77,7 @@ function startDashboard(){
         color: "#7c3aed",
         bg: "#f3e8ff",
         button: "Go to DSA",
-        link: "../html/DashboardOfDsa.html" },
+        link: "../html/dashboardOfDsa.html" },
 
     {
         name: "MERN Stack",
