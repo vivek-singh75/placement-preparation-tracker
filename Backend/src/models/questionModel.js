@@ -8,7 +8,7 @@ const questinSchema = new mongoose.Schema({
         ref: "users",
         required: true
     },
-   questionName: {
+    questionName: {
         type: String,
         required : true
     },

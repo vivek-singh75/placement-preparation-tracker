@@ -1,8 +1,9 @@
 const express = require("express");
 const Users = require("./routes/registerUserR");
 const cors = require("cors");
-const questions = require("./routes/questionsR")
+const questions = require("./routes/questionsR");
 const cookieParser = require("cookie-parser");
+const mernProgress = require("./routes/mernProgressRoutes");
 
 
 
@@ -34,5 +35,7 @@ app.use(express.json());
 app.use("/api/user", Users);
 
 app.use("/api/question", questions);
+
+app.use("/api/mern" ,  mernProgress);
 
 module.exports = app;

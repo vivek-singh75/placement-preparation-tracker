@@ -1,7 +1,7 @@
 const userModel = require("../models/userModel");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const emailService = require("../services/emailServices")
+//const emailService = require("../services/emailServices")
 
 
 
@@ -39,6 +39,7 @@ async function registerUser(req ,res) {
     },process.env.JWT_SECRET_KEY);
     
     res.cookie("cookie", token, {
+
         httpOnly: true,
         secure: true,
         sameSite: "none"
@@ -96,10 +97,15 @@ async function loginUser(req, res) {
         );
 
         res.cookie("cookie", token, {
-            httpOnly: true,
+            // httpOnly: true,     
+            // secure: false,      //for testing perpuse only
+            // sameSite: "lax"
+            httpOnly: true,    //before deployement we have to use this in res.cookie
             secure: true,
             sameSite: "none"
+          
         });
+
 
         return res.status(200).json({
             message: "Login successful",
