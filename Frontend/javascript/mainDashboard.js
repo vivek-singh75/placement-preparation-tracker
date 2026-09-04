@@ -78,7 +78,7 @@ function startDashboard(){
         bg: "#f3e8ff",
         button: "Go to DSA",
         link: "../html/dashboardOfDsa.html" },
-
+        
     {
         name: "MERN Stack",
         progress: 20,
