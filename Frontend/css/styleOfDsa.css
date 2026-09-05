@@ -72,9 +72,9 @@ button {
 
     align-items: center;
 
-    gap: 12px;
+    gap: 13px;
 
-    padding: 0 23px;
+    padding: 0 25px;
 
     border-bottom:
         1px solid #1e293b;
@@ -104,6 +104,8 @@ button {
 .sidebarLogo h2 {
 
     font-size: 19px;
+    
+    font-weight: 500;
 }
 
 
@@ -203,7 +205,7 @@ button {
     right: 15px;
 
     bottom: 20px; */
-
+    margin: 0px 10px;
     padding: 17px 13px;
 
     background: #0f172a;
@@ -1569,6 +1571,7 @@ body.dark .circleInner {
     #menuBtn {
 
         display: block;
+        color: rgb(194, 76, 76);
     }
 
 

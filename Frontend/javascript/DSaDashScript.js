@@ -1099,6 +1099,7 @@ if (themeBtn) {
 
     themeBtn.addEventListener(
         "click",
+        
         () => {
             document.body.classList.toggle(
                 "dark"
@@ -1115,8 +1116,10 @@ if (themeBtn) {
             );
 
             updateThemeIcon();
+            
 
         }
+
     );
 
 }
@@ -1137,8 +1140,10 @@ if (
         "dark"
     );
 }
+
 if (themeBtn) {
     updateThemeIcon();
+    
 }
 
 // =====================================================

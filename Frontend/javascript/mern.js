@@ -1,75 +1,217 @@
-//========== FETCH DATA USING API ======
+// =====================================================
+// MERN DATA
+// =====================================================
 
-let mernData
-
-// async function updateProgress(topicId, status) {
-//     try {
-
-//         const update = await axios.post(`http://localhost:3000/api/mern/updateProgress/${topicId}`,
-//             {
-//             status: status
-//             },  
-//             {
-//                 withCredentials : true
-//             })
-//     } catch (error) {
-//         console.log(`error while updating progress ${error}`)
-//     }
-    
-
-// }
-
-// async function fetchData() {
-//     try {
-//         const response =await axios.get("http://localhost:3000/api/mern/getData", {
-//             withCredentials: true
-//         })
-
-//         const learningContent = response.data.learningContent;
-
-//         mernData = {};
-
-//         learningContent.forEach((technology) => {
-
-//             mernData[technology.technology] = technology.Topics.map(
-//                 (topic) => ({
-//                     id: topic._id,
-//                     name: topic.title,
-//                     status: "pending"
-//                 })
-//             );
-
-//         });
-
-//         console.log("mernData:", mernData);
-
-//         // console.log(mernData)
-//         mainFuncion()
-//     } catch (error) {
-//         console.log(`error in fetch mern data api ${error}`)
-//     }
-    
-// }
-
-// ================= UPDATE PROGRESS =================
+let mernData = {};
 
 
-async function updateProgress(topicId, status) {
+// =====================================================
+// CURRENT STATE
+// =====================================================
+
+let currentTechnology = null;
+let currentTopic = null;
+
+
+// =====================================================
+// API BASE URL
+// =====================================================
+
+const API_URL =
+    "https://placement-preparation-tracker-ltlg.onrender.com";
+
+
+// =====================================================
+// FETCH DATA + USER PROGRESS
+// =====================================================
+
+async function fetchData() {
+
     try {
 
-        const response = await axios.post(
-            `https://placement-preparation-tracker-ltlg.onrender.com/api/mern/updateProgress/${topicId}`,
-            {
-                status: status
-            },
+        // =================================================
+        // GET LEARNING CONTENT
+        // =================================================
+
+        const contentResponse = await axios.get(
+            `${API_URL}/api/mern/getData`,
             {
                 withCredentials: true
             }
         );
 
-        console.log("Progress updated:", response.data);
+
+        // =================================================
+        // GET USER PROGRESS
+        // =================================================
+
+        const progressResponse = await axios.get(
+            `${API_URL}/api/mern/getProgress`,
+            {
+                withCredentials: true
+            }
+        );
+
+
+        console.log(
+            "Learning Content:",
+            contentResponse.data.learningContent
+        );
+
+        console.log(
+            "User Progress:",
+            progressResponse.data.progress
+        );
+
+
+        // =================================================
+        // GET DATA
+        // =================================================
+
+        const learningContent =
+            contentResponse.data.learningContent || [];
+
+
+        const progress =
+            progressResponse.data.progress || [];
+
+
+        // =================================================
+        // CREATE PROGRESS MAP
+        // =================================================
+
+        const progressMap = {};
+
+
+        progress.forEach(function (item) {
+
+            progressMap[
+                String(item.topicId)
+            ] = item.status;
+
+        });
+
+
+        console.log(
+            "Progress Map:",
+            progressMap
+        );
+
+
+        // =================================================
+        // CREATE MERN DATA
+        // =================================================
+
+        mernData = {};
+
+
+        learningContent.forEach(function (technology) {
+
+            /*
+                Backend se Topics capital T aa raha hai.
+            */
+
+            const topics =
+                technology.Topics || [];
+
+
+            mernData[
+                technology.technology
+            ] = topics.map(function (topic) {
+
+                return {
+
+                    // MongoDB topic _id
+                    id: topic._id,
+
+                    // Topic name
+                    name: topic.title,
+
+                    // User progress
+                    status:
+                        progressMap[
+                            String(topic._id)
+                        ] || "pending"
+
+                };
+
+            });
+
+        });
+
+
+        console.log(
+            "MERN Data:",
+            mernData
+        );
+
+
+        // =================================================
+        // START UI
+        // =================================================
+
+        mainFuncion();
+
+
+    } catch (error) {
+
+        console.log(
+            "Error while fetching MERN data:",
+            error
+        );
+
+    }
+
+}
+
+
+
+// =====================================================
+// UPDATE PROGRESS API
+// =====================================================
+
+async function updateProgress(
+    topicId,
+    status
+) {
+
+    try {
+
+        console.log(
+            "Topic ID:",
+            topicId
+        );
+
+        console.log(
+            "Status:",
+            status
+        );
+
+
+        const response =
+            await axios.post(
+
+                `${API_URL}/api/mern/updateProgress/${topicId}`,
+
+                {
+                    status: status
+                },
+
+                {
+                    withCredentials: true
+                }
+
+            );
+
+
+        console.log(
+            "Progress updated:",
+            response.data
+        );
+
 
         return response.data;
+
 
     } catch (error) {
 
@@ -78,387 +220,255 @@ async function updateProgress(topicId, status) {
             error
         );
 
+
         throw error;
+
     }
+
 }
 
 
-// ================= FETCH DATA + PROGRESS =================
 
-async function fetchData() {
-    try {
-
-        // -------- Learning Content --------
-
-        const contentResponse = await axios.get(
-            "https://placement-preparation-tracker-ltlg.onrender.com/api/mern/getData",
-            {
-                withCredentials: true
-            }
-        );
-
-
-        // -------- User Progress --------
-
-        const progressResponse = await axios.get(
-            "https://placement-preparation-tracker-ltlg.onrender.com/api/mern/getProgress",
-            {
-                withCredentials: true
-            }
-        );
-
-
-        const learningContent =
-            contentResponse.data.learningContent;
-
-        const progress =
-            progressResponse.data.progress;
-
-
-        // ================= PROGRESS MAP =================
-
-        const progressMap = {};
-
-        progress.forEach((item) => {
-
-            progressMap[String(item.topicId)] = item.status;
-
-        });
-
-
-        // ================= MERN DATA =================
-
-        mernData = {};
-
-        learningContent.forEach((technology) => {
-
-            mernData[technology.technology] =
-                technology.Topics.map((topic) => {
-
-                    return {
-                        id: topic._id,
-
-                        name: topic.title,
-
-                        status:
-                            progressMap[String(topic._id)] ||
-                            "pending"
-                    };
-
-                });
-
-        });
-
-
-        // console.log("Progress:", progress);
-        // console.log("Progress Map:", progressMap);
-        // console.log("MERN Data:", mernData);
-
-
-        // ================= START UI =================
-
-        mainFuncion();
-
-
-    } catch (error) {
-
-        console.log(
-            "Error while fetching MERN data or progress:",
-            error
-        );
-
-    }
-}
-
-
-// ================= INITIAL LOAD =================
-
-fetchData()
-
-// ================= DUMMY DATA =================
-
-// const mernData = {
-//     MongoDB: [
-//         {
-//             id: 1,
-//             name: "MongoDB Introduction",
-//             status: "completed"
-//         },
-//         {
-//             id: 2,
-//             name: "Database & Collections",
-//             status: "completed"
-//         },
-//         {
-//             id: 3,
-//             name: "CRUD Operations",
-//             status: "progress"
-//         },
-//         {
-//             id: 4,
-//             name: "MongoDB Schema",
-//             status: "pending"
-//         },
-//         {
-//             id: 5,
-//             name: "Aggregation",
-//             status: "pending"
-//         }
-//     ],
-
-//     Express: [
-//         {
-//             id: 6,
-//             name: "Express Introduction",
-//             status: "completed"
-//         },
-//         {
-//             id: 7,
-//             name: "Routing",
-//             status: "completed"
-//         },
-//         {
-//             id: 8,
-//             name: "Middleware",
-//             status: "progress"
-//         },
-//         {
-//             id: 9,
-//             name: "Error Handling",
-//             status: "pending"
-//         },
-//         {
-//             id: 10,
-//             name: "Authentication",
-//             status: "pending"
-//         }
-//     ],
-
-//     React: [
-//         {
-//             id: 11,
-//             name: "React Introduction",
-//             status: "completed"
-//         },
-//         {
-//             id: 12,
-//             name: "Components",
-//             status: "completed"
-//         },
-//         {
-//             id: 13,
-//             name: "Props",
-//             status: "completed"
-//         },
-//         {
-//             id: 14,
-//             name: "useState",
-//             status: "progress"
-//         },
-//         {
-//             id: 15,
-//             name: "useEffect",
-//             status: "pending"
-//         }
-//     ],
-
-//     "Node.js": [
-//         {
-//             id: 16,
-//             name: "Node.js Introduction",
-//             status: "completed"
-//         },
-//         {
-//             id: 17,
-//             name: "Modules",
-//             status: "completed"
-//         },
-//         {
-//             id: 18,
-//             name: "File System",
-//             status: "progress"
-//         },
-//         {
-//             id: 19,
-//             name: "HTTP Module",
-//             status: "pending"
-//         },
-//         {
-//             id: 20,
-//             name: "Authentication",
-//             status: "pending"
-//         }
-//     ],
-//     "mode.js": [
-//         {
-//             id: 16,
-//             name: "Node.js Introduction",
-//             status: "completed"
-//         },
-//         {
-//             id: 17,
-//             name: "Modules",
-//             status: "completed"
-//         },
-//         {
-//             id: 18,
-//             name: "File System",
-//             status: "progress"
-//         },
-//         {
-//             id: 19,
-//             name: "HTTP Module",
-//             status: "pending"
-//         },
-//         {
-//             id: 20,
-//             name: "Authentication",
-//             status: "pending"
-//         }
-//     ]
-// };
-
+// =====================================================
+// MAIN FUNCTION
+// =====================================================
 
 async function mainFuncion() {
-    
-// ================= DOM ELEMENTS =================
+
+
+    // =================================================
+    // DOM ELEMENTS
+    // =================================================
 
     const technologyContainer =
-        document.querySelector("#technologyContainer");
+        document.querySelector(
+            "#technologyContainer"
+        );
+
 
     const topicsContainer =
-        document.querySelector("#topicsContainer");
+        document.querySelector(
+            "#topicsContainer"
+        );
+
 
     const selectedTechnology =
-        document.querySelector("#selectedTechnology");
+        document.querySelector(
+            "#selectedTechnology"
+        );
+
 
     const statusModal =
-        document.querySelector("#statusModal");
+        document.querySelector(
+            "#statusModal"
+        );
+
 
     const modalTopicName =
-        document.querySelector("#modalTopicName");
+        document.querySelector(
+            "#modalTopicName"
+        );
+
 
     const closeModal =
-        document.querySelector("#closeModal");
+        document.querySelector(
+            "#closeModal"
+        );
+
 
     const cancelStatus =
-        document.querySelector("#cancelStatus");
+        document.querySelector(
+            "#cancelStatus"
+        );
+
 
     const saveStatus =
-        document.querySelector("#saveStatus");
+        document.querySelector(
+            "#saveStatus"
+        );
+
 
     const overallPercentage =
-        document.querySelector("#overallPercentage");
+        document.querySelector(
+            "#overallPercentage"
+        );
+
 
     const overallProgressBar =
-        document.querySelector("#overallProgressBar");
+        document.querySelector(
+            "#overallProgressBar"
+        );
 
 
-    // ================= CURRENT STATE =================
 
-    let currentTechnology = null;
-
-    let currentTopic = null;
-
-    // ================= RENDER TECHNOLOGIES =================
+    // =================================================
+    // RENDER TECHNOLOGIES
+    // =================================================
 
     function renderTechnologies() {
 
         technologyContainer.innerHTML = "";
 
-        Object.keys(mernData).forEach(function (technology) {
 
-            const topics = mernData[technology];
-
-            const completed = topics.filter(function (topic) {
-                return topic.status === "completed";
-            }).length;
-
-            const percentage =
-                Math.round((completed / topics.length) * 100);
+        Object.keys(mernData).forEach(
+            function (technology) {
 
 
-            const card = document.createElement("div");
+                const topics =
+                    mernData[technology];
 
-            card.classList.add("techCard");
+
+                // -----------------------------------------
+                // COMPLETED COUNT
+                // -----------------------------------------
+
+                const completed =
+                    topics.filter(
+                        function (topic) {
+
+                            return topic.status ===
+                                "completed";
+
+                        }
+                    ).length;
 
 
-            // Active technology
+                // -----------------------------------------
+                // PERCENTAGE
+                // -----------------------------------------
 
-            if (technology === currentTechnology) {
-                card.classList.add("active");
+                const percentage =
+                    topics.length === 0
+                        ? 0
+                        : Math.round(
+                            (completed /
+                                topics.length) *
+                            100
+                        );
+
+
+                // -----------------------------------------
+                // CARD
+                // -----------------------------------------
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.classList.add(
+                    "techCard"
+                );
+
+
+                // Active technology
+
+                if (
+                    technology ===
+                    currentTechnology
+                ) {
+
+                    card.classList.add(
+                        "active"
+                    );
+
+                }
+
+
+                // -----------------------------------------
+                // CARD HTML
+                // -----------------------------------------
+
+                card.innerHTML = `
+
+                    <div class="techTop">
+
+                        <span class="techName">
+                            ${technology}
+                        </span>
+
+                        <span class="techPercentage">
+                            ${percentage}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="techInfo">
+
+                        <span>
+                            ${completed}/${topics.length}
+                            completed
+                        </span>
+
+                        <span>
+                            ${percentage}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="techProgress">
+
+                        <div
+                            class="techProgressFill"
+                            style="
+                                width:${percentage}%
+                            "
+                        ></div>
+
+                    </div>
+
+                `;
+
+
+                // -----------------------------------------
+                // TECHNOLOGY CLICK
+                // -----------------------------------------
+
+                card.addEventListener(
+                    "click",
+                    function () {
+
+                        currentTechnology =
+                            technology;
+
+                        currentTopic =
+                            null;
+
+
+                        renderTechnologies();
+
+                        renderTopics();
+
+                    }
+                );
+
+
+                technologyContainer.appendChild(
+                    card
+                );
+
             }
+        );
 
-
-            card.innerHTML = `
-
-                <div class="techTop">
-
-                    <span class="techName">
-                        ${technology}
-                    </span>
-
-                    <span class="techPercentage">
-                        ${percentage}%
-                    </span>
-
-                </div>
-
-
-                <div class="techInfo">
-
-                    <span>
-                        ${completed}/${topics.length} completed
-                    </span>
-
-                    <span>
-                        ${percentage}%
-                    </span>
-
-                </div>
-
-
-                <div class="techProgress">
-
-                    <div
-                        class="techProgressFill"
-                        style="width: ${percentage}%"
-                    ></div>
-
-                </div>
-
-            `;
-
-
-            // Technology click
-
-            card.addEventListener("click", function () {
-
-                currentTechnology = technology;
-
-                currentTopic = null;
-
-                renderTechnologies();
-
-                renderTopics();
-
-            });
-
-
-            technologyContainer.appendChild(card);
-
-        });
     }
 
 
-    // ================= RENDER TOPICS =================
+
+    // =================================================
+    // RENDER TOPICS
+    // =================================================
 
     function renderTopics() {
 
         topicsContainer.innerHTML = "";
 
 
-        // Agar technology select nahi hui
+        // ---------------------------------------------
+        // NO TECHNOLOGY SELECTED
+        // ---------------------------------------------
 
         if (!currentTechnology) {
 
@@ -469,105 +479,194 @@ async function mainFuncion() {
             topicsContainer.innerHTML = `
 
                 <div class="emptyTopics">
+
                     Select a technology above
+
                 </div>
 
             `;
 
             return;
+
         }
 
 
-        // Heading
+        // ---------------------------------------------
+        // HEADING
+        // ---------------------------------------------
 
         selectedTechnology.textContent =
-            currentTechnology + " Topics";
+            currentTechnology +
+            " Topics";
 
+
+        // ---------------------------------------------
+        // GET TOPICS
+        // ---------------------------------------------
 
         const topics =
-            mernData[currentTechnology];
+            mernData[
+                currentTechnology
+            ];
 
 
-        // Topics create
+        // ---------------------------------------------
+        // CREATE TOPIC CARDS
+        // ---------------------------------------------
 
-        topics.forEach(function (topic) {
-
-            const card =
-                document.createElement("div");
-
-            card.classList.add("topicCard");
+        topics.forEach(
+            function (topic) {
 
 
-            let statusText;
+                const card =
+                    document.createElement(
+                        "div"
+                    );
 
 
-            if (topic.status === "completed") {
+                card.classList.add(
+                    "topicCard"
+                );
 
-                statusText = "Completed";
-                // console.log(topic.value)
+
+                // -----------------------------------------
+                // STATUS TEXT
+                // -----------------------------------------
+
+                let statusText;
+
+
+                if (
+                    topic.status ===
+                    "completed"
+                ) {
+
+                    statusText =
+                        "Completed";
+
+                }
+
+                else if (
+                    topic.status ===
+                    "progress"
+                ) {
+
+                    statusText =
+                        "In Progress";
+
+                }
+
+                else {
+
+                    statusText =
+                        "Pending";
+
+                }
+
+
+                // -----------------------------------------
+                // TOPIC CARD
+                // -----------------------------------------
+
+                card.innerHTML = `
+
+                    <div class="topicTop">
+
+                        <span class="topicName">
+                            ${topic.name}
+                        </span>
+
+                        <span
+                            class="status ${topic.status}"
+                        >
+                            ${statusText}
+                        </span>
+
+                    </div>
+
+
+                    <p class="topicTechnology">
+                        ${currentTechnology}
+                    </p>
+
+                `;
+
+
+                // -----------------------------------------
+                // TOPIC CLICK
+                // -----------------------------------------
+
+                card.addEventListener(
+                    "click",
+                    function () {
+
+                        openStatusModal(
+                            topic
+                        );
+
+                    }
+                );
+
+
+                topicsContainer.appendChild(
+                    card
+                );
 
             }
-            else if (topic.status === "progress") {
+        );
 
-                statusText = "In Progress";
-
-            }
-            else {
-
-                statusText = "Pending";
-
-            }
-
-
-            card.innerHTML = `
-
-                <div class="topicTop">
-
-                    <span class="topicName">
-                        ${topic.name}
-                    </span>
-
-                    <span class="status ${topic.status}">
-                        ${statusText}
-                    </span>
-               
-                </div>
-
-
-                <p class="topicTechnology">
-                    ${currentTechnology}
-                </p>
-
-            `;
-
-
-            // Topic click
-
-            card.addEventListener("click", function () {
-
-                openStatusModal(topic);
-
-            });
-
-
-            topicsContainer.appendChild(card);
-
-        });
     }
 
 
-    // ================= OPEN MODAL =================
+
+    // =================================================
+    // OPEN STATUS MODAL
+    // =================================================
 
     function openStatusModal(topic) {
 
-        currentTopic = topic;
-        console.log(currentTopic.id)
+        currentTopic =
+            topic;
+
+
+        console.log(
+            "Current Topic:",
+            currentTopic
+        );
+
+
+        console.log(
+            "Topic ID:",
+            currentTopic.id
+        );
+
+
+        // Topic name
 
         modalTopicName.textContent =
             topic.name;
 
 
-        // Existing status select karo
+        // ---------------------------------------------
+        // REMOVE OLD RADIO SELECTION
+        // ---------------------------------------------
+
+        document
+            .querySelectorAll(
+                'input[name="topicStatus"]'
+            )
+            .forEach(
+                function (radio) {
+
+                    radio.checked = false;
+
+                }
+            );
+
+
+        // ---------------------------------------------
+        // SELECT CURRENT STATUS
+        // ---------------------------------------------
 
         const radio =
             document.querySelector(
@@ -582,21 +681,39 @@ async function mainFuncion() {
         }
 
 
-        statusModal.classList.add("show");
+        // ---------------------------------------------
+        // SHOW MODAL
+        // ---------------------------------------------
+
+        statusModal.classList.add(
+            "show"
+        );
+
     }
 
 
-    // ================= CLOSE MODAL =================
+
+    // =================================================
+    // CLOSE STATUS MODAL
+    // =================================================
 
     function closeStatusModal() {
 
-        statusModal.classList.remove("show");
+        statusModal.classList.remove(
+            "show"
+        );
 
-        currentTopic = null;
+
+        currentTopic =
+            null;
+
     }
 
 
-    // Close button
+
+    // =================================================
+    // CLOSE BUTTON
+    // =================================================
 
     closeModal.addEventListener(
         "click",
@@ -604,7 +721,10 @@ async function mainFuncion() {
     );
 
 
-    // Cancel button
+
+    // =================================================
+    // CANCEL BUTTON
+    // =================================================
 
     cancelStatus.addEventListener(
         "click",
@@ -612,51 +732,132 @@ async function mainFuncion() {
     );
 
 
-    // ================= SAVE STATUS =================
 
-   saveStatus.addEventListener(
-    "click",
-    async function () {
+    // =================================================
+    // SAVE STATUS
+    // =================================================
 
-        if (!currentTopic) {
-            return;
-        }
+    saveStatus.addEventListener(
+        "click",
+        async function () {
 
-        const selected =
-            document.querySelector(
-                'input[name="topicStatus"]:checked'
+
+            // -----------------------------------------
+            // CHECK TOPIC
+            // -----------------------------------------
+
+            if (!currentTopic) {
+
+                return;
+
+            }
+
+
+            // -----------------------------------------
+            // GET SELECTED RADIO
+            // -----------------------------------------
+
+            const selected =
+                document.querySelector(
+                    'input[name="topicStatus"]:checked'
+                );
+
+
+            if (!selected) {
+
+                alert(
+                    "Please select a status."
+                );
+
+                return;
+
+            }
+
+
+            // -----------------------------------------
+            // SELECTED STATUS
+            // -----------------------------------------
+
+            const newStatus =
+                selected.value;
+
+
+            console.log(
+                "Selected Status:",
+                newStatus
             );
 
-        if (!selected) {
-            alert("Please select a status.");
-            return;
-        }
 
-        try {
+            // -----------------------------------------
+            // TOPIC ID
+            // -----------------------------------------
 
-            await updateProgress(
-                currentTopic.id,
-                selected.value
+            const topicId =
+                currentTopic.id;
+
+
+            console.log(
+                "Updating Topic:",
+                topicId
             );
 
-            // Database update successful hone ke baad hi UI update karo
-            currentTopic.status = selected.value;
 
-            closeStatusModal();
+            try {
 
-            renderTopics();
-            renderTechnologies();
-            updateOverallProgress();
 
-        } catch (error) {
+                // -------------------------------------
+                // CALL BACKEND API
+                // -------------------------------------
 
-            console.log("Unable to update progress");
+                await updateProgress(
+                    topicId,
+                    newStatus
+                );
+
+
+                // -------------------------------------
+                // UPDATE FRONTEND DATA
+                // -------------------------------------
+
+                currentTopic.status =
+                    newStatus;
+
+
+                // -------------------------------------
+                // CLOSE MODAL
+                // -------------------------------------
+
+                closeStatusModal();
+
+
+                // -------------------------------------
+                // REFRESH UI
+                // -------------------------------------
+
+                renderTopics();
+
+                renderTechnologies();
+
+                updateOverallProgress();
+
+
+            } catch (error) {
+
+                console.log(
+                    "Unable to update progress:",
+                    error
+                );
+
+            }
 
         }
-    }
-);
+    );
 
-    // ================= OVERALL PROGRESS =================
+
+
+    // =================================================
+    // OVERALL PROGRESS
+    // =================================================
 
     function updateOverallProgress() {
 
@@ -665,29 +866,56 @@ async function mainFuncion() {
         let completed = 0;
 
 
-        Object.values(mernData).forEach(function (topics) {
+        // ---------------------------------------------
+        // LOOP ALL TECHNOLOGIES
+        // ---------------------------------------------
 
-            total += topics.length;
+        Object.values(
+            mernData
+        ).forEach(
+            function (topics) {
 
 
-            topics.forEach(function (topic) {
+                total +=
+                    topics.length;
 
-                if (topic.status === "completed") {
 
-                    completed++;
+                topics.forEach(
+                    function (topic) {
 
-                }
+                        if (
+                            topic.status ===
+                            "completed"
+                        ) {
 
-            });
+                            completed++;
 
-        });
+                        }
 
+                    }
+                );
+
+            }
+        );
+
+
+        // ---------------------------------------------
+        // CALCULATE %
+        // ---------------------------------------------
 
         const percentage =
             total === 0
                 ? 0
-                : Math.round((completed / total) * 100);
+                : Math.round(
+                    (completed /
+                        total) *
+                    100
+                );
 
+
+        // ---------------------------------------------
+        // UPDATE UI
+        // ---------------------------------------------
 
         overallPercentage.textContent =
             percentage + "%";
@@ -695,16 +923,23 @@ async function mainFuncion() {
 
         overallProgressBar.style.width =
             percentage + "%";
+
     }
 
 
-    // ================= BACKDROP CLICK =================
+
+    // =================================================
+    // BACKDROP CLICK
+    // =================================================
 
     statusModal.addEventListener(
         "click",
         function (event) {
 
-            if (event.target === statusModal) {
+            if (
+                event.target ===
+                statusModal
+            ) {
 
                 closeStatusModal();
 
@@ -712,7 +947,13 @@ async function mainFuncion() {
 
         }
     );
-    // ================= INITIAL LOAD ================
+
+
+
+    // =================================================
+    // INITIAL UI
+    // =================================================
+
     renderTechnologies();
 
     renderTopics();
@@ -723,3 +964,184 @@ async function mainFuncion() {
 
 
 
+// =====================================================
+// MOBILE SIDEBAR
+// =====================================================
+
+const menuBtn =
+    document.querySelector(
+        "#menuBtn"
+    );
+
+
+const sidebar =
+    document.querySelector(
+        "#sidebar"
+    );
+
+
+const overlay =
+    document.querySelector(
+        "#overlay"
+    );
+
+
+
+menuBtn.addEventListener(
+    "click",
+    function () {
+
+        sidebar.classList.add(
+            "open"
+        );
+
+        overlay.style.display =
+            "block";
+
+    }
+);
+
+
+
+overlay.addEventListener(
+    "click",
+    function () {
+
+        sidebar.classList.remove(
+            "open"
+        );
+
+        overlay.style.display =
+            "none";
+
+    }
+);
+
+
+
+// =====================================================
+// CLOSE SIDEBAR AFTER LINK CLICK
+// =====================================================
+
+const navLinks =
+    document.querySelectorAll(
+        ".nav-link"
+    );
+
+
+navLinks.forEach(
+    function (link) {
+
+        link.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    window.innerWidth <=
+                    768
+                ) {
+
+                    sidebar.classList.remove(
+                        "open"
+                    );
+
+                    overlay.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+
+// =====================================================
+// DARK MODE
+// =====================================================
+
+const themeBtn =
+    document.querySelector(
+        "#themeBtn"
+    );
+
+
+
+themeBtn.addEventListener(
+    "click",
+    function () {
+
+        document.body.classList.toggle(
+            "dark"
+        );
+
+
+        if (
+            document.body.classList.contains(
+                "dark"
+            )
+        ) {
+
+            themeBtn.textContent =
+                "☀️";
+
+
+            localStorage.setItem(
+                "theme",
+                "dark"
+            );
+
+        }
+
+        else {
+
+            themeBtn.textContent =
+                "🌙";
+
+
+            localStorage.setItem(
+                "theme",
+                "light"
+            );
+
+        }
+
+    }
+);
+
+
+
+// =====================================================
+// LOAD SAVED THEME
+// =====================================================
+
+const savedTheme =
+    localStorage.getItem(
+        "theme"
+    );
+
+
+if (
+    savedTheme ===
+    "dark"
+) {
+
+    document.body.classList.add(
+        "dark"
+    );
+
+
+    themeBtn.textContent =
+        "☀️";
+
+}
+
+
+
+// =====================================================
+// START
+// =====================================================
+
+fetchData();

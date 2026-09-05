@@ -1,10 +1,10 @@
-
 // =====================================================
 // GET DATA FROM BACKEND
 // =====================================================
 
 let Gdata = [];
 let userData = null;
+
 
 // =====================================================
 // FETCH USER + QUESTION DATA
@@ -13,6 +13,7 @@ let userData = null;
 async function getData() {
 
     try {
+
         const response = await axios.get(
             "https://placement-preparation-tracker-ltlg.onrender.com/api/question/getQuestion",
             {
@@ -30,14 +31,11 @@ async function getData() {
 
         if (Array.isArray(userQuestionData)) {
             Gdata = userQuestionData;
-
         } else {
             Gdata = [];
         }
 
-        // IMPORTANT:
-        startDashboard()
-       
+        startDashboard();
 
     } catch (error) {
 
@@ -50,246 +48,293 @@ async function getData() {
 }
 
 
-
 // =====================================================
-// SKILLS DATA
+// START DASHBOARD
 // =====================================================
-function startDashboard(){
-    // Profile data
-    document.getElementById("profileName").textContent =
-        userData.name;
 
-    document.getElementById("profileAvatar").textContent =
-        userData.name.charAt(0).toUpperCase();
+function startDashboard() {
 
-    document.getElementById("welcomeName").textContent =
-        `${userData.name} 👋`;
+    // =================================================
+    // PROFILE DATA
+    // =================================================
 
-    const totalDsaQuestion = Gdata.length
+    if (userData) {
 
+        document.getElementById("profileName").textContent =
+            userData.name;
+
+        document.getElementById("profileAvatar").textContent =
+            userData.name.charAt(0).toUpperCase();
+
+        document.getElementById("welcomeName").textContent =
+            `${userData.name} 👋`;
+    }
+
+
+    // =================================================
+    // DSA DATA
+    // =================================================
+
+    const totalDsaQuestion = Gdata.length;
+
+
+    // =================================================
+    // SKILLS DATA
+    // =================================================
 
     const skills = [
-    {
-        name: "DSA",
-        progress: 65,
-        completed:` ${totalDsaQuestion} / 4000`,
-        icon: "</>",
-        color: "#7c3aed",
-        bg: "#f3e8ff",
-        button: "Go to DSA",
-        link: "../html/dashboardOfDsa.html" },
-        
-    {
-        name: "MERN Stack",
-        progress: 20,
-        completed: "18 / 90",
-        icon: "M",
-        color: "#10b981",
-        bg: "#ecfdf5",
-        button: "Explore",
-        link : "../html/mern.html"
-        
-    },
 
-    {
-        name: "Data Science",
-        progress: 10,
-        completed: "6 / 60",
-        icon: "DS",
-        color: "#2563eb",
-        bg: "#eff6ff",
-        button: "Explore",
-        link : "#"
-    },
+        {
+            name: "DSA",
+            progress: (totalDsaQuestion / 4000) * 100,
+            completed: `${totalDsaQuestion} / 4000`,
+            icon: "</>",
+            color: "#7c3aed",
+            bg: "#f3e8ff",
+            button: "Go to DSA",
+            link: "../html/dashboardOfDsa.html"
+        },
 
-    {
-        name: "Java / Spring Boot",
-        progress: 0,
-        completed: "0 / 80",
-        icon: "☕",
-        color: "#f59e0b",
-        bg: "#fffbeb",
-        button: "Coming Soon",
-        link : "#"
-    },
+        {
+            name: "MERN Stack",
+            progress: 20,
+            completed: "18 / 90",
+            icon: "M",
+            color: "#10b981",
+            bg: "#ecfdf5",
+            button: "Explore",
+            link: "../html/mern.html"
+        },
 
-    {
-        name: "Cyber Security",
-        progress: 0,
-        completed: "0 / 70",
-        icon: "◈",
-        color: "#ec4899",
-        bg: "#fdf2f8",
-        button: "Coming Soon",
-        link : "#"
-    },
+        {
+            name: "Data Science",
+            progress: 10,
+            completed: "6 / 60",
+            icon: "DS",
+            color: "#2563eb",
+            bg: "#eff6ff",
+            button: "Explore",
+            link: "#"
+        },
 
-    {
-        name: "App Development",
-        progress: 0,
-        completed: "0 / 60",
-        icon: "▣",
-        color: "#06b6d4",
-        bg: "#ecfeff",
-        button: "Coming Soon",
-        link : "#"
-    }
-];
+        {
+            name: "Java / Spring Boot",
+            progress: 0,
+            completed: "0 / 80",
+            icon: "☕",
+            color: "#f59e0b",
+            bg: "#fffbeb",
+            button: "Coming Soon",
+            link: "#"
+        },
 
+        {
+            name: "Cyber Security",
+            progress: 0,
+            completed: "0 / 70",
+            icon: "◈",
+            color: "#ec4899",
+            bg: "#fdf2f8",
+            button: "Coming Soon",
+            link: "#"
+        },
 
-// =====================================================
-// SKILL CARDS
-// =====================================================
+        {
+            name: "App Development",
+            progress: 0,
+            completed: "0 / 60",
+            icon: "▣",
+            color: "#06b6d4",
+            bg: "#ecfeff",
+            button: "Coming Soon",
+            link: "#"
+        }
 
-const skillsContainer =
-    document.querySelector("#skillsContainer");
+    ];
 
 
-skills.forEach(skill => {
+    // =================================================
+    // SKILL CARDS
+    // =================================================
 
-    const card =
-        document.createElement("div");
+    const skillsContainer =
+        document.querySelector("#skillsContainer");
 
-    card.className = "skill-card";
+    skillsContainer.innerHTML = "";
 
 
-    card.innerHTML = `
+    skills.forEach(skill => {
 
-        <div class="skill-top">
+        const card =
+            document.createElement("div");
 
-            <div
-                class="skill-icon"
-                style="
-                    color:${skill.color};
-                    background:${skill.bg};
-                "
-            >
-                ${skill.icon}
+        card.className = "skill-card";
+
+
+        card.innerHTML = `
+
+            <div class="skill-top">
+
+                <div
+                    class="skill-icon"
+                    style="
+                        color:${skill.color};
+                        background:${skill.bg};
+                    "
+                >
+                    ${skill.icon}
+                </div>
+
+
+                <div
+                    class="skill-percent"
+                    style="
+                        color:${skill.color};
+                        border-color:${skill.color}55;
+                    "
+                >
+                    ${skill.progress.toFixed(2)}%
+                </div>
+
             </div>
 
-            <div
-                class="skill-percent"
-                style="
-                    color:${skill.color};
-                    border-color:${skill.color}55;
-                "
-            >
-                ${skill.progress}%
+
+            <h3>
+                ${skill.name}
+            </h3>
+
+
+            <div class="skill-progress">
+
+                <div
+                    style="
+                        width:${skill.progress}%;
+                        background:${skill.color};
+                    "
+                ></div>
+
             </div>
 
-        </div>
+
+            <p class="skill-info">
+                Completed: ${skill.completed}
+            </p>
 
 
-        <h3>
-            ${skill.name}
-        </h3>
-
-
-        <div class="skill-progress">
-
-            <div
+            <a
+                href="${skill.link}"
+                class="skill-btn"
                 style="
-                    width:${skill.progress}%;
-                    background:${skill.color};
+                    color:${skill.color};
+                    border-color:${skill.color};
                 "
-            ></div>
+            >
+                ${skill.button}
+            </a>
 
-        </div>
-
-
-        <p class="skill-info">
-            Completed: ${skill.completed}
-        </p>
+        `;
 
 
-        <a  href = "${skill.link}"
-            class="skill-btn"
-            style="
-                color:${skill.color};
-                border-color:${skill.color};
-            "
-        >   
-            ${skill.button}
-        </a>
+        skillsContainer.appendChild(card);
 
-    `;
+    });
 
 
-    skillsContainer.appendChild(card);
+    // =================================================
+    // OVERALL PROGRESS
+    // =================================================
 
-});
-
-
-// =====================================================
-// OVERALL PROGRESS
-// =====================================================
-const dsaProgress = (totalDsaQuestion /4000)*100
-
-const progressData = [
-    {
-        name: "DSA",
-        progress: dsaProgress.toFixed(2),
-        color: "#7c3aed"
-    },
-
-    {
-        name: "MERN Stack",
-        progress: 20,
-        color: "#10b981"
-    },
-
-    {
-        name: "Data Science",
-        progress: 10,
-        color: "#2563eb"
-    },
-
-    {
-        name: "Others",
-        progress: 5,
-        color: "#94a3b8"
-    }
-];
+    const dsaProgress =
+        (totalDsaQuestion / 4000) * 100;
 
 
-const progressLegend =
-    document.querySelector("#progressLegend");
+    const progressData = [
 
-progressLegend.innerHTML = ""; 
+        {
+            name: "DSA",
+            progress: dsaProgress.toFixed(2),
+            color: "#7c3aed"
+        },
 
-progressData.forEach(item => {
+        {
+            name: "MERN Stack",
+            progress: 20,
+            color: "#10b981"
+        },
 
-    const div =
-        document.createElement("div");
+        {
+            name: "Data Science",
+            progress: 10,
+            color: "#2563eb"
+        },
 
-    div.className = "legend-item";
+        {
+            name: "Others",
+            progress: 5,
+            color: "#94a3b8"
+        }
 
-
-    div.innerHTML = `
-
-        <div class="legend-left">
-
-            <span
-                class="legend-dot"
-                style="background:${item.color}"
-            ></span>
-
-            <span>
-                ${item.name}
-            </span>
-
-        </div>
-
-        <strong>
-            ${item.progress}%
-        </strong>
-
-    `;
+    ];
 
 
-    progressLegend.appendChild(div);
+    const progressLegend =
+        document.querySelector("#progressLegend");
 
-});
+    progressLegend.innerHTML = "";
+
+
+    progressData.forEach(item => {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "legend-item";
+
+
+        div.innerHTML = `
+
+            <div class="legend-left">
+
+                <span
+                    class="legend-dot"
+                    style="
+                        background:${item.color}
+                    "
+                ></span>
+
+                <span>
+                    ${item.name}
+                </span>
+
+            </div>
+
+
+            <strong>
+                ${item.progress}%
+            </strong>
+
+        `;
+
+
+        progressLegend.appendChild(div);
+
+    });
+
+
+    // =================================================
+    // RECENT ACTIVITY
+    // =================================================
+
+    renderRecentActivity();
+
+
+    // =================================================
+    // WEAK TOPICS
+    // =================================================
+
+    renderWeakTopics();
+
+}
 
 
 // =====================================================
@@ -343,107 +388,133 @@ function renderRecentActivity() {
 
         item.className =
             "activity-item";
+
+
         item.innerHTML = `
+
             <div class="activity-icon">
                 ✓
             </div>
+
+
             <div>
+
                 <p class="activity-title">
                     ${question.questionName || "Unnamed Question"}
                 </p>
+
+
                 <p class="activity-meta">
                     DSA • ${question.topic || "Unknown"}
                 </p>
+
             </div>
+
+
             <span class="activity-time">
                 ${question.Solved_Status || "Solved"}
             </span>
+
         `;
+
+
         recentActivity.appendChild(item);
 
     });
 
 }
-    renderRecentActivity()
 
 
 // =====================================================
 // WEAK TOPICS
 // =====================================================
 
-const weakTopics = [
+function renderWeakTopics() {
 
-    {
-        name: "Dynamic Programming",
-        progress: 12
-    },
+    const weakContainer =
+        document.querySelector("#weakTopics");
 
-    {
-        name: "Graph",
-        progress: 18
-    },
-
-    {
-        name: "Tree",
-        progress: 20
-    },
-
-    {
-        name: "Backtracking",
-        progress: 25
-    }
-
-];
+    weakContainer.innerHTML = "";
 
 
-const weakContainer =
-    document.querySelector("#weakTopics");
+    const weakTopics = [
+
+        {
+            name: "Dynamic Programming",
+            progress: 12
+        },
+
+        {
+            name: "Graph",
+            progress: 18
+        },
+
+        {
+            name: "Tree",
+            progress: 20
+        },
+
+        {
+            name: "Backtracking",
+            progress: 25
+        }
+
+    ];
 
 
-weakTopics.forEach(topic => {
+    weakTopics.forEach(topic => {
 
-    const item =
-        document.createElement("div");
-
-    item.className = "weak-item";
+        const item =
+            document.createElement("div");
 
 
-    item.innerHTML = `
+        item.className = "weak-item";
 
-        <div class="weak-icon">
-            !
-        </div>
 
-        <div class="weak-content">
+        item.innerHTML = `
 
-            <p class="weak-name">
-                ${topic.name}
-            </p>
+            <div class="weak-icon">
+                !
+            </div>
 
-            <div class="weak-progress">
 
-                <div
-                    style="width:${topic.progress}%"
-                ></div>
+            <div class="weak-content">
+
+                <p class="weak-name">
+                    ${topic.name}
+                </p>
+
+
+                <div class="weak-progress">
+
+                    <div
+                        style="
+                            width:${topic.progress}%
+                        "
+                    ></div>
+
+                </div>
 
             </div>
 
-        </div>
 
-        <span class="weak-percent">
-            ${topic.progress}%
-        </span>
-
-        <button class="practice-btn">
-            Practice
-        </button>
-
-    `;
+            <span class="weak-percent">
+                ${topic.progress}%
+            </span>
 
 
-    weakContainer.appendChild(item);
+            <button class="practice-btn">
+                Practice
+            </button>
 
-});
+        `;
+
+
+        weakContainer.appendChild(item);
+
+    });
+
+}
 
 
 // =====================================================
@@ -478,7 +549,9 @@ overlay.addEventListener("click", () => {
 });
 
 
-// Close sidebar after clicking a link on mobile
+// =====================================================
+// CLOSE SIDEBAR AFTER CLICKING LINK
+// =====================================================
 
 const navLinks =
     document.querySelectorAll(".nav-link");
@@ -514,7 +587,9 @@ themeBtn.addEventListener("click", () => {
     document.body.classList.toggle("dark");
 
 
-    if (document.body.classList.contains("dark")) {
+    if (
+        document.body.classList.contains("dark")
+    ) {
 
         themeBtn.textContent = "☀️";
 
@@ -537,14 +612,6 @@ themeBtn.addEventListener("click", () => {
 });
 
 
-// if(localStorage.theme === "dark"){
-//     menuBtn.style.color = "light"
-//     console.log("dark")
-// }else{
-//     console.log("light")
-// }
-
-
 // =====================================================
 // LOAD SAVED THEME
 // =====================================================
@@ -560,8 +627,10 @@ if (savedTheme === "dark") {
     themeBtn.textContent = "☀️";
 
 }
-}
 
 
+// =====================================================
+// START
+// =====================================================
 
-getData()
+getData();

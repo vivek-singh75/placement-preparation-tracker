@@ -16,356 +16,569 @@
         rel="stylesheet"
         href="../css/mern.css"
     >
+
 </head>
+
 <body>
-    <!-- ================= NAVBAR ================= -->
 
-    <header class="navbar">
+<div id="app">
 
-        <div class="brand">
-            <a href="./Dashboard.html" style="text-decoration: none; color: inherit;">
-                <h2>
-                    Developer Skill Tracker
-                </h2>
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside id="sidebar">
+
+        <a
+            href="./Dashboard.html"
+            class="sidebar-logo"
+        >
+
+            <div class="logo-icon">
+                &lt;/&gt;
+            </div>
+
+            <div>
+                <h1>DevTrack</h1>
+                <p>Skill Tracker</p>
+            </div>
+
+        </a>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="./Dashboard.html"
+                class="nav-link"
+            >
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
             </a>
-      
-            <p>
-                MERN Stack
-            </p>
-        </div>
 
 
-        <nav>
-
-            <a href="./Dashboard.html">
-                Dashboard
+            <a
+                href="./dashboardOfDsa.html"
+                class="nav-link"
+            >
+                <span class="nav-icon">◇</span>
+                <span>DSA</span>
             </a>
 
-            <a href="./dashboardOfDsa.html">
-                DSA
-            </a>
 
             <a
                 href="./mern.html"
-                class="active"
+                class="nav-link active"
             >
-                MERN
+                <span class="nav-icon">○</span>
+                <span>MERN Stack</span>
             </a>
 
-            <a href="./profile.html">
-                Profile
+
+            <a
+                href="#"
+                class="nav-link"
+            >
+                <span class="nav-icon">◉</span>
+                <span>Data Science</span>
+            </a>
+
+
+            <a
+                href="#"
+                class="nav-link"
+            >
+                <span class="nav-icon">☕</span>
+                <span>Java / Spring Boot</span>
+            </a>
+
+
+            <a
+                href="#"
+                class="nav-link"
+            >
+                <span class="nav-icon">◈</span>
+                <span>Cyber Security</span>
+            </a>
+
+
+            <a
+                href="#"
+                class="nav-link"
+            >
+                <span class="nav-icon">▣</span>
+                <span>App Development</span>
             </a>
 
         </nav>
 
-    </header>
 
+        <!-- SIDEBAR QUOTE -->
 
+        <div class="sidebar-quote">
 
-    <!-- ================= MAIN ================= -->
-
-    <main class="mernPage">
-
-
-        <!-- ================= PAGE HEADER ================= -->
-
-        <section class="pageHeading">
-
-
-            <div class="headingContent">
-
-                <p class="smallTitle">
-                    MY LEARNING
-                </p>
-
-                <h1>
-                    MERN Stack
-                </h1>
-
-                <p>
-                    Track your learning progress across
-                    MongoDB, Express, React and Node.js.
-                </p>
-
+            <div class="quote-icon">
+                🚀
             </div>
 
-
-
-            <!-- Overall Progress -->
-
-            <div class="overallProgress">
-
-                <div class="overallTop">
-
-                    <span>
-                        Overall Progress
-                    </span>
-
-                    <strong id="overallPercentage">
-                        0%
-                    </strong>
-
-                </div>
-
-
-                <div class="progressBar">
-
-                    <div
-                        id="overallProgressBar"
-                        class="progressFill"
-                    ></div>
-
-                </div>
-
-            </div>
-
-
-        </section>
-
-
-
-        <!-- ================= TECHNOLOGIES ================= -->
-
-        <section class="section">
-
-
-            <div class="sectionHeader">
-
-                <div>
-
-                    <h2>
-                        Technologies
-                    </h2>
-
-                    <p>
-                        Select a technology to view its topics.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-
-            <div
-                id="technologyContainer"
-                class="technologyGrid"
-            >
-
-                <!-- JavaScript will create cards -->
-
-            </div>
-
-
-        </section>
-
-
-
-        <!-- ================= TOPICS ================= -->
-
-        <section
-            id="topicsSection"
-            class="section"
-        >
-
-
-            <div class="sectionHeader">
-
-                <div>
-
-                    <h2 id="selectedTechnology">
-                        Select a Technology
-                    </h2>
-
-                    <p>
-                        Click on a topic to update its status.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-
-            <div
-                id="topicsContainer"
-                class="topicsGrid"
-            >
-
-                <div class="emptyTopics">
-
-                    Select a technology above
-
-                </div>
-
-            </div>
-
-
-        </section>
-
-
-    </main>
-
-
-
-    <!-- ================= STATUS MODAL ================= -->
-
-    <div
-        id="statusModal"
-        class="statusModal"
-    >
-
-
-        <div class="statusBox">
-
-
-            <!-- Modal Header -->
-
-            <div class="modalHeader">
-
-
-                <div>
-
-                    <p class="modalSmallTitle">
-                        UPDATE TOPIC
-                    </p>
-
-                    <h2 id="modalTopicName">
-                        Topic
-                    </h2>
-
-                </div>
-
-
-                <button
-                    id="closeModal"
-                    class="closeModal"
-                >
-                    ×
-                </button>
-
-
-            </div>
-
-
-
-            <!-- Status Options -->
-
-            <div class="statusOptions">
-
-
-                <!-- Completed -->
-
-                <label class="statusOption">
-
-                    <input
-                        type="radio"
-                        name="topicStatus"
-                        value="completed"
-                    >
-
-                    <div>
-
-                        <strong>
-                            Completed
-                        </strong>
-
-                        <span>
-                            I have completed this topic.
-                        </span>
-
-                    </div>
-
-                </label>
-
-
-
-                <!-- Progress -->
-
-                <label class="statusOption">
-
-                    <input
-                        type="radio"
-                        name="topicStatus"
-                        value="progress"
-                    >
-
-                    <div>
-
-                        <strong>
-                            In Progress
-                        </strong>
-
-                        <span>
-                            I am currently learning this.
-                        </span>
-
-                    </div>
-
-                </label>
-
-
-
-                <!-- Pending -->
-
-                <label class="statusOption">
-
-                    <input
-                        type="radio"
-                        name="topicStatus"
-                        value="pending"
-                    >
-
-                    <div>
-
-                        <strong>
-                            Pending
-                        </strong>
-
-                        <span>
-                            I haven't started this topic.
-                        </span>
-
-                    </div>
-
-                </label>
-
-
-            </div>
-
-
-
-            <!-- Modal Buttons -->
-
-            <div class="modalButtons">
-
-                <button
-                    id="cancelStatus"
-                    class="cancelBtn"
-                >
-                    Cancel
-                </button>
-
-
-                <button
-                    id="saveStatus"
-                    class="saveBtn"
-                >
-                    Save Status
-                </button>
-
-            </div>
-
+            <p>
+                Keep Consistency!
+            </p>
+
+            <span>
+                Small progress every day becomes a big result.
+            </span>
 
         </div>
 
 
+        <!-- BOTTOM SIDEBAR -->
+
+        <div class="sidebar-bottom">
+
+            <button
+                id="sidebarThemeBtn"
+                class="theme-btn"
+            >
+                <span>🌙</span>
+                <span>Dark Mode</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MOBILE OVERLAY -->
+
+    <div id="overlay"></div>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main id="mainContent">
+
+
+        <!-- =================================================
+             TOPBAR
+        ================================================== -->
+
+        <header id="topbar">
+
+
+            <div class="top-left">
+
+                <button
+                    id="menuBtn"
+                    class="menu-btn"
+                >
+                    ☰
+                </button>
+
+
+                <a
+                    href="./Dashboard.html"
+                    class="mobile-logo"
+                >
+                    <span>Dev</span>Track
+                </a>
+
+
+                <div class="search-box">
+
+                    <span>⌕</span>
+
+                    <input
+                        type="text"
+                        placeholder="Search anything..."
+                        id="searchInput"
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <div class="top-right">
+
+                <button class="top-button">
+                    🔔
+                </button>
+
+
+                <button
+                    id="themeBtn"
+                    class="top-button"
+                >
+                    🌙
+                </button>
+
+
+                <a
+                    href="./profile.html"
+                    class="profile"
+                >
+
+                    <div class="profile-avatar">
+
+                        <span id="profileAvatar">
+                            V
+                        </span>
+
+                    </div>
+
+                    <span id="profileName">
+                        Vivek Singh
+                    </span>
+
+                </a>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             MERN CONTENT
+        ================================================== -->
+
+        <div class="content">
+
+
+            <!-- PAGE HEADER -->
+
+            <section class="pageHeading">
+
+                <div class="headingContent">
+
+                    <p class="smallTitle">
+                        MY LEARNING
+                    </p>
+
+                    <h1>
+                        MERN Stack
+                    </h1>
+
+                    <p>
+                        Track your learning progress across
+                        MongoDB, Express, React and Node.js.
+                    </p>
+
+                </div>
+
+
+
+                <div class="overallProgress">
+
+                    <div class="overallTop">
+
+                        <span>
+                            Overall Progress
+                        </span>
+
+                        <strong id="overallPercentage">
+                            0%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="progressBar">
+
+                        <div
+                            id="overallProgressBar"
+                            class="progressFill"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- TECHNOLOGIES -->
+
+            <section class="section">
+
+                <div class="sectionHeader">
+
+                    <div>
+
+                        <h2>
+                            Technologies
+                        </h2>
+
+                        <p>
+                            Select a technology to view its topics.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="technologyContainer"
+                    class="technologyGrid"
+                >
+
+                </div>
+
+            </section>
+
+
+
+            <!-- TOPICS -->
+
+            <section
+                id="topicsSection"
+                class="section"
+            >
+
+                <div class="sectionHeader">
+
+                    <div>
+
+                        <h2 id="selectedTechnology">
+                            Select a Technology
+                        </h2>
+
+                        <p>
+                            Click on a topic to update its status.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="topicsContainer"
+                    class="topicsGrid"
+                >
+
+                    <div class="emptyTopics">
+
+                        <div class="emptyIcon">
+                            📚
+                        </div>
+
+                        <p>
+                            Select a technology above
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     MOBILE BOTTOM NAV
+====================================================== -->
+
+<nav class="mobile-nav">
+
+    <a
+        href="./Dashboard.html"
+        class="mobile-nav-link"
+    >
+        <span>⌂</span>
+        <small>Home</small>
+    </a>
+
+
+    <a
+        href="./dashboardOfDsa.html"
+        class="mobile-nav-link"
+    >
+        <span>◇</span>
+        <small>DSA</small>
+    </a>
+
+
+    <a
+        href="./mern.html"
+        class="mobile-nav-link active"
+    >
+        <span>○</span>
+        <small>MERN</small>
+    </a>
+
+
+    <a
+        href="#"
+        class="mobile-nav-link"
+    >
+        <span>•••</span>
+        <small>More</small>
+    </a>
+
+</nav>
+
+
+
+<!-- =====================================================
+     STATUS MODAL
+====================================================== -->
+
+<div
+    id="statusModal"
+    class="statusModal"
+>
+
+
+    <div class="statusBox">
+
+
+        <div class="modalHeader">
+
+            <div>
+
+                <p class="modalSmallTitle">
+                    UPDATE TOPIC
+                </p>
+
+                <h2 id="modalTopicName">
+                    Topic
+                </h2>
+
+            </div>
+
+
+            <button
+                id="closeModal"
+                class="closeModal"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+
+        <div class="statusOptions">
+
+
+            <label class="statusOption">
+
+                <input
+                    type="radio"
+                    name="topicStatus"
+                    value="completed"
+                >
+
+                <div>
+
+                    <strong>
+                        Completed
+                    </strong>
+
+                    <span>
+                        I have completed this topic.
+                    </span>
+
+                </div>
+
+            </label>
+
+
+
+            <label class="statusOption">
+
+                <input
+                    type="radio"
+                    name="topicStatus"
+                    value="progress"
+                >
+
+                <div>
+
+                    <strong>
+                        In Progress
+                    </strong>
+
+                    <span>
+                        I am currently learning this.
+                    </span>
+
+                </div>
+
+            </label>
+
+
+
+            <label class="statusOption">
+
+                <input
+                    type="radio"
+                    name="topicStatus"
+                    value="pending"
+                >
+
+                <div>
+
+                    <strong>
+                        Pending
+                    </strong>
+
+                    <span>
+                        I haven't started this topic.
+                    </span>
+
+                </div>
+
+            </label>
+
+        </div>
+
+
+
+        <div class="modalButtons">
+
+            <button
+                id="cancelStatus"
+                class="cancelBtn"
+            >
+                Cancel
+            </button>
+
+
+            <button
+                id="saveStatus"
+                class="saveBtn"
+            >
+                Save Status
+            </button>
+
+        </div>
+
     </div>
 
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <script src="../javascript/mern.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="../javascript/mern.js"></script>
 
 </body>
 
