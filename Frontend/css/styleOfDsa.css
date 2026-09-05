@@ -197,12 +197,12 @@ button {
 
 .sidebarQuote {
 
-    position: absolute;
+    position: relative;
 
-    left: 15px;
+    /* left: 15px;
     right: 15px;
 
-    bottom: 20px;
+    bottom: 20px; */
 
     padding: 17px 13px;
 

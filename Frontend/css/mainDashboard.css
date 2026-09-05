@@ -14,7 +14,6 @@ body {
         color 0.3s ease;
 }
 
-
 /* =====================================================
    SIDEBAR
 ===================================================== */
@@ -143,14 +142,14 @@ body {
 /* Quote */
 
 .sidebar-quote {
-    position: absolute;
+    position: relative;
+   
+    /* bottom: 20px; */
 
-    bottom: 20px;
+    /* left: 15px;
+    right: 15px; */
 
-    left: 15px;
-    right: 15px;
-
-    padding: 20px 15px;
+    padding: 10px 15px;
 
     border-radius: 14px;
 

@@ -537,6 +537,14 @@ themeBtn.addEventListener("click", () => {
 });
 
 
+// if(localStorage.theme === "dark"){
+//     menuBtn.style.color = "light"
+//     console.log("dark")
+// }else{
+//     console.log("light")
+// }
+
+
 // =====================================================
 // LOAD SAVED THEME
 // =====================================================
