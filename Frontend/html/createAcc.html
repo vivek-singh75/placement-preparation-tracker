@@ -1,135 +1,673 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account</title>
+
+    <title>Create Account | DevTrack</title>
+
     <link rel="stylesheet" href="../css/createAcc.css">
-    
 </head>
+
 <body>
 
-    <section class="container">
+    <main class="container">
 
-        <div class="signup-box">
-            <h2>Create Account</h2>
+        <section class="signup-box">
 
-            <form>
+            <!-- Header -->
+            <div class="signup-header">
 
-                <div class="input-box">
-                    <label>Full Name</label>
-                    <input type="text" id="name" placeholder="Enter your name">
+                <div class="logo">
+                    <span>&lt;/&gt;</span>
                 </div>
 
-                <div class="input-box">
-                    <label>Email</label>
-                    <input type="email" id="email" placeholder="Enter your email">
-                </div>
-
-                <div class="input-box">
-                    <label>UserName</label>
-                    <input type="text" id="username" placeholder="Create Username">
-                    <small class="error" id="usernameError"></small>
-                </div>
-
-                <div class="input-box">
-                    <label>Password</label>
-                    <input type="password" id="password" placeholder="Create Password">
-                    <small class="error" id="passwordError"></small>
-                </div>
-
-                <div class="input-box">
-                    <label>Confirm Password</label>
-                    <input type="password" id="confirmPassword" placeholder="Confirm Password">
-                    <small class="error" id="passwordError"></small>
-                </div>
-
-                <button type="submit">Create Account</button>
+                <h1>Create Account</h1>
 
                 <p>
+                    Start your placement preparation journey
+                </p>
+
+            </div>
+
+
+            <!-- Form -->
+            <form id="signupForm" novalidate>
+
+                <!-- Full Name -->
+                <div class="input-box">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">👤</span>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                        >
+
+                    </div>
+
+                    <small class="error" id="nameError"></small>
+
+                </div>
+
+
+                <!-- Email -->
+                <div class="input-box">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">✉</span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                        >
+
+                    </div>
+
+                    <small class="error" id="emailError"></small>
+
+                </div>
+
+
+                <!-- Username -->
+                <div class="input-box">
+
+                    <label for="username">
+                        Username
+
+                        <span class="hint">
+                            5–15 characters
+                        </span>
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">@</span>
+
+                        <input
+                            type="text"
+                            id="username"
+                            placeholder="Create a username"
+                            autocomplete="username"
+                            maxlength="15"
+                        >
+
+                    </div>
+
+                    <small class="input-help">
+                        Use letters, numbers and underscore only.
+                    </small>
+
+                    <small class="error" id="usernameError"></small>
+
+                </div>
+
+
+                <!-- Password -->
+                <div class="input-box">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">🔒</span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Create a strong password"
+                            autocomplete="new-password"
+                        >
+
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            data-target="password"
+                            aria-label="Show password"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                    <small class="input-help">
+                        8+ characters with uppercase, lowercase, number & special character.
+                    </small>
+
+                    <small class="error" id="passwordError"></small>
+
+                </div>
+
+
+                <!-- Confirm Password -->
+                <div class="input-box">
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">🔒</span>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Confirm your password"
+                            autocomplete="new-password"
+                        >
+
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            data-target="confirmPassword"
+                            aria-label="Show password"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                    <small class="error" id="confirmPasswordError"></small>
+
+                </div>
+
+
+                <!-- API Message -->
+                <div id="formMessage" class="form-message"></div>
+
+
+                <!-- Submit -->
+                <button
+                    type="submit"
+                    id="submitButton"
+                    class="create-btn"
+                >
+                    <span id="buttonText">
+                        Create Account
+                    </span>
+
+                    <span
+                        id="buttonLoader"
+                        class="loader hidden"
+                    ></span>
+                </button>
+
+
+                <!-- Login -->
+                <p class="login-text">
+
                     Already have an account?
-                    <a href="../index.html">Login</a>
+
+                    <a href="../index.html">
+                        Login
+                    </a>
+
                 </p>
 
             </form>
-        </div>
 
-    </section>
+        </section>
+
+    </main>
+
+
+    <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <!-- Your JS SECOND -->
-     <script src="./js/register.js"></script>
+    <!-- Registration JS -->
     <script>
-        const nameInput = document.querySelector("#name");
-        const emailInput = document.querySelector("#email");
-        const usernameInput = document.querySelector("#username");
-        const passwordInput = document.querySelector("#password");
-        const confirmPasswordInput = document.querySelector("#confirmPassword");
-        const form = document.querySelector("form");
+            // =========================================
+    // ELEMENTS
+    // =========================================
 
-        form.addEventListener("submit", async function (dets) {
-            dets.preventDefault();
+    const form = document.querySelector("#signupForm");
 
-            document.querySelector("#usernameError").textContent = "";
-            document.querySelector("#passwordError").textContent = "";
+    const nameInput = document.querySelector("#name");
+    const emailInput = document.querySelector("#email");
+    const usernameInput = document.querySelector("#username");
+    const passwordInput = document.querySelector("#password");
+    const confirmPasswordInput =
+        document.querySelector("#confirmPassword");
 
-            const usernameRegex = /^[a-zA-Z0-9_]{5,15}$/;
+    const nameError = document.querySelector("#nameError");
+    const emailError = document.querySelector("#emailError");
+    const usernameError =
+        document.querySelector("#usernameError");
+    const passwordError =
+        document.querySelector("#passwordError");
+    const confirmPasswordError =
+        document.querySelector("#confirmPasswordError");
 
-            const passwordRegex =
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const formMessage =
+        document.querySelector("#formMessage");
 
-            const name = nameInput.value;
-            const email = emailInput.value;
-            const username = usernameInput.value;
-            const password = passwordInput.value;
-            const confirmPassword = confirmPasswordInput.value;
+    const submitButton =
+        document.querySelector("#submitButton");
 
-            const usernameValid = usernameRegex.test(username);
-            const passwordValid = passwordRegex.test(password);
+    const buttonText =
+        document.querySelector("#buttonText");
 
-            if (!usernameValid) {
-                document.querySelector("#usernameError").textContent =
-                    "Username is wrong";
-                return;
-            }
+    const buttonLoader =
+        document.querySelector("#buttonLoader");
 
-            if (!passwordValid) {
-                document.querySelector("#passwordError").textContent =
-                    "Password is wrong";
-                return;
-            }
 
-            if (password !== confirmPassword) {
-                document.querySelector("#passwordError").textContent =
-                    "Passwords do not match";
-                return;
-            }
+    // =========================================
+    // API
+    // =========================================
 
-            const userData = {
-                name,
-                email,
-                username,
-                password,
-                confirmPassword
-            };
-            try {
-                const response = await axios.post(
-                    "https://placement-preparation-tracker-ltlg.onrender.com/api/user/users",
+    const API_URL =
+        "https://placement-preparation-tracker-ltlg.onrender.com/api/user/users";
+
+
+    // =========================================
+    // REGEX
+    // =========================================
+
+    const usernameRegex =
+        /^[a-zA-Z0-9_]{5,15}$/;
+
+    const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    const emailRegex =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+    // =========================================
+    // CLEAR ERRORS
+    // =========================================
+
+    function clearErrors() {
+
+        nameError.textContent = "";
+        emailError.textContent = "";
+        usernameError.textContent = "";
+        passwordError.textContent = "";
+        confirmPasswordError.textContent = "";
+
+        formMessage.className = "form-message";
+        formMessage.textContent = "";
+
+    }
+
+
+    // =========================================
+    // SHOW MESSAGE
+    // =========================================
+
+    function showMessage(message, type) {
+
+        formMessage.textContent = message;
+
+        formMessage.className =
+            `form-message ${type}`;
+
+    }
+
+
+    // =========================================
+    // BUTTON LOADING
+    // =========================================
+
+    function setLoading(isLoading) {
+
+        submitButton.disabled = isLoading;
+
+        if (isLoading) {
+
+            buttonText.textContent =
+                "Creating Account...";
+
+            buttonLoader.classList.remove("hidden");
+
+        } else {
+
+            buttonText.textContent =
+                "Create Account";
+
+            buttonLoader.classList.add("hidden");
+
+        }
+
+    }
+
+
+    // =========================================
+    // VALIDATION
+    // =========================================
+
+    function validateForm() {
+
+        clearErrors();
+
+        let isValid = true;
+
+
+        const name =
+            nameInput.value.trim();
+
+        const email =
+            emailInput.value.trim();
+
+        const username =
+            usernameInput.value.trim();
+
+        const password =
+            passwordInput.value;
+
+        const confirmPassword =
+            confirmPasswordInput.value;
+
+
+        // -------------------------------
+        // NAME
+        // -------------------------------
+
+        if (!name) {
+
+            nameError.textContent =
+                "Please enter your full name.";
+
+            isValid = false;
+
+        } else if (name.length < 2) {
+
+            nameError.textContent =
+                "Name must contain at least 2 characters.";
+
+            isValid = false;
+
+        }
+
+
+        // -------------------------------
+        // EMAIL
+        // -------------------------------
+
+        if (!email) {
+
+            emailError.textContent =
+                "Please enter your email.";
+
+            isValid = false;
+
+        } else if (!emailRegex.test(email)) {
+
+            emailError.textContent =
+                "Please enter a valid email address.";
+
+            isValid = false;
+
+        }
+
+
+        // -------------------------------
+        // USERNAME
+        // -------------------------------
+
+        if (!username) {
+
+            usernameError.textContent =
+                "Please create a username.";
+
+            isValid = false;
+
+        } else if (!usernameRegex.test(username)) {
+
+            usernameError.textContent =
+                "Username must be 5–15 characters and contain only letters, numbers or underscore.";
+
+            isValid = false;
+
+        }
+
+
+        // -------------------------------
+        // PASSWORD
+        // -------------------------------
+
+        if (!password) {
+
+            passwordError.textContent =
+                "Please create a password.";
+
+            isValid = false;
+
+        } else if (!passwordRegex.test(password)) {
+
+            passwordError.textContent =
+                "Password must contain uppercase, lowercase, number and special character.";
+
+            isValid = false;
+
+        }
+
+
+        // -------------------------------
+        // CONFIRM PASSWORD
+        // -------------------------------
+
+        if (!confirmPassword) {
+
+            confirmPasswordError.textContent =
+                "Please confirm your password.";
+
+            isValid = false;
+
+        } else if (password !== confirmPassword) {
+
+            confirmPasswordError.textContent =
+                "Passwords do not match.";
+
+            isValid = false;
+
+        }
+
+
+        return isValid;
+
+    }
+
+
+    // =========================================
+    // FORM SUBMIT
+    // =========================================
+
+    form.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+
+        // Validate
+        const isValid =
+            validateForm();
+
+        if (!isValid) {
+            return;
+        }
+
+
+        // Get values
+        const name =
+            nameInput.value.trim();
+
+        const email =
+            emailInput.value.trim();
+
+        const username =
+            usernameInput.value.trim();
+
+        const password =
+            passwordInput.value;
+
+        const confirmPassword =
+            confirmPasswordInput.value;
+
+
+        // Data
+        const userData = {
+
+            name,
+            email,
+            username,
+            password,
+            confirmPassword
+
+        };
+
+
+        try {
+
+            setLoading(true);
+
+
+            const response =
+                await axios.post(
+                    API_URL,
                     userData
                 );
 
-                console.log("Data sent to backend");
-                alert("Account Created Successfully")
-                console.log(response.data);
-                console.log(response.data.message);
-            } catch (error) {
-                console.log("Error while post:", error);
 
-                console.log(
-                    error.response?.data?.message || error.message
+            console.log(
+                "Registration successful:",
+                response.data
+            );
+
+
+            showMessage(
+                response.data?.message ||
+                "Account created successfully!",
+                "success"
+            );
+
+
+            // Clear form
+            form.reset();
+
+
+            /*
+            * Redirect after successful registration
+            *
+            * Change this path if your login
+            * page is somewhere else.
+            */
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "../index.html";
+
+            }, 1500);
+
+
+        } catch (error) {
+
+            console.error(
+                "Registration error:",
+                error
+            );
+
+
+            const backendMessage =
+                error.response?.data?.message;
+
+
+            if (backendMessage) {
+
+                showMessage(
+                    backendMessage,
+                    "error-message"
                 );
+
+            } else {
+
+                showMessage(
+                    "Something went wrong. Please try again.",
+                    "error-message"
+                );
+
             }
+
+        } finally {
+
+            setLoading(false);
+
+        }
+
+    });
+
+
+    // =========================================
+    // PASSWORD SHOW / HIDE
+    // =========================================
+
+    document
+        .querySelectorAll(".toggle-password")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const targetId =
+                        button.dataset.target;
+
+                    const input =
+                        document.querySelector(
+                            `#${targetId}`
+                        );
+
+
+                    if (input.type === "password") {
+
+                        input.type = "text";
+
+                        button.textContent = "🙈";
+
+                        button.setAttribute(
+                            "aria-label",
+                            "Hide password"
+                        );
+
+                    } else {
+
+                        input.type = "password";
+
+                        button.textContent = "👁";
+
+                        button.setAttribute(
+                            "aria-label",
+                            "Show password"
+                        );
+
+                    }
+
+                }
+            );
+
         });
     </script>
+    
+
 </body>
+
 </html>
