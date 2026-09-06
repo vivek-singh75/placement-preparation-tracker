@@ -54,6 +54,7 @@ body {
 
 .container {
     width: 100%;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,7 +80,7 @@ body {
     box-shadow:
         0 20px 50px rgba(0, 0, 0, 0.35);
 
-    backDrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 
@@ -89,6 +90,7 @@ body {
 
 .signup-header {
     text-align: center;
+
     margin-bottom: 22px;
 }
 
@@ -115,13 +117,16 @@ body {
 
 .logo span {
     color: white;
+
     font-size: 18px;
+
     font-weight: 700;
 }
 
 
 .signup-header h1 {
     font-size: 24px;
+
     line-height: 1.2;
 
     font-weight: 700;
@@ -134,6 +139,7 @@ body {
 
 .signup-header p {
     font-size: 12px;
+
     color: #94a3b8;
 }
 
@@ -149,12 +155,15 @@ body {
 
 .input-box label {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
     margin-bottom: 5px;
 
     font-size: 13px;
+
     font-weight: 600;
 
     color: #e2e8f0;
@@ -163,7 +172,9 @@ body {
 
 .hint {
     font-size: 10px;
+
     font-weight: 400;
+
     color: #64748b;
 }
 
@@ -174,6 +185,7 @@ body {
 
 .input-wrapper {
     position: relative;
+
     width: 100%;
 }
 
@@ -182,6 +194,7 @@ body {
     position: absolute;
 
     left: 12px;
+
     top: 50%;
 
     transform: translateY(-50%);
@@ -191,11 +204,14 @@ body {
     font-size: 13px;
 
     pointer-events: none;
+
+    z-index: 2;
 }
 
 
 .input-wrapper input {
     width: 100%;
+
     height: 40px;
 
     padding: 0 40px 0 36px;
@@ -233,39 +249,56 @@ body {
 
 /* =========================================
    PASSWORD TOGGLE
+   IMPORTANT FIX
 ========================================= */
 
 .toggle-password {
-    position: absolute;
+    position: absolute !important;
 
-    right: 5px;
-    top: 50%;
+    right: 5px !important;
 
-    transform: translateY(-50%);
+    top: 50% !important;
 
-    width: 30px;
-    height: 30px;
+    transform: translateY(-50%) !important;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 30px !important;
 
-    border: none;
-    border-radius: 6px;
+    min-width: 30px !important;
 
-    background: transparent;
+    max-width: 30px !important;
 
-    color: #64748b;
+    height: 30px !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    display: flex !important;
+
+    justify-content: center !important;
+
+    align-items: center !important;
+
+    border: none !important;
+
+    border-radius: 6px !important;
+
+    background: transparent !important;
+
+    color: #64748b !important;
 
     cursor: pointer;
 
-    font-size: 13px;
+    font-size: 13px !important;
+
+    box-shadow: none !important;
 }
 
 
 .toggle-password:hover {
-    background: #1e293b;
-    color: #cbd5e1;
+    background: #1e293b !important;
+
+    color: #cbd5e1 !important;
 }
 
 
@@ -352,11 +385,13 @@ body {
 
 .create-btn {
     width: 100%;
+
     height: 40px;
 
     margin-top: 2px;
 
     border: none;
+
     border-radius: 8px;
 
     background:
@@ -369,12 +404,15 @@ body {
     color: white;
 
     font-size: 13px;
+
     font-weight: 600;
 
     cursor: pointer;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     transition: 0.2s ease;
@@ -396,7 +434,9 @@ body {
 
 .create-btn:disabled {
     opacity: 0.7;
+
     cursor: not-allowed;
+
     transform: none;
 }
 
@@ -407,6 +447,7 @@ body {
 
 .loader {
     width: 16px;
+
     height: 16px;
 
     border: 2px solid rgba(255, 255, 255, 0.35);
@@ -425,16 +466,15 @@ body {
 
 
 @keyframes spin {
-
     to {
         transform: rotate(360deg);
     }
-
 }
 
 
 /* =========================================
    LOGIN TEXT
+   YOUR SIZE PRESERVED
 ========================================= */
 
 .login-text {
@@ -464,15 +504,16 @@ body {
 }
 
 
-/* =========================================
-   MOBILE
-========================================= */
+/* =================================================
+   MOBILE / TABLET
+   CHANGED FROM 480px → 768px
+================================================= */
 
-
-@media (max-width: 480px) {
+@media (max-width: 768px) {
 
     body {
         min-height: 100dvh;
+
         height: 100dvh;
 
         padding: 6px;
@@ -482,17 +523,24 @@ body {
         align-items: center;
     }
 
+
     .container {
         width: 100%;
+
         height: 100dvh;
 
         display: flex;
+
         align-items: center;
+
         justify-content: center;
     }
 
+
     .signup-box {
         width: 100%;
+
+        /* YOUR SIZE PRESERVED */
         max-width: 330px;
 
         padding: 14px 16px;
@@ -509,8 +557,10 @@ body {
         margin-bottom: 11px;
     }
 
+
     .logo {
         width: 34px;
+
         height: 34px;
 
         margin-bottom: 5px;
@@ -518,15 +568,18 @@ body {
         border-radius: 9px;
     }
 
+
     .logo span {
         font-size: 13px;
     }
+
 
     .signup-header h1 {
         font-size: 19px;
 
         margin-bottom: 2px;
     }
+
 
     .signup-header p {
         font-size: 10px;
@@ -541,19 +594,23 @@ body {
         margin-bottom: 6px;
     }
 
+
     .input-box label {
         font-size: 11px;
 
         margin-bottom: 2px;
     }
 
+
     .hint {
         font-size: 8px;
     }
 
+
     .input-wrapper {
         height: 34px;
     }
+
 
     .input-wrapper input {
         height: 34px;
@@ -564,6 +621,7 @@ body {
 
         font-size: 11px;
     }
+
 
     .input-icon {
         left: 9px;
@@ -577,12 +635,17 @@ body {
     ========================= */
 
     .toggle-password {
-        right: 3px;
+        right: 3px !important;
 
-        width: 27px;
-        height: 27px;
+        width: 27px !important;
 
-        font-size: 11px;
+        min-width: 27px !important;
+
+        max-width: 27px !important;
+
+        height: 27px !important;
+
+        font-size: 11px !important;
     }
 
 
@@ -597,10 +660,6 @@ body {
 
         line-height: 1.15;
 
-        /*
-         * Don't allow help text to
-         * increase form height too much.
-         */
         white-space: nowrap;
     }
 
@@ -636,7 +695,7 @@ body {
 
 
     /* =========================
-       BUTTON
+       CREATE BUTTON
     ========================= */
 
     .create-btn {
@@ -652,6 +711,7 @@ body {
 
     /* =========================
        LOGIN
+       YOUR 15px SIZE PRESERVED
     ========================= */
 
     .login-text {
@@ -665,6 +725,7 @@ body {
 
 /* =========================================
    EXTRA SMALL - 360px
+   YOUR VALUES PRESERVED
 ========================================= */
 
 @media (max-width: 360px) {
@@ -675,51 +736,77 @@ body {
         padding: 12px 13px;
     }
 
+
     .signup-header {
         margin-bottom: 9px;
     }
 
+
     .logo {
         width: 30px;
+
         height: 30px;
     }
+
 
     .signup-header h1 {
         font-size: 17px;
     }
 
+
     .signup-header p {
         font-size: 9px;
     }
 
+
     .input-box {
         margin-bottom: 5px;
     }
+
 
     .input-wrapper,
     .input-wrapper input {
         height: 32px;
     }
 
+
     .input-wrapper input {
         font-size: 10px;
     }
+
 
     .input-help {
         font-size: 7px;
     }
 
+
     .error {
         font-size: 7px;
+
         min-height: 7px;
     }
+
+
+    .toggle-password {
+        width: 26px !important;
+
+        min-width: 26px !important;
+
+        max-width: 26px !important;
+
+        height: 26px !important;
+    }
+
 
     .create-btn {
         height: 32px;
     }
 
+
     .login-text {
         margin-top: 12px;
+
+        /* YOUR SIZE PRESERVED */
         font-size: 8px;
     }
 
@@ -728,6 +815,7 @@ body {
 
 /* =========================================
    VERY SMALL - 320px
+   YOUR VALUES PRESERVED
 ========================================= */
 
 @media (max-width: 330px) {
@@ -738,50 +826,74 @@ body {
         padding: 10px 11px;
     }
 
+
     .signup-header {
         margin-bottom: 7px;
     }
 
+
     .logo {
         width: 27px;
+
         height: 27px;
 
         margin-bottom: 3px;
     }
 
+
     .signup-header h1 {
         font-size: 16px;
     }
+
 
     .signup-header p {
         display: none;
     }
 
+
     .input-box {
         margin-bottom: 4px;
     }
 
+
     .input-box label {
         font-size: 10px;
     }
+
 
     .input-wrapper,
     .input-wrapper input {
         height: 30px;
     }
 
+
     .input-wrapper input {
         font-size: 10px;
     }
+
 
     .input-help {
         font-size: 6.5px;
     }
 
+
     .error {
         font-size: 6.5px;
+
         min-height: 6px;
     }
+
+
+    .toggle-password {
+        width: 25px !important;
+
+        min-width: 25px !important;
+
+        max-width: 25px !important;
+
+        height: 25px !important;
+    }
+
 
     .create-btn {
         height: 30px;
@@ -789,8 +901,11 @@ body {
         font-size: 10px;
     }
 
+
     .login-text {
+        /* YOUR SIZE PRESERVED */
         font-size: 12px;
     }
 
 }
+
