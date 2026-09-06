@@ -6,79 +6,275 @@
 <title>Login Page</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-    background-color: #fff;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background: rgb(7, 23, 32);;
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    background: rgb(7, 23, 32);
 }
 
-.login-container{
-    width:350px;
-    padding:30px;
-    background:white;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,0.2);
+
+/* =========================
+   LOGIN CONTAINER
+========================= */
+
+.login-container {
+    width: 350px;
+    max-width: 100%;
+
+    padding: 30px;
+
+    background: #fff;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.login-container h2{
-    text-align:center;
-    margin-bottom:20px;
-}
 
-.input-group{
-    margin-bottom:15px;
-}
+/* =========================
+   HEADING
+========================= */
 
-.input-group label{
-    display:block;
-    margin-bottom:5px;
-    font-weight:bold;
-}
-
-.input-group input{
-    width:100%;
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius:5px;
-}
-
-button,a{
-    width:100%;
-    padding:10px;
-    border:none;
-    background:#007bff;
-    color:white;
-    font-size:16px;
-    border-radius:5px;
-    cursor:pointer;
-    text-decoration: none;
-}
-
-button a:hover{
-    background-color:#0056b3;
-}
-
-button:hover{
-    background:#0056b3;
-}
-a :hover{
-    
-}
-.createAcc{
+.login-container h2 {
     text-align: center;
 
+    margin-bottom: 20px;
+
+    color: #222;
 }
 
+
+/* =========================
+   INPUT
+========================= */
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+
+.input-group label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-weight: bold;
+
+    color: #222;
+}
+
+
+.input-group input {
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 5px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    background: #fff;
+
+    color: #222;
+}
+
+
+.input-group input:focus {
+    border-color: #007bff;
+
+    box-shadow:
+        0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+
+/* =========================
+   LOGIN BUTTON
+========================= */
+
+.login-container button {
+    width: 100%;
+
+    padding: 10px;
+
+    border: none;
+
+    background: #007bff;
+
+    color: white;
+
+    font-size: 16px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+
+.login-container button:hover {
+    background: #0056b3;
+}
+
+
+/* =========================
+   CREATE ACCOUNT
+========================= */
+
+.createAcc {
+    text-align: center;
+
+    margin-top: 15px;
+
+    color: #555;
+}
+
+
+/* Only the link */
+
+.createAcc a {
+    color: #007bff;
+
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+
+.createAcc a:hover {
+    color: #0056b3;
+
+    text-decoration: underline;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 15px;
+    }
+
+
+    .login-container {
+        width: 100%;
+
+        max-width: 350px;
+
+        padding: 25px 20px;
+    }
+
+
+    .login-container h2 {
+        font-size: 22px;
+
+        margin-bottom: 18px;
+    }
+
+
+    .input-group {
+        margin-bottom: 13px;
+    }
+
+
+    .input-group label {
+        font-size: 14px;
+    }
+
+
+    .input-group input {
+        padding: 10px;
+
+        font-size: 14px;
+    }
+
+
+    .login-container button {
+        padding: 11px;
+
+        font-size: 15px;
+    }
+
+
+    .createAcc {
+        font-size: 14px;
+
+        margin-top: 13px;
+    }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 360px) {
+
+    body {
+        padding: 10px;
+    }
+
+
+    .login-container {
+        padding: 22px 16px;
+    }
+
+
+    .login-container h2 {
+        font-size: 20px;
+
+        margin-bottom: 16px;
+    }
+
+
+    .input-group {
+        margin-bottom: 11px;
+    }
+
+
+    .input-group input {
+        padding: 9px;
+
+        font-size: 13px;
+    }
+
+
+    .login-container button {
+        padding: 10px;
+
+        font-size: 14px;
+    }
+
+
+    .createAcc {
+        font-size: 13px;
+    }
+
+}
 </style>
 <link rel="stylesheet" href="./css/loader.css">
 </head>
