@@ -1,199 +1,556 @@
 // =====================================================
-// GET DATA FROM BACKEND
-// =====================================================
+// DEVTRACK DASHBOARD
 
-let Gdata = [];
+
+// GLOBAL DATA
+
 let userData = null;
+let dashboardData = null;
 
 
-// =====================================================
-// FETCH USER + QUESTION DATA
-// =====================================================
+
+// IMPORTANT:
+// Change this only if your backend uses another port
+// or route.
+
+// API
+
+const DASHBOARD_API =
+    "https://placement-preparation-tracker-ltlg.onrender.com/api/dashboard/";
+
+const USER_API =
+    "https://placement-preparation-tracker-ltlg.onrender.com/api/question/getQuestion";
+
+
+// FETCH DASHBOARD + USER DATA
+
 
 async function getData() {
 
     try {
 
-        const response = await axios.get(
-            "https://placement-preparation-tracker-ltlg.onrender.com/api/question/getQuestion",
+        console.log("Fetching dashboard data...");
+        console.log("Fetching user data...");
+
+
+        // DASHBOARD API
+       
+
+        const dashboardResponse = await axios.get(
+            DASHBOARD_API,
             {
                 withCredentials: true
             }
         );
 
-        const { user, userQuestionData } =
-            response.data.allData;
 
-        console.log("User:", user);
-        console.log("Questions:", userQuestionData);
+   
+        // USER API
+  
 
-        userData = user;
+        const userResponse = await axios.get(
+            USER_API,
+            {
+                withCredentials: true
+            }
+        );
 
-        if (Array.isArray(userQuestionData)) {
-            Gdata = userQuestionData;
-        } else {
-            Gdata = [];
+
+        // DEBUG
+
+
+        console.log(
+            "Dashboard API response:",
+            dashboardResponse.data
+        );
+
+        console.log(
+            "User API response:",
+            userResponse.data
+        );
+
+
+        // STORE DASHBOARD DATA
+
+        dashboardData =
+            dashboardResponse.data.data;
+
+
+  
+        // STORE USER DATA
+
+        
+
+        userData =
+            userResponse.data.allData.user || null;
+
+
+       
+        // VALIDATION
+     
+
+        if (!dashboardData) {
+
+            throw new Error(
+                "Dashboard data not found in API response"
+            );
+
         }
+
+
+
+        // DEBUG
+
+
+        console.log(
+            "User:",
+            userData
+        );
+
+        console.log(
+            "Dashboard:",
+            dashboardData
+        );
+        console.log(
+            "Dashboard:",
+            dashboardData.streak
+        );
+
+
+  
+        // START DASHBOARD
+
 
         startDashboard();
 
+
     } catch (error) {
 
-        console.log(
-            "Error in frontend:",
-            error
+        console.error(
+            "Message:",
+            error.message
         );
 
+
+        console.error(
+            "Status:",
+            error.response?.status
+        );
+
+
+        console.error(
+            "Response:",
+            error.response?.data
+        );
+
+
+        console.error(
+            "URL:",
+            error.config?.url
+        );
+
+        showDashboardError();
+
     }
+
 }
 
 
-// =====================================================
 // START DASHBOARD
-// =====================================================
+
 
 function startDashboard() {
 
-    // =================================================
-    // PROFILE DATA
-    // =================================================
+    if (!dashboardData) {
+        return;
+    }
 
-    if (userData) {
 
-        document.getElementById("profileName").textContent =
-            userData.name;
+    renderProfile();
 
-        document.getElementById("profileAvatar").textContent =
-            userData.name.charAt(0).toUpperCase();
+    renderStats();
 
-        document.getElementById("welcomeName").textContent =
-            `${userData.name} 👋`;
+    renderSkills();
+
+    renderOverallProgress();
+
+    renderRecentActivity();
+
+    renderWeakTopics();
+
+}
+
+
+// PROFILE
+
+function renderProfile() {
+
+    if (!userData) {
+        return;
+    }
+
+    const profileName =
+        document.getElementById(
+            "profileName"
+        );
+
+    const profileAvatar =
+        document.getElementById(
+            "profileAvatar"
+        );
+
+    const welcomeName =
+        document.getElementById(
+            "welcomeName"
+        );
+        
+
+    
+    // PROFILE NAME
+    
+
+    const name = userData.name || "User";
+
+
+    if (profileName) {
+        profileName.textContent = name; 
     }
 
 
     // =================================================
-    // DSA DATA
+    // PROFILE AVATAR
     // =================================================
 
-    const totalDsaQuestion = Gdata.length;
+    if (profileAvatar) {
+        profileAvatar.textContent = name
+                .charAt(0)
+                .toUpperCase();
+
+    }
 
 
-    // =================================================
-    // SKILLS DATA
-    // =================================================
+    
+    // WELCOME MESSAGE
+    
+    if (welcomeName) {
+        welcomeName.textContent =`${name} 👋`;
+    }
 
-    const skills = [
-
-        {
-            name: "DSA",
-            progress: (totalDsaQuestion / 4000) * 100,
-            completed: `${totalDsaQuestion} / 4000`,
-            icon: "</>",
-            color: "#7c3aed",
-            bg: "#f3e8ff",
-            button: "Go to DSA",
-            link: "../html/dashboardOfDsa.html"
-        },
-
-        {
-            name: "MERN Stack",
-            progress: 20,
-            completed: "18 / 90",
-            icon: "M",
-            color: "#10b981",
-            bg: "#ecfdf5",
-            button: "Explore",
-            link: "../html/mern.html"
-        },
-
-        {
-            name: "Data Science",
-            progress: 10,
-            completed: "6 / 60",
-            icon: "DS",
-            color: "#2563eb",
-            bg: "#eff6ff",
-            button: "Explore",
-            link: "#"
-        },
-
-        {
-            name: "Java / Spring Boot",
-            progress: 0,
-            completed: "0 / 80",
-            icon: "☕",
-            color: "#f59e0b",
-            bg: "#fffbeb",
-            button: "Coming Soon",
-            link: "#"
-        },
-
-        {
-            name: "Cyber Security",
-            progress: 0,
-            completed: "0 / 70",
-            icon: "◈",
-            color: "#ec4899",
-            bg: "#fdf2f8",
-            button: "Coming Soon",
-            link: "#"
-        },
-
-        {
-            name: "App Development",
-            progress: 0,
-            completed: "0 / 60",
-            icon: "▣",
-            color: "#06b6d4",
-            bg: "#ecfeff",
-            button: "Coming Soon",
-            link: "#"
-        }
-
-    ];
+}
 
 
-    // =================================================
-    // SKILL CARDS
-    // =================================================
+
+// DASHBOARD STATS
+
+
+function renderStats() {
+
+    const solvedQuestions =
+        document.getElementById(
+            "solvedQuestions"
+        );
+
+
+    const streak =
+        document.getElementById(
+            "streak"
+        );
+
+
+    const solvedPercentage =
+        document.getElementById(
+            "solvedPercentage"
+        );
+
+
+    
+    // TOTAL SOLVED
+   
+    const totalSolved =
+        Number(
+            dashboardData.totalSolved
+        ) || 0;
+
+
+    
+    // CURRENT STREAK
+   
+    const currentStreak = document.querySelector(".currntStreak")
+
+    currentStreak.textContent =
+        (
+            dashboardData.streak
+        ) || 0 ;
+
+
+    
+    // FIND DSA
+
+
+    const dsaSkill =
+        dashboardData.skills?.find(
+            skill =>
+                skill.name === "DSA"
+        );
+
+
+    const dsaTotal =
+        Number(
+            dsaSkill?.total
+        ) || 0;
+
+
+    
+    // CALCULATE DSA %
+
+    const dsaProgress =
+        dsaTotal === 0
+            ? 0
+            : Math.min(
+                100,
+                (
+                    totalSolved /
+                    dsaTotal
+                ) * 100
+            );
+
+    // UPDATE QUESTIONS
+
+    if (solvedQuestions) {
+
+        solvedQuestions.textContent =
+            totalSolved;
+
+    }
+
+
+    // UPDATE PERCENTAGE
+
+    if (solvedPercentage) {
+
+        solvedPercentage.textContent =
+            `${dsaProgress.toFixed(2)}% of total`;
+
+    }
+
+
+    // UPDATE STREAK
+
+    if (streak) {
+
+        streak.textContent =
+            `${currentStreak} Day${
+                currentStreak !== 1
+                    ? "s"
+                    : ""
+            }`;
+
+    }
+
+}
+
+
+// SKILL CONFIGURATION
+
+const skillConfig = {
+
+    "DSA": {
+
+        icon: "</>",
+
+        color: "#7c3aed",
+
+        bg: "#f3e8ff",
+
+        button: "Go to DSA",
+
+        link: "../html/dashboardOfDsa.html"
+
+    },
+
+
+    "MERN Stack": {
+
+        icon: "M",
+
+        color: "#10b981",
+
+        bg: "#ecfdf5",
+
+        button: "Coming Soon",
+
+        link: "../html/mern.html"
+
+    },
+
+
+    "Data Science": {
+
+        icon: "DS",
+
+        color: "#2563eb",
+
+        bg: "#eff6ff",
+
+        button: "Explore",
+
+        link: "#"
+
+    },
+
+
+    "Java / Spring Boot": {
+
+        icon: "☕",
+
+        color: "#f59e0b",
+
+        bg: "#fffbeb",
+
+        button: "Coming Soon",
+
+        link: "#"
+
+    },
+
+
+    "Cyber Security": {
+
+        icon: "◈",
+
+        color: "#ec4899",
+
+        bg: "#fdf2f8",
+
+        button: "Coming Soon",
+
+        link: "#"
+
+    },
+
+
+    "App Development": {
+
+        icon: "▣",
+
+        color: "#06b6d4",
+
+        bg: "#ecfeff",
+
+        button: "Coming Soon",
+
+        link: "#"
+
+    }
+
+};
+
+
+// SKILL CARDS
+
+function renderSkills() {
 
     const skillsContainer =
-        document.querySelector("#skillsContainer");
+        document.querySelector(
+            "#skillsContainer"
+        );
+
+
+    if (!skillsContainer) {
+        return;
+    }
+
 
     skillsContainer.innerHTML = "";
 
 
+    const skills =
+        Array.isArray(
+            dashboardData.skills
+        )
+            ? dashboardData.skills
+            : [];
+
+
+    // CREATE SKILL CARD
+
     skills.forEach(skill => {
+
+
+        const settings =
+            skillConfig[
+                skill.name
+            ] || {
+
+                icon: "•",
+
+                color: "#64748b",
+
+                bg: "#f1f5f9",
+
+                button: "Explore",
+
+                link: "#"
+
+            };
+
+
+        // VALUES
+
+        const total =
+            Number(
+                skill.total
+            ) || 0;
+
+
+        const completed =
+            Number(
+                skill.completed
+            ) || 0;
+
+
+        // CALCULATE %
+
+        const progress =
+            total === 0
+                ? 0
+                : Math.min(
+                    100,
+                    (
+                        completed /
+                        total
+                    ) * 100
+                );
+
+
+        // CARD
 
         const card =
             document.createElement("div");
 
-        card.className = "skill-card";
 
+        card.className =
+            "skill-card";
 
         card.innerHTML = `
-
             <div class="skill-top">
-
                 <div
                     class="skill-icon"
                     style="
-                        color:${skill.color};
-                        background:${skill.bg};
-                    "
-                >
-                    ${skill.icon}
+                        color:${settings.color};
+                        background:${settings.bg};">
+                    ${settings.icon}
                 </div>
 
 
                 <div
                     class="skill-percent"
                     style="
-                        color:${skill.color};
-                        border-color:${skill.color}55;
+                        color:${settings.color};
+                        border-color:${settings.color}55;
                     "
                 >
-                    ${skill.progress.toFixed(2)}%
+                    ${progress.toFixed(2)}%
                 </div>
 
             </div>
@@ -208,8 +565,8 @@ function startDashboard() {
 
                 <div
                     style="
-                        width:${skill.progress}%;
-                        background:${skill.color};
+                        width:${progress}%;
+                        background:${settings.color};
                     "
                 ></div>
 
@@ -217,141 +574,251 @@ function startDashboard() {
 
 
             <p class="skill-info">
-                Completed: ${skill.completed}
+
+                Completed:
+                ${completed} / ${total}
+
             </p>
 
 
             <a
-                href="${skill.link}"
+                href="${settings.link}"
                 class="skill-btn"
                 style="
-                    color:${skill.color};
-                    border-color:${skill.color};
+                    color:${settings.color};
+                    border-color:${settings.color};
                 "
             >
-                ${skill.button}
+
+                ${settings.button}
+
             </a>
 
         `;
 
 
-        skillsContainer.appendChild(card);
+        skillsContainer.appendChild(
+            card
+        );
 
     });
-
-
-    // =================================================
-    // OVERALL PROGRESS
-    // =================================================
-
-    const dsaProgress =
-        (totalDsaQuestion / 4000) * 100;
-
-
-    const progressData = [
-
-        {
-            name: "DSA",
-            progress: dsaProgress.toFixed(2),
-            color: "#7c3aed"
-        },
-
-        {
-            name: "MERN Stack",
-            progress: 20,
-            color: "#10b981"
-        },
-
-        {
-            name: "Data Science",
-            progress: 10,
-            color: "#2563eb"
-        },
-
-        {
-            name: "Others",
-            progress: 5,
-            color: "#94a3b8"
-        }
-
-    ];
-
-
-    const progressLegend =
-        document.querySelector("#progressLegend");
-
-    progressLegend.innerHTML = "";
-
-
-    progressData.forEach(item => {
-
-        const div =
-            document.createElement("div");
-
-        div.className = "legend-item";
-
-
-        div.innerHTML = `
-
-            <div class="legend-left">
-
-                <span
-                    class="legend-dot"
-                    style="
-                        background:${item.color}
-                    "
-                ></span>
-
-                <span>
-                    ${item.name}
-                </span>
-
-            </div>
-
-
-            <strong>
-                ${item.progress}%
-            </strong>
-
-        `;
-
-
-        progressLegend.appendChild(div);
-
-    });
-
-
-    // =================================================
-    // RECENT ACTIVITY
-    // =================================================
-
-    renderRecentActivity();
-
-
-    // =================================================
-    // WEAK TOPICS
-    // =================================================
-
-    renderWeakTopics();
 
 }
 
 
-// =====================================================
+// OVERALL PROGRESS
+
+function renderOverallProgress() {
+
+    const progressLegend =
+        document.querySelector(
+            "#progressLegend"
+        );
+
+
+    const overallPercentage =
+        document.querySelector(
+            "#overallPercentage"
+        );
+
+
+    if (
+        !progressLegend ||
+        !dashboardData
+    ) {
+
+        return;
+
+    }
+
+
+    progressLegend.innerHTML = "";
+
+
+    const skills =
+        Array.isArray(
+            dashboardData.skills
+        )
+            ? dashboardData.skills
+            : [];
+
+
+    // OVERALL CALCULATION
+
+    let totalCompleted = 0;
+
+    let totalQuestions = 0;
+
+
+    skills.forEach(skill => {
+
+        const completed =
+           (
+                skill.completed
+            ) || 0;
+
+
+        const total =
+           (
+                skill.total
+            ) || 0;
+
+
+        totalCompleted +=
+            completed;
+
+
+        totalQuestions +=
+            total;
+
+    });
+
+const circle_innerMain = document.querySelector(".circle-innerMain")
+
+
+    const overallProgress = totalQuestions === 0
+            ? 0
+            : Math.min(
+                100,
+                Number(
+                    totalCompleted /
+                    totalQuestions
+                ) * 100
+            );
+
+
+    // UPDATE OVERALL %
+
+    if (overallPercentage) {    overallPercentage.textContent = `${overallProgress.toFixed(2)}%`; }
+
+console.log(overallPercentage)
+console.log(totalCompleted )
+console.log(totalQuestions)
+console.log(overallProgress)
+
+    // LEGEND COLORS
+
+    const colors = {
+
+        "DSA":"#7c3aed",
+
+        "MERN Stack": "#10b981",
+
+        "Data Science":  "#2563eb"
+
+    };
+
+
+    // LEGEND SKILLS
+
+    skills
+        .filter(skill =>
+            [
+                "DSA",
+                "MERN Stack",
+                "Data Science"
+            ].includes(
+                skill.name
+            )
+        )
+        .forEach(skill => {
+
+            const total =
+                Number(
+                    skill.total
+                ) || 0;
+
+
+            const completed =
+                Number(
+                    skill.completed
+                ) || 0;
+
+
+            const progress =
+                total === 0
+                    ? 0
+                    : Math.min(
+                        100,
+                        (
+                            completed /
+                            total
+                        ) * 100
+                    );
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "legend-item";
+
+
+            div.innerHTML = `
+
+                <div class="legend-left">
+
+                    <span
+                        class="legend-dot"
+                        style="
+                            background:${colors[skill.name]};
+                        "
+                    ></span>
+
+                    <span>
+                        ${skill.name}
+                    </span>
+
+                </div>
+
+
+                <strong>
+                    ${progress.toFixed(2)}%
+                </strong>
+
+            `;
+
+
+            progressLegend.appendChild(
+                div
+            );
+
+        });
+
+}
+
+
 // RECENT ACTIVITY
-// =====================================================
-
-const recentActivity =
-    document.querySelector("#recentActivity");
-
 
 function renderRecentActivity() {
 
+    const recentActivity =
+        document.querySelector(
+            "#recentActivity"
+        );
+
+    if (!recentActivity) {
+        return;
+    }
+
     recentActivity.innerHTML = "";
 
+    const activities =
+        Array.isArray(
+            dashboardData.recentActivity
+        )
+            ? dashboardData.recentActivity
+            : [];
 
-    // No questions
-    if (Gdata.length === 0) {
+
+    // NO ACTIVITY
+
+    if (
+        activities.length === 0
+    ) {
 
         recentActivity.innerHTML = `
 
@@ -362,7 +829,7 @@ function renderRecentActivity() {
                 </div>
 
                 <p>
-                    No questions added yet.
+                    No activity yet.
                 </p>
 
             </div>
@@ -370,105 +837,166 @@ function renderRecentActivity() {
         `;
 
         return;
+
     }
 
 
-    // Get latest 5 questions
-    const recentQuestions =
-        Gdata
-            .slice(-5)
-            .reverse();
+    // LATEST 5
+
+    activities
+        .slice(0, 5)
+        .forEach(activity => {
 
 
-    recentQuestions.forEach(question => {
-
-        const item =
-            document.createElement("div");
-
-
-        item.className =
-            "activity-item";
+            const item =
+                document.createElement(
+                    "div"
+                );
 
 
-        item.innerHTML = `
-
-            <div class="activity-icon">
-                ✓
-            </div>
+            item.className =
+                "activity-item";
 
 
-            <div>
-
-                <p class="activity-title">
-                    ${question.questionName || "Unnamed Question"}
-                </p>
+            const type =
+                activity.type ||
+                "DSA";
 
 
-                <p class="activity-meta">
-                    DSA • ${question.topic || "Unknown"}
-                </p>
-
-            </div>
+            const action =
+                activity.action ||
+                "Completed";
 
 
-            <span class="activity-time">
-                ${question.Solved_Status || "Solved"}
-            </span>
-
-        `;
+            const title =
+                activity.title ||
+                "Unnamed Activity";
 
 
-        recentActivity.appendChild(item);
+            const topic =
+                activity.topic ||
+                "Unknown";
 
-    });
+
+            item.innerHTML = `
+
+                <div class="activity-icon">
+                    ✓
+                </div>
+
+
+                <div>
+
+                    <p class="activity-title">
+
+                        ${title}
+
+                    </p>
+
+
+                    <p class="activity-meta">
+
+                        ${type}
+                        •
+                        ${topic}
+
+                    </p>
+
+                </div>
+
+
+                <span class="activity-time">
+
+                    ${action}
+
+                </span>
+
+            `;
+
+
+            recentActivity.appendChild(
+                item
+            );
+
+        });
 
 }
 
 
-// =====================================================
 // WEAK TOPICS
-// =====================================================
+
 
 function renderWeakTopics() {
 
     const weakContainer =
-        document.querySelector("#weakTopics");
+        document.querySelector(
+            "#weakTopics"
+        );
+
+
+    if (!weakContainer) {
+        return;
+    }
+
 
     weakContainer.innerHTML = "";
 
 
+    // TEMPORARY STATIC DATA
+
     const weakTopics = [
 
         {
-            name: "Dynamic Programming",
-            progress: 12
+            name:
+                "Dynamic Programming",
+
+            progress:
+                12
         },
 
-        {
-            name: "Graph",
-            progress: 18
-        },
 
         {
-            name: "Tree",
-            progress: 20
+            name:
+                "Graph",
+
+            progress:
+                18
         },
 
+
         {
-            name: "Backtracking",
-            progress: 25
+            name:
+                "Tree",
+
+            progress:
+                20
+        },
+
+
+        {
+            name:
+                "Backtracking",
+
+            progress:
+                25
         }
 
     ];
 
 
+    // RENDER
+
     weakTopics.forEach(topic => {
 
+
         const item =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
 
-        item.className = "weak-item";
+        item.className =
+            "weak-item";
 
 
         item.innerHTML = `
@@ -481,7 +1009,9 @@ function renderWeakTopics() {
             <div class="weak-content">
 
                 <p class="weak-name">
+
                     ${topic.name}
+
                 </p>
 
 
@@ -499,138 +1029,290 @@ function renderWeakTopics() {
 
 
             <span class="weak-percent">
+
                 ${topic.progress}%
+
             </span>
 
 
-            <button class="practice-btn">
+            <button
+                class="practice-btn"
+            >
                 Practice
             </button>
 
         `;
 
 
-        weakContainer.appendChild(item);
+        weakContainer.appendChild(
+            item
+        );
 
     });
 
 }
 
 
-// =====================================================
+// DASHBOARD ERROR
+
+function showDashboardError() {
+
+    const skillsContainer =
+        document.querySelector(
+            "#skillsContainer"
+        );
+
+
+    const recentActivity =
+        document.querySelector(
+            "#recentActivity"
+        );
+
+
+    // SKILLS ERROR
+
+    if (skillsContainer) {
+
+        skillsContainer.innerHTML = `
+
+            <div class="emptyState">
+
+                <div class="emptyStateIcon">
+                    ⚠️
+                </div>
+
+                <p>
+                    Unable to load dashboard data.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+
+    
+    // ACTIVITY ERROR
+
+    if (recentActivity) {
+
+        recentActivity.innerHTML = `
+
+            <div class="emptyState">
+
+                <div class="emptyStateIcon">
+                    ⚠️
+                </div>
+
+                <p>
+                    Something went wrong while
+                    loading activity.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
 // MOBILE SIDEBAR
-// =====================================================
 
 const menuBtn =
-    document.querySelector("#menuBtn");
+    document.querySelector(
+        "#menuBtn"
+    );
+
 
 const sidebar =
-    document.querySelector("#sidebar");
+    document.querySelector(
+        "#sidebar"
+    );
+
 
 const overlay =
-    document.querySelector("#overlay");
+    document.querySelector(
+        "#overlay"
+    );
 
 
-menuBtn.addEventListener("click", () => {
+if (
+    menuBtn &&
+    sidebar &&
+    overlay
+) {
 
-    sidebar.classList.add("open");
+    // OPEN SIDEBAR
 
-    overlay.style.display = "block";
+    menuBtn.addEventListener(
+        "click",
+        () => {
 
-});
+            sidebar.classList.add(
+                "open"
+            );
+
+            overlay.style.display =
+                "block";
+
+        }
+    );
 
 
-overlay.addEventListener("click", () => {
+    // CLOSE SIDEBAR
 
-    sidebar.classList.remove("open");
+    overlay.addEventListener(
+        "click",
+        () => {
 
-    overlay.style.display = "none";
+            sidebar.classList.remove(
+                "open"
+            );
 
-});
+            overlay.style.display =
+                "none";
+
+        }
+    );
+
+}
 
 
-// =====================================================
-// CLOSE SIDEBAR AFTER CLICKING LINK
-// =====================================================
+// CLOSE SIDEBAR AFTER NAVIGATION
+
 
 const navLinks =
-    document.querySelectorAll(".nav-link");
+    document.querySelectorAll(
+        ".nav-link"
+    );
 
 
 navLinks.forEach(link => {
 
-    link.addEventListener("click", () => {
+    link.addEventListener(
+        "click",
+        () => {
 
-        if (window.innerWidth <= 768) {
+            if (
+                window.innerWidth <=
+                768
+            ) {
 
-            sidebar.classList.remove("open");
+                sidebar?.classList.remove(
+                    "open"
+                );
 
-            overlay.style.display = "none";
+
+                if (overlay) {
+
+                    overlay.style.display =
+                        "none";
+
+                }
+
+            }
 
         }
-
-    });
+    );
 
 });
 
 
-// =====================================================
 // DARK MODE
-// =====================================================
 
 const themeBtn =
-    document.querySelector("#themeBtn");
+    document.querySelector(
+        "#themeBtn"
+    );
 
 
-themeBtn.addEventListener("click", () => {
+if (themeBtn) {
 
-    document.body.classList.toggle("dark");
+    themeBtn.addEventListener(
+        "click",
+        () => {
 
-
-    if (
-        document.body.classList.contains("dark")
-    ) {
-
-        themeBtn.textContent = "☀️";
-
-        localStorage.setItem(
-            "theme",
-            "dark"
-        );
-
-    } else {
-
-        themeBtn.textContent = "🌙";
-
-        localStorage.setItem(
-            "theme",
-            "light"
-        );
-
-    }
-
-});
+            document.body.classList.toggle(
+                "dark"
+            );
 
 
-// =====================================================
-// LOAD SAVED THEME
-// =====================================================
+            // ========================================
+            // DARK
+            // ========================================
 
-const savedTheme =
-    localStorage.getItem("theme");
+            if (
+                document.body.classList.contains(
+                    "dark"
+                )
+            ) {
+
+                themeBtn.textContent =
+                    "☀️";
 
 
-if (savedTheme === "dark") {
+                localStorage.setItem(
+                    "theme",
+                    "dark"
+                );
 
-    document.body.classList.add("dark");
+            }
 
-    themeBtn.textContent = "☀️";
+
+            // ========================================
+            // LIGHT
+            // ========================================
+
+            else {
+
+                themeBtn.textContent =
+                    "🌙";
+
+
+                localStorage.setItem(
+                    "theme",
+                    "light"
+                );
+
+            }
+
+        }
+    );
 
 }
 
 
-// =====================================================
-// START
-// =====================================================
+// LOAD SAVED THEME
+
+const savedTheme =
+    localStorage.getItem(
+        "theme"
+    );
+
+
+if (
+    savedTheme === "dark"
+) {
+
+    document.body.classList.add(
+        "dark"
+    );
+
+
+    if (themeBtn) {
+
+        themeBtn.textContent =
+            "☀️";
+
+    }
+
+}
+
+
+// START APPLICATION
+
 
 getData();

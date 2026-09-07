@@ -179,17 +179,12 @@ function getTopicCounts() {
                 type
             )
         ) {
-
             counts[type]++;
-
         }
-
     });
-
 
     return counts;
 }
-
 
 // =====================================================
 // DIFFICULTY COUNTS
@@ -373,11 +368,8 @@ function renderRecentActivity() {
                 <p>
                     No questions added yet.
                 </p>
-
             </div>
-
         `;
-
         return;
     }
 
@@ -425,18 +417,12 @@ function renderRecentActivity() {
 
                 <span class="activityStatus">
                     Solved
-                </span>
-
-            `;
-
-
+                </span> `;
             recentActivityContainer.appendChild(
                 item
             );
-
         }
     );
-
 }
 
 
@@ -586,9 +572,7 @@ function renderWeakTopics(topicCounts) {
             `;
             weekTopicLink()
 
-            weakTopicContainer.appendChild(
-                item
-            );
+            weakTopicContainer.appendChild( item );
 
         }
     );
@@ -596,10 +580,8 @@ function renderWeakTopics(topicCounts) {
 }
 
 
-
-// =====================================================
 // DIFFICULTY ANALYSIS
-// =====================================================
+
 
 function renderDifficulty(difficultyCounts) {
 
@@ -711,13 +693,11 @@ function renderDifficulty(difficultyCounts) {
 function getPlatformCounts() {
 
     const counts = {
-
         leetcode: 0,
         codechef: 0,
         gfg: 0,
         hackerrank: 0,
         others: 0
-
     };
 
 
@@ -734,18 +714,14 @@ function getPlatformCounts() {
         if (
             platform === "leetcode"
         ) {
-
             counts.leetcode++;
-
         }
 
 
         else if (
             platform === "codechef"
         ) {
-
             counts.codechef++;
-
         }
 
 
@@ -754,25 +730,19 @@ function getPlatformCounts() {
             platform === "geeksforgeeks" ||
             platform === "geeks for geeks"
         ) {
-
             counts.gfg++;
-
         }
 
 
         else if (
             platform === "hackerrank"
         ) {
-
             counts.hackerrank++;
-
         }
 
 
         else {
-
             counts.others++;
-
         }
 
     });
