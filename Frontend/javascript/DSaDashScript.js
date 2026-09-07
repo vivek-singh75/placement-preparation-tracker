@@ -444,6 +444,33 @@ function renderRecentActivity() {
 // WEAK TOPICS
 // =====================================================
 
+const topicWithLink =[
+    {
+        name : "Array",
+        link : "https://leetcode.com/problem-list/array/",
+    },
+    {
+        name : "String",
+        link : "https://leetcode.com/problem-list/string/",
+    },
+    {
+        name : "Recursion",
+        link : "https://leetcode.com/problem-list/recursion/",
+    },
+    {
+        name : "Tree",
+        link : "https://leetcode.com/problem-list/tree/",
+    },
+    {
+        name : "Graph",
+        link : "https://leetcode.com/problem-list/graph/",
+    },
+    {
+        name : "HashMap",
+        link : "https://leetcode.com/problem-list/hashmap/",
+    },
+]
+
 function renderWeakTopics(topicCounts) {
 
     weakTopicContainer.innerHTML =
@@ -492,6 +519,23 @@ function renderWeakTopics(topicCounts) {
                 document.createElement("div");
 
 
+            //link to go on leetcode for practice week topics
+
+                
+        function weekTopicLink() {
+            const filterTopics = topicWithLink.filter(
+                (topicType) => topicType.name === type
+            );
+
+            return filterTopics
+                .map((item) => `
+                    <a class="practiceBtn" 
+                    href="${item.link}" target="_blank">
+                        Practice
+                    </a>
+                `)
+            .join("");
+}
             item.classList.add(
                 "weakItem"
             );
@@ -536,14 +580,11 @@ function renderWeakTopics(topicCounts) {
                 </div>
 
 
-                <button
-                    class="practiceBtn"
-                >
-                    Practice
-                </button>
-
+                       
+                ${weekTopicLink()}
+                            
             `;
-
+            weekTopicLink()
 
             weakTopicContainer.appendChild(
                 item
@@ -553,6 +594,7 @@ function renderWeakTopics(topicCounts) {
     );
 
 }
+
 
 
 // =====================================================
