@@ -1,8 +1,13 @@
 const express = require("express");
-const Users = require("./routes/registerUserR");
+
 const cors = require("cors");
-const questions = require("./routes/questionsR");
 const cookieParser = require("cookie-parser");
+
+// importing api 
+
+const Users = require("./routes/registerUserR");
+const questions = require("./routes/questionsR");
+const dashboardData = require("./routes/dashboardDataRoutes");
 const mernProgress = require("./routes/mernProgressRoutes");
 
 
@@ -16,6 +21,8 @@ const allowedOrigins = [
     "http://localhost:5500",
     "https://vivek-singh75.github.io"
 ];
+ 
+// cors(cross origin resorce sharing )used backend to communicate with frontend in diffenrt origin
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -28,14 +35,17 @@ app.use(cors({
     credentials: true
 }));
 
-
-
 app.use(express.json());
+
+// Creating api
 
 app.use("/api/user", Users);
 
 app.use("/api/question", questions);
 
 app.use("/api/mern" ,  mernProgress);
+
+app.use("/api" , dashboardData)
+
 
 module.exports = app;
