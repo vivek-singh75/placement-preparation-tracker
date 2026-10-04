@@ -377,7 +377,7 @@ const skillConfig = {
 
         bg: "#ecfdf5",
 
-        button: "Coming Soon",
+        button: "Explore",
 
         link: "../html/mern.html"
 
@@ -392,7 +392,7 @@ const skillConfig = {
 
         bg: "#eff6ff",
 
-        button: "Explore",
+        button: "Coming Soon",
 
         link: "#"
 
