@@ -673,8 +673,8 @@ function renderOverallProgress() {
 
     });
 
-const circle_innerMain = document.querySelector(".circle-innerMain")
-
+    const circle_innerMain = document.querySelector(".circle-innerMain")
+    const progress_circle = document.querySelector(".progress-circle")
 
     const overallProgress = totalQuestions === 0
             ? 0
@@ -691,10 +691,14 @@ const circle_innerMain = document.querySelector(".circle-innerMain")
 
     if (overallPercentage) {    overallPercentage.textContent = `${overallProgress.toFixed(2)}%`; }
 
-console.log(overallPercentage)
-console.log(totalCompleted )
-console.log(totalQuestions)
-console.log(overallProgress)
+    //it will manage the circle color according to progress
+    
+    progress_circle.style.setProperty("--progress" ,`${overallProgress}%`)
+
+    console.log(overallPercentage)
+    console.log(totalCompleted )
+    console.log(totalQuestions)
+    console.log(overallProgress)
 
     // LEGEND COLORS
 

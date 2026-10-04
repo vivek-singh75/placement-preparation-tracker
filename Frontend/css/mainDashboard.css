@@ -634,16 +634,19 @@ body {
 }
 
 .progress-circle {
+    --progress: 10%;
+    --progress-color: #2f3cc7;
+
     width: 160px;
     height: 160px;
     border-radius: 50%;
-    background:
-        conic-gradient(
-            #7c3aed 19%,
-            #e5e7eb 19%
-        );
-    display: flex;
 
+    background: conic-gradient(
+        var(--progress-color) var(--progress),
+        #e5e7eb 10%
+    );
+
+    display: flex;
     align-items: center;
     justify-content: center;
 }
