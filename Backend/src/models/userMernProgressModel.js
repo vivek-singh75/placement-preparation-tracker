@@ -13,9 +13,16 @@ const userMernProgressSchema = new mongoose.Schema(
             required: true
         },
 
+        topicName: {
+            type: String,
+            required: true,
+            trim: true
+        },
+
         status: {
             type: String,
             enum: ["progress", "completed"],
+            default: "progress",
             required: true
         }
     },

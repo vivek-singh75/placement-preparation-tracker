@@ -1,253 +1,463 @@
 // =====================================================
-// GET DATA FROM BACKEND
+// DSA DASHBOARD
 // =====================================================
 
-let Gdata = [];
-let userData = null;
+const API_URL = "http://localhost:3000";
+
+let analyticsData = null;
+
 
 // =====================================================
-// FETCH USER + QUESTION DATA
+// DOM ELEMENTS
 // =====================================================
 
-async function getQuestion() {
+const sidebar = document.querySelector("#sidebar");
+const menuBtn = document.querySelector("#menuBtn");
+const overlay = document.querySelector("#overlay");
+
+const totalSolved = document.querySelector("#totalSolved");
+const easyCount = document.querySelector("#easyCount");
+const mediumCount = document.querySelector("#mediumCount");
+const hardCount = document.querySelector("#hardCount");
+
+const totalTopicText = document.querySelector("#totalTopicText");
+
+const topicProgressContainer =
+    document.querySelector("#topicProgressContainer");
+
+const weakTopicContainer =
+    document.querySelector("#weakTopicContainer");
+
+const difficultyContainer =
+    document.querySelector("#difficultyContainer");
+
+const technologyNavigation =
+    document.querySelector("#technologyNavigation");
+
+const mobileTechnologyNavigation =
+    document.querySelector("#mobileTechnologyNavigation");
+
+const mobileMoreBtn =
+    document.querySelector("#mobileMoreBtn");
+
+const mobileMoreMenu =
+    document.querySelector("#mobileMoreMenu");
+
+
+// =====================================================
+// MOBILE SIDEBAR
+// =====================================================
+
+function openSidebar() {
+
+    sidebar?.classList.add("open");
+    overlay?.classList.add("show");
+
+}
+
+function closeSidebar() {
+
+    sidebar?.classList.remove("open");
+    overlay?.classList.remove("show");
+
+}
+
+menuBtn?.addEventListener("click", openSidebar);
+
+overlay?.addEventListener("click", closeSidebar);
+
+
+// Close sidebar after navigation
+
+sidebar?.querySelectorAll(".nav-item").forEach(link => {
+
+    link.addEventListener("click", closeSidebar);
+
+});
+
+
+// Close sidebar on desktop resize
+
+window.addEventListener("resize", () => {
+
+    if (window.innerWidth > 768) {
+        closeSidebar();
+    }
+
+});
+
+
+// =====================================================
+// MOBILE MORE MENU
+// =====================================================
+
+mobileMoreBtn?.addEventListener("click", (event) => {
+
+    event.stopPropagation();
+
+    mobileMoreMenu?.classList.toggle("show");
+
+});
+
+document.addEventListener("click", (event) => {
+
+    if (
+        mobileMoreMenu &&
+        mobileMoreBtn &&
+        !mobileMoreMenu.contains(event.target) &&
+        !mobileMoreBtn.contains(event.target)
+    ) {
+
+        mobileMoreMenu.classList.remove("show");
+
+    }
+
+});
+
+
+// =====================================================
+// FETCH DSA ANALYTICS
+// =====================================================
+
+async function fetchDSAAnalytics() {
 
     try {
 
         const response = await axios.get(
-            "https://placement-preparation-tracker-ltlg.onrender.com/api/question/getQuestion",
+            `${API_URL}/api/question/dsaAnalytics`,
             {
                 withCredentials: true
             }
         );
 
-        const { user, userQuestionData } =
-            response.data.allData;
+        console.log("DSA Analytics:", response.data);
 
-        console.log("User:", user);
-        console.log("Questions:", userQuestionData);
-
-        userData = user;
-
-        if (Array.isArray(userQuestionData)) {
-            Gdata = userQuestionData;
-        } else {
-            Gdata = [];
-        }
-
-        // IMPORTANT:
-        // API data fetch hone ke baad hi dashboard render hoga
-        renderDashboard();
+        return response.data;
 
     } catch (error) {
 
-        console.log(
-            "Error in frontend:",
-            error
-        );
+        console.error("DSA Analytics API Error:", error);
+
+        throw error;
 
     }
+
 }
 
 
 // =====================================================
-// CONSTANT DATA
+// PROFILE
 // =====================================================
 
-const topics = [
-    "Array",
-    "String",
-    "Recursion",
-    "Tree",
-    "Graph",
-    "HashMap"
-];
+function updateProfile(user) {
 
+    if (!user) return;
 
-const topicColors = {
+    const name =
+        user.name ||
+        user.username ||
+        "User";
 
-    Array: {
-        iconClass: "topicArray",
-        barColor: "#7c3aed"
-    },
+    const username =
+        user.username ||
+        "user";
 
-    String: {
-        iconClass: "topicString",
-        barColor: "#2563eb"
-    },
+    const firstLetter =
+        name.charAt(0).toUpperCase();
 
-    Recursion: {
-        iconClass: "topicRecursion",
-        barColor: "#059669"
-    },
+    const elements = {
 
-    Tree: {
-        iconClass: "topicTree",
-        barColor: "#ea580c"
-    },
+        headerName: name,
+        headerUsername: `@${username}`,
+        headerAvatar: firstLetter,
 
-    Graph: {
-        iconClass: "topicGraph",
-        barColor: "#db2777"
-    },
-
-    HashMap: {
-        iconClass: "topicHashMap",
-        barColor: "#0891b2"
-    }
-
-};
-
-
-const difficulties = [
-    "Easy",
-    "Medium",
-    "Hard"
-];
-
-
-// =====================================================
-// ELEMENTS
-// =====================================================
-
-const totalSolvedElement =
-    document.querySelector("#totalSolved");
-
-const easyCountElement =
-    document.querySelector("#easyCount");
-
-const mediumCountElement =
-    document.querySelector("#mediumCount");
-
-const hardCountElement =
-    document.querySelector("#hardCount");
-
-const totalTopicText =
-    document.querySelector("#totalTopicText");
-
-const topicProgressContainer =
-    document.querySelector(
-        "#topicProgressContainer"
-    );
-
-const recentActivityContainer =
-    document.querySelector(
-        "#recentActivityContainer"
-    );
-
-const weakTopicContainer =
-    document.querySelector(
-        "#weakTopicContainer"
-    );
-
-const difficultyContainer =
-    document.querySelector(
-        "#difficultyContainer"
-    );
-
-const platformContainer =
-    document.querySelector(
-        "#platformContainer"
-    );
-
-const topicTableBody =
-    document.querySelector(
-        "#topicTableBody"
-    );
-
-
-// =====================================================
-// TOPIC COUNTS
-// =====================================================
-
-function getTopicCounts() {
-
-    const counts = {};
-
-    topics.forEach(topic => {
-        counts[topic] = 0;
-    });
-
-
-    Gdata.forEach(question => {
-
-        const type =
-            question.topic;
-
-        if (
-            Object.prototype.hasOwnProperty.call(
-                counts,
-                type
-            )
-        ) {
-            counts[type]++;
-        }
-    });
-
-    return counts;
-}
-
-// =====================================================
-// DIFFICULTY COUNTS
-// =====================================================
-
-function getDifficultyCounts() {
-
-    const counts = {
-
-        Easy: 0,
-        Medium: 0,
-        Hard: 0
+        sidebarName: name,
+        sidebarUsername: `@${username}`,
+        sidebarAvatar: firstLetter
 
     };
 
+    Object.entries(elements).forEach(([id, value]) => {
 
-    Gdata.forEach(question => {
+        const element = document.getElementById(id);
 
-        const level =
-            question.Difficulty_Level;
-
-        if (
-            Object.prototype.hasOwnProperty.call(
-                counts,
-                level
-            )
-        ) {
-
-            counts[level]++;
-
+        if (element) {
+            element.textContent = value;
         }
 
     });
 
-
-    return counts;
 }
 
 
 // =====================================================
-// TOTAL STATS
+// SKILL ICON
 // =====================================================
 
-function updateStats(difficultyCounts) {
+function getSkillIcon(name) {
 
-    totalSolvedElement.textContent =
-        Gdata.length;
+    const icons = {
+
+        "MERN": "M",
+        "Spring Boot": "SB",
+        "AI/ML": "AI",
+        "Data Science": "DS",
+        "Cyber Security": "CS",
+        "App Development": "AD"
+
+    };
+
+    return icons[name] || "•";
+
+}
 
 
-    easyCountElement.textContent =
-        difficultyCounts.Easy;
+// =====================================================
+// TECHNOLOGY ROUTES
+// =====================================================
+
+function getTechnologyRoute(technology) {
+
+    const routes = {
+
+        "MERN": "./mern.html",
+        "Spring Boot": "./springBoot.html",
+        "AI/ML": "./aiMl.html",
+        "Data Science": "./dataScience.html",
+        "Cyber Security": "./cyberSecurity.html",
+        "App Development": "./appDevelopment.html"
+
+    };
+
+    return routes[technology] || "#";
+
+}
 
 
-    mediumCountElement.textContent =
-        difficultyCounts.Medium;
+// =====================================================
+// CREATE TECHNOLOGY LINK
+// =====================================================
+
+function createTechnologyLink(technology, mobile = false) {
+
+    const link = document.createElement("a");
+
+    link.href = getTechnologyRoute(technology);
+
+    link.className = mobile
+        ? "mobile-nav-item"
+        : "nav-item";
+
+    if (mobile) {
+
+        const icon = document.createElement("span");
+        icon.textContent = getSkillIcon(technology);
+
+        const label = document.createElement("small");
+        label.textContent = technology;
+
+        link.append(icon, label);
+
+    } else {
+
+        const icon = document.createElement("span");
+        icon.className = "nav-icon";
+        icon.textContent = getSkillIcon(technology);
+
+        const label = document.createElement("span");
+        label.textContent = technology;
+
+        link.append(icon, label);
+
+    }
+
+    return link;
+
+}
 
 
-    hardCountElement.textContent =
-        difficultyCounts.Hard;
+// =====================================================
+// SIDEBAR TECHNOLOGY NAVIGATION
+// =====================================================
+
+function renderTechnologyNavigation(user) {
+
+    if (!technologyNavigation) return;
+
+    technologyNavigation.innerHTML = "";
+
+    const technologies =
+        Array.isArray(user?.technologies)
+            ? user.technologies
+            : [];
+
+    technologies.forEach(technology => {
+
+        const link = createTechnologyLink(technology);
+
+        technologyNavigation.appendChild(link);
+
+    });
+
+}
 
 
-    totalTopicText.textContent =
-        `${Gdata.length} questions`;
+// =====================================================
+// MOBILE TECHNOLOGY NAVIGATION
+// =====================================================
+
+function renderMobileTechnologyNavigation(user) {
+
+    if (!mobileTechnologyNavigation || !mobileMoreMenu) {
+        return;
+    }
+
+    mobileTechnologyNavigation.innerHTML = "";
+    mobileMoreMenu.innerHTML = "";
+
+    const technologies =
+        Array.isArray(user?.technologies)
+            ? user.technologies
+            : [];
+
+    // First two technologies appear directly in bottom navigation
+
+    const visibleTechnologies = technologies.slice(0, 2);
+
+    // Remaining technologies appear inside More
+
+    const remainingTechnologies = technologies.slice(2);
+
+    visibleTechnologies.forEach(technology => {
+
+        const link = createTechnologyLink(technology, true);
+
+        mobileTechnologyNavigation.appendChild(link);
+
+    });
+
+    remainingTechnologies.forEach(technology => {
+
+        const link = createTechnologyLink(technology, true);
+
+        mobileMoreMenu.appendChild(link);
+
+    });
+
+    // Hide More button if there are no extra technologies
+
+    if (mobileMoreBtn) {
+
+        const moreWrapper =
+            mobileMoreBtn.closest(".mobile-more-wrapper");
+
+        if (moreWrapper) {
+
+            moreWrapper.style.display =
+                remainingTechnologies.length > 0
+                    ? "block"
+                    : "none";
+
+        }
+
+    }
+
+}
+
+
+// =====================================================
+// RENDER ALL NAVIGATION
+// =====================================================
+
+function renderNavigation(user) {
+
+    renderTechnologyNavigation(user);
+
+    renderMobileTechnologyNavigation(user);
+
+}
+
+
+// =====================================================
+// BASIC STATS
+// =====================================================
+
+function updateStats(data) {
+
+    const total =
+        Number(data?.totalSolved || 0);
+
+    const difficulty =
+        data?.difficulty || {};
+
+    if (totalSolved) {
+        totalSolved.textContent = total;
+    }
+
+    if (easyCount) {
+        easyCount.textContent =
+            Number(difficulty.Easy || 0);
+    }
+
+    if (mediumCount) {
+        mediumCount.textContent =
+            Number(difficulty.Medium || 0);
+    }
+
+    if (hardCount) {
+        hardCount.textContent =
+            Number(difficulty.Hard || 0);
+    }
+
+    if (totalTopicText) {
+        totalTopicText.textContent =
+            `${total} questions solved`;
+    }
+
+}
+
+
+// =====================================================
+// TOPIC SHORT NAME
+// =====================================================
+
+function getTopicShortName(topic) {
+
+    const names = {
+
+        Array: "AR",
+        String: "ST",
+        Recursion: "RE",
+        Tree: "TR",
+        Graph: "GR",
+        HashMap: "HM"
+
+    };
+
+    return names[topic] || "DSA";
+
+}
+
+
+// =====================================================
+// TOPIC COLORS
+// =====================================================
+
+function getTopicColor(topic) {
+
+    const colors = {
+
+        Array: "#635bff",
+        String: "#3b82f6",
+        Recursion: "#10b981",
+        Tree: "#f59e0b",
+        Graph: "#ec4899",
+        HashMap: "#06b6d4"
+
+    };
+
+    return colors[topic] || "#635bff";
+
 }
 
 
@@ -255,174 +465,111 @@ function updateStats(difficultyCounts) {
 // TOPIC PROGRESS
 // =====================================================
 
-function renderTopicProgress(topicCounts) {
+function renderTopicProgress(topicProgress) {
+
+    if (!topicProgressContainer) return;
 
     topicProgressContainer.innerHTML = "";
 
+    if (
+        !Array.isArray(topicProgress) ||
+        topicProgress.length === 0
+    ) {
 
-    const maxCount =
-        Math.max(
-            ...Object.values(topicCounts),
-            1
-        );
-
-
-    topics.forEach(topic => {
-
-        const count =
-            topicCounts[topic];
-
-
-        const percentage =
-            Math.round(
-                (count / maxCount) * 100
-            );
-
-
-        const color =
-            topicColors[topic];
-
-
-        const card =
-            document.createElement("div");
-
-
-        card.classList.add(
-            "topicCard"
-        );
-
-
-        card.innerHTML = `
-
-            <div class="topicTop">
-
-                <div class="topicNameBox">
-
-                    <div
-                        class="topicIcon ${color.iconClass}"
-                    >
-                        ${topic.substring(0, 2)}
-                    </div>
-
-                    <span class="topicName">
-                        ${topic}
-                    </span>
-
-                </div>
-
-                <span class="topicCount">
-                    ${count}
-                </span>
-
+        topicProgressContainer.innerHTML = `
+            <div class="panel empty-state">
+                No topic progress available yet.
             </div>
-
-
-            <div class="progressBar">
-
-                <div
-                    class="progressFill"
-                    style="
-                        width: ${percentage}%;
-                        background: ${color.barColor};
-                    "
-                ></div>
-
-            </div>
-
-
-            <p class="topicBottom">
-                ${count} questions solved
-            </p>
-
         `;
 
+        return;
 
-        topicProgressContainer.appendChild(
-            card
-        );
+    }
+
+    topicProgress.forEach(data => {
+
+        const topic =
+            data.topic || "Unknown";
+
+        const solved =
+            Number(
+                data.solved ??
+                data.completed ??
+                0
+            );
+
+        const target =
+            Number(
+                data.target ??
+                data.total ??
+                0
+            );
+
+        const percentage =
+            Math.min(
+                Math.max(
+                    Number(
+                        data.progress ??
+                        data.percentage ??
+                        0
+                    ),
+                    0
+                ),
+                100
+            );
+
+        const item = document.createElement("div");
+
+        item.className = "topic-card";
+
+        const top = document.createElement("div");
+        top.className = "topic-top";
+
+        const nameBox = document.createElement("div");
+        nameBox.className = "topic-name-box";
+
+        const icon = document.createElement("div");
+        icon.className = "topic-icon";
+        icon.textContent = getTopicShortName(topic);
+
+        const name = document.createElement("span");
+        name.className = "topic-name";
+        name.textContent = topic;
+
+        nameBox.append(icon, name);
+
+        const count = document.createElement("span");
+        count.className = "topic-count";
+        count.textContent = `${solved}/${target}`;
+
+        top.append(nameBox, count);
+
+        const progressBar = document.createElement("div");
+        progressBar.className = "progress-bar";
+
+        const progressFill = document.createElement("div");
+        progressFill.className = "progress-fill";
+
+        progressFill.style.width =
+            `${percentage}%`;
+
+        progressFill.style.background =
+            getTopicColor(topic);
+
+        progressBar.appendChild(progressFill);
+
+        const bottom = document.createElement("div");
+        bottom.className = "topic-bottom";
+
+        bottom.textContent =
+            `${percentage.toFixed(1)}% completed`;
+
+        item.append(top, progressBar, bottom);
+
+        topicProgressContainer.appendChild(item);
 
     });
 
-}
-
-
-// =====================================================
-// RECENT ACTIVITY
-// =====================================================
-
-function renderRecentActivity() {
-
-    recentActivityContainer.innerHTML = "";
-
-
-    if (Gdata.length === 0) {
-
-        recentActivityContainer.innerHTML = `
-
-            <div class="emptyState">
-
-                <div class="emptyStateIcon">
-                    📝
-                </div>
-
-                <p>
-                    No questions added yet.
-                </p>
-            </div>
-        `;
-        return;
-    }
-
-
-    const recentQuestions =
-        Gdata
-            .slice(-5)
-            .reverse();
-
-
-    recentQuestions.forEach(
-        (question) => {
-
-            const item =
-                document.createElement("div");
-
-
-            item.classList.add(
-                "activityItem"
-            );
-
-
-            item.innerHTML = `
-
-                <div class="activityIcon">
-                    ✓
-                </div>
-
-
-                <div class="activityContent">
-
-                    <p class="activityTitle">
-                        ${question.questionName || "Unnamed Question"}
-                    </p>
-
-
-                    <p class="activityMeta">
-                        ${question.topic || "Unknown"}
-                        •
-                        ${question.Difficulty_Level || "Unknown"}
-                    </p>
-
-                </div>
-
-
-                <span class="activityStatus">
-                    Solved
-                </span> `;
-            recentActivityContainer.appendChild(
-                item
-            );
-        }
-    );
 }
 
 
@@ -430,790 +577,321 @@ function renderRecentActivity() {
 // WEAK TOPICS
 // =====================================================
 
-const topicWithLink =[
-    {
-        name : "Array",
-        link : "https://leetcode.com/problem-list/array/",
-    },
-    {
-        name : "String",
-        link : "https://leetcode.com/problem-list/string/",
-    },
-    {
-        name : "Recursion",
-        link : "https://leetcode.com/problem-list/recursion/",
-    },
-    {
-        name : "Tree",
-        link : "https://leetcode.com/problem-list/tree/",
-    },
-    {
-        name : "Graph",
-        link : "https://leetcode.com/problem-list/graph/",
-    },
-    {
-        name : "HashMap",
-        link : "https://leetcode.com/problem-list/hashmap/",
-    },
-]
+function renderWeakTopics(weakTopics) {
 
-function renderWeakTopics(topicCounts) {
+    if (!weakTopicContainer) return;
 
-    weakTopicContainer.innerHTML =
-        "";
+    weakTopicContainer.innerHTML = "";
 
+    if (
+        !Array.isArray(weakTopics) ||
+        weakTopics.length === 0
+    ) {
 
-    const sortedTopics =
-        topics
-            .map(topic => {
+        weakTopicContainer.innerHTML = `
+            <div class="empty-state">
+                No weak topics available yet.
+            </div>
+        `;
 
-                return {
+        return;
 
-                    type: topic,
-                    count: topicCounts[topic]
+    }
 
-                };
+    weakTopics.forEach(data => {
 
-            })
-            .sort(
-                (a, b) =>
-                    a.count - b.count
+        const topic =
+            data.topic || "Unknown";
+
+        const solved =
+            Number(
+                data.completed ??
+                data.solved ??
+                0
             );
 
-
-    const weakTopics =
-        sortedTopics.slice(0, 3);
-
-
-    const maxCount =
-        Math.max(
-            ...Object.values(topicCounts),
-            1
-        );
-
-
-    weakTopics.forEach(
-        ({ type, count }) => {
-
-            const percentage =
-                Math.round(
-                    (count / maxCount) * 100
-                );
-
-
-            const item =
-                document.createElement("div");
-
-
-            //link to go on leetcode for practice week topics
-
-                
-        function weekTopicLink() {
-            const filterTopics = topicWithLink.filter(
-                (topicType) => topicType.name === type
+        const target =
+            Number(
+                data.total ??
+                data.target ??
+                0
             );
 
-            return filterTopics
-                .map((item) => `
-                    <a class="practiceBtn" 
-                    href="${item.link}" target="_blank">
-                        Practice
-                    </a>
-                `)
-            .join("");
-}
-            item.classList.add(
-                "weakItem"
+        const percentage =
+            Math.min(
+                Math.max(
+                    Number(
+                        data.percentage ??
+                        data.progress ??
+                        0
+                    ),
+                    0
+                ),
+                100
             );
 
+        const item = document.createElement("div");
 
-            item.innerHTML = `
+        item.className = "weak-item";
 
-                <div class="weakIcon">
-                    !
-                </div>
+        const icon = document.createElement("div");
+        icon.className = "weak-icon";
+        icon.textContent = "!";
 
+        const content = document.createElement("div");
+        content.className = "weak-content";
 
-                <div class="weakContent">
+        const top = document.createElement("div");
+        top.className = "weak-top";
 
-                    <div class="weakTop">
+        const name = document.createElement("span");
+        name.className = "weak-name";
+        name.textContent = topic;
 
-                        <span class="weakName">
-                            ${type}
-                        </span>
+        const count = document.createElement("span");
+        count.className = "weak-count";
+        count.textContent = `${solved}/${target}`;
 
-                        <span class="weakCount">
-                            ${count}
-                        </span>
+        top.append(name, count);
 
-                    </div>
+        const progress = document.createElement("div");
+        progress.className = "weak-progress";
 
+        const fill = document.createElement("div");
+        fill.className = "weak-progress-fill";
 
-                    <div class="weakProgress">
+        fill.style.width = `${percentage}%`;
 
-                        <div
-                            class="weakProgressFill"
-                            style="
-                                width: ${Math.max(
-                                    percentage,
-                                    5
-                                )}%;
-                            "
-                        ></div>
+        progress.appendChild(fill);
 
-                    </div>
+        content.append(top, progress);
 
-                </div>
+        const percent = document.createElement("span");
+        percent.className = "weak-percent";
 
+        percent.textContent =
+            `${percentage.toFixed(1)}%`;
 
-                       
-                ${weekTopicLink()}
-                            
-            `;
-            weekTopicLink()
+        item.append(icon, content, percent);
 
-            weakTopicContainer.appendChild( item );
-
-        }
-    );
-
-}
-
-
-// DIFFICULTY ANALYSIS
-
-
-function renderDifficulty(difficultyCounts) {
-
-    difficultyContainer.innerHTML =
-        "";
-
-
-    const total =
-        Gdata.length;
-
-
-    difficulties.forEach(
-        difficulty => {
-
-            const count =
-                difficultyCounts[
-                    difficulty
-                ];
-
-
-            const percentage =
-                total === 0
-                    ? 0
-                    : Math.round(
-                        (count / total) * 100
-                    );
-
-
-            let barClass =
-                "easyBar";
-
-
-            if (
-                difficulty === "Medium"
-            ) {
-
-                barClass =
-                    "mediumBar";
-
-            }
-
-
-            if (
-                difficulty === "Hard"
-            ) {
-
-                barClass =
-                    "hardBar";
-
-            }
-
-
-            const item =
-                document.createElement("div");
-
-
-            item.classList.add(
-                "difficultyItem"
-            );
-
-
-            item.innerHTML = `
-
-                <div class="difficultyHeader">
-
-                    <span>
-                        ${difficulty}
-                    </span>
-
-                    <span>
-                        ${count}
-                        (${percentage}%)
-                    </span>
-
-                </div>
-
-
-                <div class="difficultyBar">
-
-                    <div
-                        class="
-                            difficultyFill
-                            ${barClass}
-                        "
-                        style="
-                            width: ${percentage}%;
-                        "
-                    ></div>
-
-                </div>
-
-            `;
-
-
-            difficultyContainer.appendChild(
-                item
-            );
-
-        }
-    );
-
-}
-
-
-// =====================================================
-// PLATFORM ANALYSIS
-// =====================================================
-
-function getPlatformCounts() {
-
-    const counts = {
-        leetcode: 0,
-        codechef: 0,
-        gfg: 0,
-        hackerrank: 0,
-        others: 0
-    };
-
-
-    Gdata.forEach(question => {
-
-        const platform =
-            (
-                question.Platform || ""
-            )
-                .toLowerCase()
-                .trim();
-
-
-        if (
-            platform === "leetcode"
-        ) {
-            counts.leetcode++;
-        }
-
-
-        else if (
-            platform === "codechef"
-        ) {
-            counts.codechef++;
-        }
-
-
-        else if (
-            platform === "gfg" ||
-            platform === "geeksforgeeks" ||
-            platform === "geeks for geeks"
-        ) {
-            counts.gfg++;
-        }
-
-
-        else if (
-            platform === "hackerrank"
-        ) {
-            counts.hackerrank++;
-        }
-
-
-        else {
-            counts.others++;
-        }
+        weakTopicContainer.appendChild(item);
 
     });
 
-
-    return counts;
 }
 
 
 // =====================================================
-// RENDER PLATFORMS
+// DIFFICULTY ANALYSIS
 // =====================================================
 
-function renderPlatforms(platformCounts) {
+function renderDifficulty(difficultyData) {
 
-    platformContainer.innerHTML =
-        "";
+    if (!difficultyContainer) return;
 
+    difficultyContainer.innerHTML = "";
 
-    const platforms = [
+    const total =
+        Number(analyticsData?.totalSolved || 0);
+
+    const difficultyConfig = [
 
         {
-            name: "LeetCode",
-            key: "leetcode",
-            icon: "⚡"
+            name: "Easy",
+            className: "easyBar"
         },
 
         {
-            name: "CodeChef",
-            key: "codechef",
-            icon: "🏆"
+            name: "Medium",
+            className: "mediumBar"
         },
 
         {
-            name: "GeeksForGeeks",
-            key: "gfg",
-            icon: "💻"
-        },
-
-        {
-            name: "HackerRank",
-            key: "hackerrank",
-            icon: "◆"
-        },
-
-        {
-            name: "Others",
-            key: "others",
-            icon: "•••"
+            name: "Hard",
+            className: "hardBar"
         }
 
     ];
 
-
-    platforms.forEach(platform => {
-
-        const card =
-            document.createElement("div");
-
-
-        card.classList.add(
-            "platformCard"
-        );
-
-
-        card.innerHTML = `
-
-            <div class="platformIcon">
-                ${platform.icon}
-            </div>
-
-
-            <div>
-
-                <p class="platformName">
-                    ${platform.name}
-                </p>
-
-                <p class="platformCount">
-                    ${
-                        platformCounts[
-                            platform.key
-                        ]
-                    }
-                </p>
-
-            </div>
-
-        `;
-
-
-        platformContainer.appendChild(
-            card
-        );
-
-    });
-
-}
-
-
-// =====================================================
-// TOPIC TABLE
-// =====================================================
-
-function renderTopicTable(topicCounts) {
-
-    topicTableBody.innerHTML =
-        "";
-
-
-    const maxCount =
-        Math.max(
-            ...Object.values(topicCounts),
-            1
-        );
-
-
-    topics.forEach(topic => {
+    difficultyConfig.forEach(item => {
 
         const count =
-            topicCounts[topic];
-
-
-        const percentage =
-            Math.round(
-                (count / maxCount) * 100
+            Number(
+                difficultyData?.[item.name] || 0
             );
 
+        const percentage =
+            total > 0
+                ? Math.min(100, (count / total) * 100)
+                : 0;
 
-        const row =
-            document.createElement("tr");
+        const wrapper = document.createElement("div");
+        wrapper.className = "difficulty-item";
 
+        const header = document.createElement("div");
+        header.className = "difficulty-header";
 
-        row.innerHTML = `
+        const name = document.createElement("span");
+        name.textContent = item.name;
 
-            <td>
-                ${topic}
-            </td>
+        const value = document.createElement("span");
 
-            <td>
-                ${count}
-            </td>
+        value.textContent =
+            `${count} (${percentage.toFixed(0)}%)`;
 
-            <td>
+        header.append(name, value);
 
-                <div class="tableProgress">
+        const bar = document.createElement("div");
+        bar.className = "difficulty-bar";
 
-                    <div
-                        class="tableProgressFill"
-                        style="
-                            width: ${percentage}%;
-                        "
-                    ></div>
+        const fill = document.createElement("div");
 
-                </div>
+        fill.className =
+            `difficulty-fill ${item.className}`;
 
-            </td>
+        fill.style.width = `${percentage}%`;
 
-        `;
+        bar.appendChild(fill);
 
+        wrapper.append(header, bar);
 
-        topicTableBody.appendChild(
-            row
-        );
+        difficultyContainer.appendChild(wrapper);
 
     });
 
 }
 
-function profile(){
-    // Profile data
-    document.querySelector(".profileName").textContent =
-        userData.name;
-
-    document.querySelector(".profileAvatar").textContent =
-        userData.name.charAt(0).toUpperCase();
-}  
-  
-
 
 // =====================================================
-// RENDER COMPLETE DASHBOARD
+// RENDER DASHBOARD
 // =====================================================
 
 function renderDashboard() {
 
-    // API se data aa chuka hai
-    // Ab counts calculate karo
-    profile()
+    if (!analyticsData) return;
 
+    updateStats(analyticsData);
 
-    const topicCounts =
-        getTopicCounts();
+    updateProfile(analyticsData.user);
 
-
-    const difficultyCounts =
-        getDifficultyCounts();
-
-
-    const platformCounts =
-        getPlatformCounts();
-
-
-    // Render everything
-
-    updateStats(
-        difficultyCounts
-    );
-
+    renderNavigation(analyticsData.user);
 
     renderTopicProgress(
-        topicCounts
+        analyticsData.topicProgress || []
     );
-
-
-    renderRecentActivity();
-
 
     renderWeakTopics(
-        topicCounts
+        analyticsData.weakTopics || []
     );
-
 
     renderDifficulty(
-        difficultyCounts
+        analyticsData.difficulty || {}
     );
 
+    // Make analytics accessible elsewhere
 
-    renderPlatforms(
-        platformCounts
-    );
-
-
-    renderTopicTable(
-        topicCounts
-    );
+    window.DSAAnalytics = analyticsData;
 
 }
 
 
 // =====================================================
-// MOBILE SIDEBAR
+// LOAD DASHBOARD
 // =====================================================
 
-const menuBtn =
-    document.querySelector(
-        "#menuBtn"
-    );
+async function loadDashboard() {
 
+    try {
 
-const sidebar =
-    document.querySelector(
-        "#sidebar"
-    );
+        const response =
+            await fetchDSAAnalytics();
 
+        if (
+            !response ||
+            response.success !== true
+        ) {
 
-const overlay =
-    document.querySelector(
-        "#overlay"
-    );
-
-
-if (menuBtn) {
-
-    menuBtn.addEventListener(
-        "click",
-        () => {
-
-            sidebar.classList.add(
-                "open"
+            throw new Error(
+                "Invalid DSA analytics response"
             );
 
-            overlay.style.display =
-                "block";
-
         }
-    );
 
-}
+        /*
+            Supports:
 
-
-if (overlay) {
-
-    overlay.addEventListener(
-        "click",
-        () => {
-
-            sidebar.classList.remove(
-                "open"
-            );
-
-            overlay.style.display =
-                "none";
-
-        }
-    );
-
-}
-
-
-// =====================================================
-// CLOSE SIDEBAR WHEN CLICKING NAV
-// =====================================================
-
-document
-    .querySelectorAll(".navItem")
-    .forEach(item => {
-
-        item.addEventListener(
-            "click",
-            () => {
-
-                if (
-                    window.innerWidth <= 768
-                ) {
-
-                    sidebar.classList.remove(
-                        "open"
-                    );
-
-                    overlay.style.display =
-                        "none";
-
-                }
-
+            {
+                success: true,
+                user: {...},
+                data: {...}
             }
+
+            Also supports direct analytics data.
+        */
+
+        analyticsData =
+            response.data || response;
+
+        analyticsData.user =
+            response.user ||
+            analyticsData.user ||
+            null;
+
+        console.log(
+            "Loaded DSA Dashboard:",
+            analyticsData
         );
 
-    });
+        renderDashboard();
 
+    } catch (error) {
 
-// =====================================================
-// DARK MODE
-// =====================================================
+        console.error(
+            "DSA Dashboard Error:",
+            error
+        );
 
-const themeBtn =
-    document.querySelector(
-        "#themeBtn"
-    );
+        if (topicProgressContainer) {
 
-
-function updateThemeIcon() {
-
-    if (
-        document.body.classList.contains(
-            "dark"
-        )
-    ) {
-
-        themeBtn.textContent =
-            "☀️";
-
-    }
-
-    else {
-
-        themeBtn.textContent =
-            "🌙";
-
-    }
-
-}
-
-
-if (themeBtn) {
-
-    themeBtn.addEventListener(
-        "click",
-        
-        () => {
-            document.body.classList.toggle(
-                "dark"
-            );
-            const isDark =
-                document.body.classList.contains(
-                    "dark"
-                );
-            localStorage.setItem(
-                "theme",
-                isDark
-                    ? "dark"
-                    : "light"
-            );
-
-            updateThemeIcon();
-            
+            topicProgressContainer.innerHTML = `
+                <div class="panel empty-state">
+                    Unable to load DSA data.
+                    Please check your backend connection.
+                </div>
+            `;
 
         }
 
-    );
+        if (weakTopicContainer) {
 
-}
+            weakTopicContainer.innerHTML = `
+                <div class="empty-state">
+                    Weak topics could not be loaded.
+                </div>
+            `;
 
-
-// =====================================================
-// LOAD SAVED THEME
-// =====================================================
-
-const savedTheme =
-    localStorage.getItem(
-        "theme"
-    );
-if (
-    savedTheme === "dark"
-) {
-    document.body.classList.add(
-        "dark"
-    );
-}
-
-if (themeBtn) {
-    updateThemeIcon();
-    
-}
-
-// =====================================================
-// SEARCH
-// =====================================================
-
-const searchInput =
-    document.querySelector(
-        "#searchInput"
-    );
-if (searchInput) {
-    searchInput.addEventListener(
-        "input",
-        () => {
-             const search =
-                searchInput.value
-                    .toLowerCase()
-                    .trim();
-
-            const activityItems =
-                document.querySelectorAll(
-                    ".activityItem"
-                );
-
-            activityItems.forEach(item => {
-
-                const text =
-                    item.textContent
-                        .toLowerCase();
-
-                if (
-                    text.includes(search)
-                ) {
-
-                    item.style.display =
-                        "flex";
-
-                }
-
-                else {
-
-                    item.style.display =
-                        "none";
-
-                }
-            });
         }
-    );
+
+        if (difficultyContainer) {
+
+            difficultyContainer.innerHTML = `
+                <div class="empty-state">
+                    Difficulty data could not be loaded.
+                </div>
+            `;
+
+        }
+
+    }
+
 }
 
 
 // =====================================================
-// START APPLICATION
+// START
 // =====================================================
 
-// IMPORTANT:
-// Dashboard start from here.
-// after completing getquestion  
-// renderDashboard( )is called.
-
-getQuestion();
+document.addEventListener(
+    "DOMContentLoaded",
+    loadDashboard
+);

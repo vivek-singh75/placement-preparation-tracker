@@ -12,6 +12,6 @@ router.post("/updateProgress/:topicId", authMiddleware.authMiddleware,  mernProg
 
 router.get('/getProgress' ,authMiddleware.authMiddleware,  mernProgress.getProgress)
 
-
+router.get( "/analytics", authMiddleware.authMiddleware,  mernProgress.getMernAnalytics );
 
 module.exports = router;

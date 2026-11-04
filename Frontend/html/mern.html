@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -10,24 +9,28 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>MERN Stack | Developer Skill Tracker</title>
+    <title>DevTrack | MERN Stack</title>
 
     <link
         rel="stylesheet"
         href="../css/mern.css"
     >
-
 </head>
 
 <body>
 
-<div id="app">
+<div class="app">
 
     <!-- =====================================================
          SIDEBAR
     ====================================================== -->
 
-    <aside id="sidebar">
+    <aside
+        class="sidebar"
+        id="sidebar"
+    >
+
+        <!-- LOGO -->
 
         <a
             href="./Dashboard.html"
@@ -46,103 +49,133 @@
         </a>
 
 
-        <nav class="sidebar-nav">
+        <!-- NAVIGATION -->
+
+        <nav class="navigation">
+
+            <!-- DASHBOARD -->
 
             <a
                 href="./Dashboard.html"
-                class="nav-link"
+                class="nav-item nav-link"
             >
-                <span class="nav-icon">⌂</span>
-                <span>Dashboard</span>
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
             </a>
 
+
+            <!-- DSA - ALWAYS VISIBLE -->
 
             <a
                 href="./dashboardOfDsa.html"
-                class="nav-link"
+                class="nav-item nav-link"
             >
-                <span class="nav-icon">◇</span>
-                <span>DSA</span>
+
+                <span class="nav-icon">
+                    ◈
+                </span>
+
+                <span>
+                    DSA
+                </span>
+
             </a>
 
 
-            <a
-                href="./mern.html"
-                class="nav-link active"
+            <!-- SELECTED TECHNOLOGIES -->
+
+            <div class="nav-section-title">
+                PREPARATION
+            </div>
+
+
+            <div
+                id="technologyNavigation"
+                class="technology-navigation"
             >
-                <span class="nav-icon">○</span>
-                <span>MERN Stack</span>
-            </a>
+
+                <!--
+                    Selected technologies will be
+                    generated dynamically using JavaScript.
+                -->
+
+            </div>
 
 
-            <a
-                href="#"
-                class="nav-link"
-            >
-                <span class="nav-icon">◉</span>
-                <span>Data Science</span>
-            </a>
+            <div class="nav-divider"></div>
 
 
-            <a
-                href="#"
-                class="nav-link"
-            >
-                <span class="nav-icon">☕</span>
-                <span>Java / Spring Boot</span>
-            </a>
-
-
-            <a
-                href="#"
-                class="nav-link"
-            >
-                <span class="nav-icon">◈</span>
-                <span>Cyber Security</span>
-            </a>
-
+            <!-- ANALYTICS -->
 
             <a
                 href="#"
-                class="nav-link"
+                class="nav-item nav-link"
             >
-                <span class="nav-icon">▣</span>
-                <span>App Development</span>
+
+                <span class="nav-icon">
+                    ◔
+                </span>
+
+                <span>
+                    Analytics
+                </span>
+
+            </a>
+
+
+            <!-- SETTINGS -->
+
+            <a
+                href="#"
+                class="nav-item nav-link"
+            >
+
+                <span class="nav-icon">
+                    ⚙
+                </span>
+
+                <span>
+                    Settings
+                </span>
+
             </a>
 
         </nav>
 
 
-        <!-- SIDEBAR QUOTE -->
-
-        <div class="sidebar-quote">
-
-            <div class="quote-icon">
-                🚀
-            </div>
-
-            <p>
-                Keep Consistency!
-            </p>
-
-            <span>
-                Small progress every day becomes a big result.
-            </span>
-
-        </div>
-
-
-        <!-- BOTTOM SIDEBAR -->
+        <!-- SIDEBAR PROFILE -->
 
         <div class="sidebar-bottom">
 
-            <button
-                id="sidebarThemeBtn"
-                class="theme-btn"
-            >
-                <span>🌙</span>
-                <span>Dark Mode</span>
-            </button>
+            <a href="./profile.html" class="sidebar-profile">
+
+                <div
+                    class="avatar"
+                    id="sidebarAvatar"
+                >
+                    V
+                </div>
+
+                <div class="profile-info">
+
+                    <strong id="sidebarName">
+                        user
+                    </strong>
+
+                    <span id="sidebarUsername">
+                        @user
+                    </span>
+
+                </div>
+
+            </a>
 
         </div>
 
@@ -150,9 +183,14 @@
 
 
 
-    <!-- MOBILE OVERLAY -->
+    <!-- =====================================================
+         MOBILE OVERLAY
+    ====================================================== -->
 
-    <div id="overlay"></div>
+    <div
+        id="overlay"
+        class="overlay"
+    ></div>
 
 
 
@@ -160,43 +198,43 @@
          MAIN
     ====================================================== -->
 
-    <main id="mainContent">
+    <main
+        class="main"
+        id="mainContent"
+    >
 
 
         <!-- =================================================
              TOPBAR
         ================================================== -->
 
-        <header id="topbar">
+        <header class="topbar">
 
+            <div class="topbar-left">
 
-            <div class="top-left">
+                <!-- MOBILE MENU BUTTON -->
 
                 <button
                     id="menuBtn"
                     class="menu-btn"
+                    type="button"
+                    aria-label="Open navigation"
                 >
                     ☰
                 </button>
 
 
-                <a
-                    href="./Dashboard.html"
-                    class="mobile-logo"
-                >
-                    <span>Dev</span>Track
-                </a>
+                <!-- PAGE TITLE -->
 
+                <div class="heading-wrapper">
 
-                <div class="search-box">
+                    <p class="page-label">
+                        MY LEARNING
+                    </p>
 
-                    <span>⌕</span>
-
-                    <input
-                        type="text"
-                        placeholder="Search anything..."
-                        id="searchInput"
-                    >
+                    <h1>
+                        MERN Stack
+                    </h1>
 
                 </div>
 
@@ -204,37 +242,53 @@
 
 
 
-            <div class="top-right">
+            <div class="topbar-right">
 
-                <button class="top-button">
+                <!-- NOTIFICATION -->
+
+                <button
+                    class="notification-btn"
+                    type="button"
+                    aria-label="Notifications"
+                >
                     🔔
                 </button>
 
 
+                <!-- DARK MODE -->
+
                 <button
                     id="themeBtn"
-                    class="top-button"
+                    class="notification-btn"
+                    type="button"
+                    aria-label="Toggle dark mode"
                 >
                     🌙
                 </button>
 
 
-                <a
-                    href="./profile.html"
-                    class="profile"
-                >
+                <!-- PROFILE -->
 
-                    <div class="profile-avatar">
+                <a href="./profile.html" class="profile">
 
-                        <span id="profileAvatar">
-                            V
+                    <div
+                        class="avatar"
+                        id="headerAvatar"
+                    >
+                        V
+                    </div>
+
+                    <div class="profile-info">
+
+                        <strong id="headerName">
+                            Vivek Singh
+                        </strong>
+
+                        <span id="headerUsername">
+                            @user
                         </span>
 
                     </div>
-
-                    <span id="profileName">
-                        Vivek Singh
-                    </span>
 
                 </a>
 
@@ -245,34 +299,39 @@
 
 
         <!-- =================================================
-             MERN CONTENT
+             CONTENT
         ================================================== -->
 
         <div class="content">
 
 
-            <!-- PAGE HEADER -->
+            <!-- =================================================
+                 MERN OVERALL PROGRESS
+            ================================================== -->
 
-            <section class="pageHeading">
+            <section class="welcome">
 
-                <div class="headingContent">
+                <div class="welcome-content">
 
-                    <p class="smallTitle">
-                        MY LEARNING
+                    <p class="welcome-small">
+                        YOUR LEARNING TRACK
                     </p>
 
-                    <h1>
-                        MERN Stack
-                    </h1>
+                    <h2>
+                        MERN Stack Progress
+                    </h2>
 
-                    <p>
+                    <p class="welcome-description">
+
                         Track your learning progress across
                         MongoDB, Express, React and Node.js.
+
                     </p>
 
                 </div>
 
 
+                <!-- OVERALL PROGRESS -->
 
                 <div class="overallProgress">
 
@@ -289,11 +348,11 @@
                     </div>
 
 
-                    <div class="progressBar">
+                    <div class="progress-line">
 
                         <div
                             id="overallProgressBar"
-                            class="progressFill"
+                            class="progress-fill"
                         ></div>
 
                     </div>
@@ -304,19 +363,25 @@
 
 
 
-            <!-- TECHNOLOGIES -->
+            <!-- =================================================
+                 TECHNOLOGIES
+            ================================================== -->
 
             <section class="section">
 
-                <div class="sectionHeader">
+                <div class="section-header">
 
                     <div>
+
+                        <p class="section-label">
+                            LEARNING PATH
+                        </p>
 
                         <h2>
                             Technologies
                         </h2>
 
-                        <p>
+                        <p class="section-description">
                             Select a technology to view its topics.
                         </p>
 
@@ -330,28 +395,36 @@
                     class="technologyGrid"
                 >
 
+                    <!-- TECHNOLOGY CARDS GENERATED BY JS -->
+
                 </div>
 
             </section>
 
 
 
-            <!-- TOPICS -->
+            <!-- =================================================
+                 TOPICS
+            ================================================== -->
 
             <section
                 id="topicsSection"
                 class="section"
             >
 
-                <div class="sectionHeader">
+                <div class="section-header">
 
                     <div>
+
+                        <p class="section-label">
+                            TOPIC PROGRESS
+                        </p>
 
                         <h2 id="selectedTechnology">
                             Select a Technology
                         </h2>
 
-                        <p>
+                        <p class="section-description">
                             Click on a topic to update its status.
                         </p>
 
@@ -391,45 +464,101 @@
 
 
 <!-- =====================================================
-     MOBILE BOTTOM NAV
+     MOBILE BOTTOM NAVIGATION
 ====================================================== -->
 
-<nav class="mobile-nav">
+<nav
+    class="mobile-nav"
+    aria-label="Mobile navigation"
+>
+
+
+    <!-- HOME -->
 
     <a
         href="./Dashboard.html"
-        class="mobile-nav-link"
+        class="mobile-nav-item"
     >
-        <span>⌂</span>
-        <small>Home</small>
+
+        <span>
+            ⌂
+        </span>
+
+        <small>
+            Home
+        </small>
+
     </a>
 
+
+
+    <!-- DSA -->
 
     <a
         href="./dashboardOfDsa.html"
-        class="mobile-nav-link"
+        class="mobile-nav-item"
     >
-        <span>◇</span>
-        <small>DSA</small>
+
+        <span>
+            ◈
+        </span>
+
+        <small>
+            DSA
+        </small>
+
     </a>
 
 
-    <a
-        href="./mern.html"
-        class="mobile-nav-link active"
+
+    <!-- DYNAMIC SELECTED TECHNOLOGIES -->
+
+    <div
+        id="mobileTechnologyNavigation"
+        class="mobile-technology-navigation"
     >
-        <span>○</span>
-        <small>MERN</small>
-    </a>
+
+        <!--
+            Selected technology links will be
+            generated dynamically using JavaScript.
+        -->
+
+    </div>
 
 
-    <a
-        href="#"
-        class="mobile-nav-link"
+
+    <!-- MORE -->
+
+    <button
+        id="mobileMoreBtn"
+        class="mobile-nav-item mobile-more-btn"
+        type="button"
+        aria-label="More navigation options"
     >
-        <span>•••</span>
-        <small>More</small>
-    </a>
+
+        <span>
+            •••
+        </span>
+
+        <small>
+            More
+        </small>
+
+    </button>
+
+
+
+    <!-- MORE MENU -->
+
+    <div
+        id="mobileMoreMenu"
+        class="mobile-more-menu"
+        hidden
+    >
+
+        <!-- Remaining selected technologies will appear here. -->
+
+    </div>
 
 </nav>
 
@@ -447,6 +576,8 @@
 
     <div class="statusBox">
 
+
+        <!-- MODAL HEADER -->
 
         <div class="modalHeader">
 
@@ -466,6 +597,8 @@
             <button
                 id="closeModal"
                 class="closeModal"
+                type="button"
+                aria-label="Close modal"
             >
                 ×
             </button>
@@ -474,8 +607,12 @@
 
 
 
+        <!-- STATUS OPTIONS -->
+
         <div class="statusOptions">
 
+
+            <!-- COMPLETED -->
 
             <label class="statusOption">
 
@@ -501,6 +638,8 @@
 
 
 
+            <!-- IN PROGRESS -->
+
             <label class="statusOption">
 
                 <input
@@ -524,6 +663,8 @@
             </label>
 
 
+
+            <!-- PENDING -->
 
             <label class="statusOption">
 
@@ -551,11 +692,14 @@
 
 
 
+        <!-- MODAL BUTTONS -->
+
         <div class="modalButtons">
 
             <button
                 id="cancelStatus"
                 class="cancelBtn"
+                type="button"
             >
                 Cancel
             </button>
@@ -564,6 +708,7 @@
             <button
                 id="saveStatus"
                 class="saveBtn"
+                type="button"
             >
                 Save Status
             </button>
@@ -576,10 +721,14 @@
 
 
 
+<!-- =====================================================
+     SCRIPTS
+====================================================== -->
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script src="../javascript/mern.js"></script>
 
-</body>
 
+</body>
 </html>

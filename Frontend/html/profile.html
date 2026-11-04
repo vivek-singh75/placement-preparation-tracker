@@ -1,361 +1,199 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Profile | Developer Skill Tracker</title>
-
+    <title>Profile | DevTrack</title>
     <link rel="stylesheet" href="../css/profile.css">
 </head>
 
 <body>
-    <!-- Navbar -->
-    <header class="navbar">
 
+    <header class="navbar">
         <div class="logo">
-            <h2>Developer Skill Tracker</h2>
+            <h2>&lt;/&gt; DevTrack</h2>
             <p>Track. Learn. Improve.</p>
         </div>
 
         <nav>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="addQuestion.html">Add Question</a>
-        <a href="profile.html" class="active">Profile</a>
-        <a href="#" id="logoutBtn">Logout</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="addQuestion.html">Add Question</a>
+            <a href="profile.html" class="active">Profile</a>
+            <a href="#" id="logoutBtn">Logout</a>
         </nav>
+    </header>
 
+    <!-- LOGOUT POPUP -->
+    <div id="logoutPopup" class="logout-popup">
+        <div class="logout-box">
+            <h3>Logout</h3>
+            <p>Are you sure you want to logout?</p>
 
-        <!-- Logout Popup -->
-
-        <div id="logoutPopup" class="logout-popup">
-
-            <div class="logout-box">
-
-                <h3>Logout</h3>
-
-                <p>Are you sure you want to logout?</p>
-
-                <div class="logout-actions">
-
-                    <button id="cancelLogout">
-                        Cancel
-                    </button>
-
-                    <button id="confirmLogout">
-                        Logout
-                    </button>
-
-                </div>
-
+            <div class="logout-actions">
+                <button type="button" id="cancelLogout">Cancel</button>
+                <button type="button" id="confirmLogout">Logout</button>
             </div>
+        </div>
+    </div>
 
-            </div>
-        </header>
+    <main class="profilePage">
 
-
-        <!-- Main -->
-        <main class="profilePage">
-
-        <!-- Profile Header -->
+        <!-- PROFILE HEADER -->
         <section class="profileHeader">
 
-        <div class="profileImage">
-
-            <div
-                id="profileImage"
-                class="profile-avatar"
-                style="
-                    width: 120px;
-                    height: 120px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background: #7c3aed;
-                    color: white;
-                    font-size: 48px;
-                    font-weight: 600;
-                    text-transform: uppercase;
-                "
-            >
-            </div>
-
-            <button id="changeImageBtn">
-                Change
-            </button>
-
-         </div>
-
+            <div class="profile-avatar" id="profileImage">?</div>
 
             <div class="profileBasic">
-
-                <h1 id="userName">
-                </h1>
-
-                <p id="username">
-                    
-                </p>
-
-                <p class="role">
-                    Developer / Student
-                </p>
-
-                <p class="joined">
-
-                </p>
-
+                <span class="profile-label">MY ACCOUNT</span>
+                <h1 id="userName">Loading...</h1>
+                <p id="username" class="username"></p>
+                <p class="role">Developer / Student</p>
+                <p class="joined"></p>
             </div>
 
-
-            <button class="editBtn" id="editProfileBtn">
-                Edit Profile
+            <button type="button" class="editBtn" id="editProfileBtn">
+                <span>✎</span> Edit Profile
             </button>
 
         </section>
 
-
-        <!-- Information + Stats -->
+        <!-- PROFILE CONTENT -->
         <section class="profileGrid">
 
-
-            <!-- Personal Information -->
+            <!-- PERSONAL INFORMATION -->
             <div class="profileCard">
 
                 <div class="cardHeader">
-                    <h2>Personal Information</h2>
+                    <div>
+                        <span class="section-label">ACCOUNT DETAILS</span>
+                        <h2>Personal Information</h2>
+                    </div>
+                    <span class="card-icon">01</span>
                 </div>
 
                 <div class="infoGrid">
 
                     <div class="infoItem">
                         <span>Full Name</span>
-                        <strong id="fullName">
-                            
-                        </strong>
+                        <strong id="fullName">—</strong>
                     </div>
 
                     <div class="infoItem">
                         <span>Username</span>
-                        <strong id="userUsername">
-                            
-                        </strong>
+                        <strong id="userUsername">—</strong>
                     </div>
 
                     <div class="infoItem">
-                        <span>Email</span>
-                        <strong id="userEmail">
-                            
-                        </strong>
+                        <span>Email Address</span>
+                        <strong id="userEmail">—</strong>
                     </div>
 
                     <div class="infoItem">
                         <span>Account Created</span>
-                        <strong id="createdDate">
-                            
-                        </strong>
+                        <strong id="createdDate">—</strong>
                     </div>
 
                 </div>
 
             </div>
 
-
-            <!-- Learning Statistics -->
-            <div class="profileCard">
+            <!-- MY SKILLS -->
+            <div class="profileCard skillsSection">
 
                 <div class="cardHeader">
-                    <h2>Learning Statistics</h2>
+                    <div>
+                        <span class="section-label">YOUR LEARNING PATH</span>
+                        <h2>My Skills</h2>
+                    </div>
+                    <span class="card-icon">02</span>
                 </div>
 
-                <div class="statsGrid">
-
-                    <div class="stat">
-                        <span>Questions</span>
-                        <strong id="totalQuestions">
-                            0
-                        </strong>
-                    </div>
-
-                    <div class="stat">
-                        <span>Revisions</span>
-                        <strong id="totalRevisions">
-                            0
-                        </strong>
-                    </div>
-
-                    <div class="stat">
-                        <span>Skills</span>
-                        <strong id="totalSkills">
-                            1
-                        </strong>
-                    </div>
-
-                    <div class="stat">
-                        <span>Streak</span>
-                        <strong id="streak">
-                            0 Days
-                        </strong>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-        </section>
-
-
-        <!-- Skills -->
-        <section class="profileCard skillsSection">
-
-            <div class="cardHeader">
-                <h2>My Skills</h2>
-            </div>
-
-            <div class="skills">
-
-                <div class="skill">
-                    <div class="skillTop">
-                        <span>DSA</span>
-                        <span>65%</span>
-                    </div>
-
-                    <div class="progress">
-                        <div
-                            class="progressFill"
-                            style="width:65%">
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="skill">
-                    <div class="skillTop">
-                        <span>MERN Stack</span>
-                        <span>30%</span>
-                    </div>
-
-                    <div class="progress">
-                        <div
-                            class="progressFill"
-                            style="width:30%">
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="skill">
-                    <div class="skillTop">
-                        <span>Data Science</span>
-                        <span>15%</span>
-                    </div>
-
-                    <div class="progress">
-                        <div
-                            class="progressFill"
-                            style="width:15%">
-                        </div>
-                    </div>
+                <div class="skills" id="skillsContainer">
+                    <!-- Skills generated by JavaScript -->
                 </div>
 
             </div>
 
         </section>
 
-
-        <!-- Edit Profile Modal -->
-
+        <!-- EDIT PROFILE MODAL -->
         <div class="modal" id="editModal">
 
             <div class="modalContent">
 
                 <div class="modalHeader">
-                    <h2>Edit Profile</h2>
+                    <div>
+                        <span class="section-label">ACCOUNT SETTINGS</span>
+                        <h2>Edit Profile</h2>
+                    </div>
 
-                    <button id="closeModal">
-                        ×
+                    <button type="button" id="closeModal" aria-label="Close modal">
+                        &times;
                     </button>
                 </div>
-
 
                 <form id="profileForm">
 
                     <div class="formGroup">
-
-                        <label for="editName">
-                            Full Name
-                        </label>
-
+                        <label for="editName">Full Name</label>
                         <input
                             type="text"
                             id="editName"
+                            placeholder="Enter your full name"
+                            maxlength="80"
                             required
                         >
-
                     </div>
-
 
                     <div class="formGroup">
 
-                        <label for="editUsername">
-                            Username
-                        </label>
+                        <div class="technology-heading">
+                            <h3>Select Technologies</h3>
+                            <span class="technology-count">
+                                <span id="selectedTechCount">0</span> selected
+                            </span>
+                        </div>
 
-                        <input
-                            type="text"
-                            id="editUsername"
-                            required
-                        >
+                        <div class="technology-options" id="technologyOptions">
+                            <!-- Generated by JavaScript -->
+                        </div>
+
+                        <div class="locked-technology">
+
+                            <span class="technology-icon">DSA</span>
+
+                            <div class="locked-technology-info">
+                                <strong>Data Structures & Algorithms</strong>
+                                <span>Always included in your learning plan</span>
+                            </div>
+
+                            <span class="locked-label">Required</span>
+
+                        </div>
 
                     </div>
 
-
-                    <div class="formGroup">
-
-                        <label for="editEmail">
-                            Email
-                        </label>
-
-                        <input
-                            type="email"
-                            id="editEmail"
-                            required
-                        >
-
-                    </div>
-
+                    <p id="profileMessage" class="profile-message" aria-live="polite"></p>
 
                     <div class="modalButtons">
-
-                        <button
-                            type="button"
-                            id="cancelBtn"
-                            class="cancelBtn"
-                        >
+                        <button type="button" id="cancelBtn" class="cancelBtn">
                             Cancel
                         </button>
 
-                        <button
-                            type="submit"
-                            class="saveBtn"
-                        >
+                        <button type="submit" class="saveBtn">
                             Save Changes
                         </button>
-
                     </div>
 
                 </form>
 
             </div>
-
         </div>
-
 
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
     <script src="../javascript/profile.js"></script>
 
 </body>

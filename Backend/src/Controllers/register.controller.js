@@ -1,68 +1,85 @@
 const userModel = require("../models/userModel");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { response } = require("express");
 //const emailService = require("../services/emailServices")
 
 
 
 
-async function registerUser(req ,res) {
-    const {name , username , email , password , confirmPassword} = req.body;
+async function registerUser(req, res) {
+
+    const {
+        name,
+        username,
+        email,
+        password,
+        confirmPassword,
+        technologies
+    } = req.body;
 
     const isUserAllreadyExist = await userModel.findOne({
-        $or:[
-            {username},
-            {email}
-    ]}); 
+        $or: [
+            { username },
+            { email }
+        ]
+    });
 
-    if(isUserAllreadyExist){
-        return res.status(400).json({message : "user allredy exist, Please login"});
+    if (isUserAllreadyExist) {
+        return res.status(400).json({
+            message: "user allredy exist, Please login"
+        });
     }
-    if(password !== confirmPassword){
-        return res.status(400).json({message : "Passwords are not same"})
+
+    if (!technologies || !Array.isArray(technologies) || technologies.length === 0) {
+        return res.status(400).json({
+            message: "Please select at least one technology"
+        });
     }
+
+    if (password !== confirmPassword) {
+        return res.status(400).json({
+            message: "Passwords are not same"
+        });
+    }
+
     const hash = await bcrypt.hash(password, 10);
 
-
-    const user =await userModel.create({
+    const user = await userModel.create({
         name,
         username,
         email,
         password: hash,
+        technologies
     });
-    console.log(user)
-    const token = jwt.sign({
-        id : user._id,
-        name : user.name ,
-        username : user.username,
-        email : user.email
-    },process.env.JWT_SECRET_KEY);
-    
-    res.cookie("cookie", token, {
 
+    console.log(user);
+
+    const token = jwt.sign({
+        id: user._id,
+        name: user.name,
+        username: user.username,
+        email: user.email
+    }, process.env.JWT_SECRET_KEY);
+
+    res.cookie("cookie", token, {
         httpOnly: true,
         secure: true,
         sameSite: "none"
-        });
-
-
-    // await emailService.sendRegisterEmail(
-    //     user.email,
-    //     user.name
-    // );  
+    });
 
     res.status(201).json({
-        message : "User Created Successfully :) ",
-        user:{
-            id : user._id,
-            name : user.name,
+        message: "User Created Successfully :)",
+        user: {
+            id: user._id,
+            name: user.name,
             username: user.username,
-            email : user.email,
+            email: user.email,
+            technologies: user.technologies
         }
     });
-    
-    console.log("user created")
-    
+
+    console.log("user created");
 }
 
 
@@ -159,6 +176,116 @@ async function fetchUserdata(req , res) {
     }
 }
 
+async function updateUserData(req, res) {
+    try {
+
+        const userId = req.user?.id;
+
+        const { name, technologies } = req.body;
+
+        // Authentication check
+
+        if (!userId) {
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized access"
+            });
+        }
+
+        // Name validation
+
+        if (!name || typeof name !== "string" || !name.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: "Please enter a valid name"
+            });
+        }
+
+        // Technologies validation
+
+        if (!Array.isArray(technologies) || technologies.length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Select at least one technology"
+            });
+        }
+
+        // Allowed technologies
+
+        const allowedTechnologies = [
+            "MERN",
+            "Data Science",
+            "AI/ML",
+            "Spring Boot",
+            "Cyber Security",
+            "App Development"
+        ];
+
+        // Validate technology names
+
+        const invalidTechnologies = technologies.filter(
+            tech => !allowedTechnologies.includes(tech)
+        );
+
+        if (invalidTechnologies.length > 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid technology selected",
+                invalidTechnologies
+            });
+        }
+
+        // Remove duplicate technologies
+
+        const uniqueTechnologies = [...new Set(technologies)];
+
+        // DSA is always included
+
+        const finalTechnologies = [
+            ...uniqueTechnologies
+        ];
+
+        // Update user
+
+        const updatedData = await userModel.findByIdAndUpdate(
+            userId,
+            {
+                $set: {
+                    name: name.trim(),
+                    technologies: finalTechnologies
+                }
+            },
+            {
+                returnDocument : 'after',
+                runValidators: true
+            }
+        ).select("-password");
+
+        if (!updatedData) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile updated successfully",
+            user: updatedData
+        });
+
+    } catch (error) { 
+
+        console.error("Profile update error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+
+    }
+}
+
 async function logoutUser(req, res) {
     try {
 
@@ -193,4 +320,4 @@ async function logoutUser(req, res) {
 }
 
 
-module.exports = { registerUser , loginUser , fetchUserdata ,  logoutUser}
+module.exports = { registerUser , loginUser , fetchUserdata ,updateUserData,  logoutUser}

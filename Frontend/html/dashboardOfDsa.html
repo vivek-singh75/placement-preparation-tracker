@@ -4,451 +4,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DSA Dashboard | DevTrack</title>
+
+    <title>DevTrack | DSA Dashboard</title>
+
     <link rel="stylesheet" href="../css/styleOfDsa.css">
 </head>
 
 <body>
 
-    <!-- =====================================================
-         SIDEBAR
-    ====================================================== -->
+<div class="app">
 
-    <aside id="sidebar">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
 
-        <!-- Logo -->
+        <!-- LOGO -->
+        <a href="./Dashboard.html" class="sidebar-logo">
 
-        <a href="./Dashboard.html" class="sidebarLogo" style="text-decoration: none; color: inherit;">
-
-            <div class="logoIcon">
+            <div class="logo-icon">
                 &lt;/&gt;
             </div>
 
             <div>
-                <h2>DevTrack</h2>
-                <span>Skill Tracker</span>
+                <h1>DevTrack</h1>
+                <p>Skill Tracker</p>
             </div>
 
         </a>
 
+        <!-- NAVIGATION -->
+        <nav class="navigation">
 
-        <!-- Navigation -->
-
-        <nav class="sidebarNav">
-
-            <a href="./Dashboard.html" class="navItem">
-                <span>⌂</span>
+            <a href="./Dashboard.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
                 <span>Dashboard</span>
             </a>
 
-            <a href="./dashboardOfDsa.html"
-               class="navItem active">
-                <span>◇</span>
+            <a href="./dashboardOfDsa.html" class="nav-item active">
+                <span class="nav-icon">◇</span>
                 <span>DSA</span>
             </a>
 
-            <a href="./mern.html" class="navItem">
-                <span>○</span>
-                <span>MERN Stack</span>
-            </a>
+            <div class="nav-section-title">PREPARATION</div>
 
-            <a href="#" class="navItem">
-                <span>◉</span>
-                <span>Data Science</span>
-            </a>
+            <!-- Dynamically generated technologies -->
+            <div id="technologyNavigation"></div>
 
-            <a href="#" class="navItem">
-                <span>☕</span>
-                <span>Java / Spring Boot</span>
-            </a>
-
-            <a href="#" class="navItem">
-                <span>◈</span>
-                <span>Cyber Security</span>
-            </a>
-
-            <a href="#" class="navItem">
-                <span>▣</span>
-                <span>App Development</span>
-            </a>
-
-
-            <div class="navDivider"></div>
         </nav>
-        <div class="sidebarQuote">
 
-            <div class="quoteIcon">
-                🚀
-            </div>
+        <!-- SIDEBAR PROFILE -->
+        <div class="sidebar-bottom">
 
-            <h4>
-                Keep Consistency!
-            </h4>
+            <a href="./profile.html" class="sidebar-profile">
 
-            <p>
-                Small progress every day becomes a big result.
-            </p>
+                <div class="avatar" id="sidebarAvatar">V</div>
+
+                <div class="profile-info">
+                    <strong id="sidebarName">User</strong>
+                    <span id="sidebarUsername">@user</span>
+                </div>
+
+            </a>
 
         </div>
-     <nav class="sidebarNav">
-
-            <a href="#" class="navItem">
-                <span>▤</span>
-                <span>Projects</span>
-            </a>
-
-            <a href="#" class="navItem">
-                <span>◷</span>
-                <span>Goals</span>
-            </a>
-
-            <a href="#" class="navItem">
-                <span>▥</span>
-                <span>Analytics</span>
-            </a>
-
-            <a href="#" class="navItem">
-                <span>⚙</span>
-                <span>Settings</span>
-            </a>
-
-        </nav>
-
-
-        <!-- Sidebar Bottom -->
-
-
 
     </aside>
 
 
-    <!-- =====================================================
-         MOBILE OVERLAY
-    ====================================================== -->
-
-    <div id="overlay"></div>
+    <!-- MOBILE OVERLAY -->
+    <div class="overlay" id="overlay"></div>
 
 
-    <!-- =====================================================
-         MAIN CONTENT
-    ====================================================== -->
+    <!-- MAIN -->
+    <main class="main">
 
-    <main id="mainContent">
-        <!-- =================================================
-             TOP NAVBAR
-        ================================================== -->
+        <!-- TOPBAR -->
+        <header class="topbar">
 
-        <header id="topbar">
+            <div class="topbar-left">
 
-            <div class="topLeft">
-
-                <button id="menuBtn">
+                <button
+                    id="menuBtn"
+                    class="menu-btn"
+                    type="button"
+                    aria-label="Open navigation"
+                >
                     ☰
                 </button>
 
-                <a href="./Dashboard.html" style="text-decoration: none; color: inherit;">
-                    <h2 class="mobileLogo">
-                        <span>Dev</span>Track
-                    </h2>
-                </a>
-
-
-                <div class="searchBox">
-
-                    <span>⌕</span>
-
-                    <input
-                        type="text"
-                        placeholder="Search questions..."
-                        id="searchInput"
-                    >
-
+                <div>
+                    <p class="page-label">DSA PREPARATION</p>
+                    <h1>DSA Dashboard</h1>
                 </div>
 
             </div>
 
+            <div class="topbar-right">
 
-            <div class="topRight">
+                <a href="./profile.html" class="profile">
 
-                <button class="topButton">
-                    🔔
-                </button>
+                    <div class="avatar" id="headerAvatar">V</div>
 
+                    <div class="profile-info">
+                        <strong id="headerName">User</strong>
+                        <span id="headerUsername">@user</span>
+                    </div>
 
-                <button
-                    class="topButton"
-                    id="themeBtn"
-                >
-                    🌙
-                </button>
+                </a>
 
-            <a href="./profile.html" class="profile" style="text-decoration: none; color: inherit;">
-
-                <div class="profile-avatar">
-                    <span class="profileAvatar" title=""></span>
-                </div>
-
-                <span class="profileName"></span>
-
-            </a>
             </div>
 
         </header>
 
-        <!-- =================================================
-             PAGE CONTENT
-        ================================================== -->
 
+        <!-- PAGE CONTENT -->
         <div class="content">
 
-
-            <!-- =================================================
-                 PAGE HEADING
-            ================================================== -->
-
-            <section class="pageHeading">
+            <!-- PAGE INTRO -->
+            <section class="page-heading">
 
                 <div>
 
-                    <p class="headingSmall">
-                        DSA Progress
-                    </p>
+                    <p class="section-label">YOUR DSA JOURNEY</p>
 
-                    <h1>
-                        Your DSA Journey
-                    </h1>
+                    <h2>Build strong problem-solving skills.</h2>
 
-                    <p class="headingDescription">
-                        Track your problem solving progress and improve
-                        your weak areas.
+                    <p class="section-description">
+                        Track your solved questions, topic coverage
+                        and areas that need improvement.
                     </p>
 
                 </div>
 
-
-                <a
-                    href="./addQuestion.html"
-                    class="addQuestionBtn"
-                >
+                <a href="./addQuestion.html" class="primary-btn">
                     + Add Question
                 </a>
 
             </section>
 
 
-            <!-- =================================================
-                 STAT CARDS
-            ================================================== -->
+            <!-- STATS -->
+            <section class="stats-grid">
 
-            <section class="statsGrid">
+                <div class="stat-card">
 
-
-                <!-- Total -->
-
-                <div class="statCard">
-
-                    <div class="statIcon blueIcon">
-                        📄
+                    <div class="stat-top">
+                        <span>Total Solved</span>
+                        <div class="stat-icon blue">◆</div>
                     </div>
 
-                    <div>
+                    <div class="stat-value" id="totalSolved">0</div>
 
-                        <p class="statTitle">
-                            Total Solved
-                        </p>
-
-                        <h2 id="totalSolved">
-                            0
-                        </h2>
-
-                        <span class="statSub">
-                            All questions
-                        </span>
-
-                    </div>
+                    <p class="stat-description">
+                        All DSA questions
+                    </p>
 
                 </div>
 
 
-                <!-- Easy -->
+                <div class="stat-card">
 
-                <div class="statCard">
-
-                    <div class="statIcon greenIcon">
-                        ✓
+                    <div class="stat-top">
+                        <span>Easy</span>
+                        <div class="stat-icon green">✓</div>
                     </div>
 
-                    <div>
+                    <div class="stat-value" id="easyCount">0</div>
 
-                        <p class="statTitle">
-                            Easy
-                        </p>
-
-                        <h2 id="easyCount">
-                            0
-                        </h2>
-
-                        <span class="statSub">
-                            Problems solved
-                        </span>
-
-                    </div>
+                    <p class="stat-description">
+                        Easy problems solved
+                    </p>
 
                 </div>
 
 
-                <!-- Medium -->
+                <div class="stat-card">
 
-                <div class="statCard">
-
-                    <div class="statIcon purpleIcon">
-                        ◉
+                    <div class="stat-top">
+                        <span>Medium</span>
+                        <div class="stat-icon purple">◉</div>
                     </div>
 
-                    <div>
+                    <div class="stat-value" id="mediumCount">0</div>
 
-                        <p class="statTitle">
-                            Medium
-                        </p>
-
-                        <h2 id="mediumCount">
-                            0
-                        </h2>
-
-                        <span class="statSub">
-                            Problems solved
-                        </span>
-
-                    </div>
+                    <p class="stat-description">
+                        Medium problems solved
+                    </p>
 
                 </div>
 
 
-                <!-- Hard -->
+                <div class="stat-card">
 
-                <div class="statCard">
-
-                    <div class="statIcon orangeIcon">
-                        🔥
+                    <div class="stat-top">
+                        <span>Hard</span>
+                        <div class="stat-icon orange">🔥</div>
                     </div>
 
-                    <div>
+                    <div class="stat-value" id="hardCount">0</div>
 
-                        <p class="statTitle">
-                            Hard
-                        </p>
-
-                        <h2 id="hardCount">
-                            0
-                        </h2>
-
-                        <span class="statSub">
-                            Problems solved
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                 TOPIC PROGRESS
-            ================================================== -->
-
-            <section class="topicSection">
-
-                <div class="sectionHeader">
-
-                    <h2>
-                        Topic Progress
-                    </h2>
-
-                    <span id="totalTopicText">
-                        0 questions
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="topicGrid"
-                    id="topicProgressContainer"
-                >
-
-                    <!-- JS will generate cards -->
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                 ACTIVITY SECTION
-            ================================================== -->
-
-            <section class="activityGrid">
-
-
-                <!-- RECENT ACTIVITY -->
-
-                <div class="dashboardCard">
-
-                    <div class="sectionHeader">
-
-                        <h2>
-                            Recent Activity
-                        </h2>
-
-                        <a href="history.html">
-                            View All
-                        </a>
-
-                    </div>
-
-
-                    <div
-                        id="recentActivityContainer"
-                        class="activityContainer"
-                    >
-
-                        <!-- JS -->
-
-                    </div>
-
-                </div>
-
-
-                <!-- WEAK TOPICS -->
-
-                <div class="dashboardCard">
-
-                    <div class="sectionHeader">
-
-                        <h2>
-                            Weak Topics
-                        </h2>
-
-                        <span>
-                            Needs attention
-                        </span>
-
-                    </div>
-
-
-                    <div
-                        id="weakTopicContainer"
-                        class="weakContainer"
-                    >
-
-                        <!-- JS -->
-
-                    </div>
-
-
-                    <p class="weakMessage">
-                        Focus on these topics to improve your DSA coverage. 🎯
+                    <p class="stat-description">
+                        Hard problems solved
                     </p>
 
                 </div>
@@ -456,95 +211,81 @@
             </section>
 
 
-            <!-- =================================================
-                 ANALYSIS SECTION
-            ================================================== -->
+            <!-- TOPIC PROGRESS -->
+            <section class="section">
 
-            <section class="analysisGrid">
+                <div class="section-header">
 
+                    <div>
+                        <p class="section-label">COVERAGE</p>
 
-                <!-- Difficulty -->
+                        <h2>Topic Progress</h2>
 
-                <div class="dashboardCard">
-
-                    <h2 class="cardTitle">
-                        Difficulty Analysis
-                    </h2>
-
-
-                    <div id="difficultyContainer">
-
-                        <!-- JS -->
-
+                        <p class="section-description">
+                            See how much of each DSA topic you have covered.
+                        </p>
                     </div>
+
+                    <span class="section-badge" id="totalTopicText">
+                        0 questions
+                    </span>
 
                 </div>
 
-
-                <!-- Platform -->
-
-                <div class="dashboardCard">
-
-                    <h2 class="cardTitle">
-                        Platform Analysis
-                    </h2>
-
-
-                    <div
-                        id="platformContainer"
-                        class="platformGrid"
-                    >
-
-                        <!-- JS -->
-
-                    </div>
-
+                <div
+                    class="topic-grid"
+                    id="topicProgressContainer"
+                >
+                    <!-- Generated by JavaScript -->
                 </div>
 
             </section>
 
 
-            <!-- =================================================
-                 TOPIC TABLE
-            ================================================== -->
+            <!-- WEAK TOPICS + DIFFICULTY -->
+            <section class="analytics-grid">
 
-            <section class="dashboardCard tableCard">
+                <!-- WEAK TOPICS -->
+                <div class="panel">
 
-                <div class="sectionHeader">
+                    <div class="panel-header">
 
-                    <h2>
-                        Topic Analysis
-                    </h2>
+                        <div>
+                            <p class="section-label">IMPROVEMENT</p>
+                            <h3>Weak Topics</h3>
+                        </div>
 
-                    <span>
-                        Questions solved
-                    </span>
+                        <span class="panel-badge warning">
+                            Needs attention
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="weak-container"
+                        id="weakTopicContainer"
+                    >
+                        <!-- Generated by JavaScript -->
+                    </div>
 
                 </div>
 
 
-                <div class="tableWrapper">
+                <!-- DIFFICULTY ANALYSIS -->
+                <div class="panel">
 
-                    <table>
+                    <div class="panel-header">
 
-                        <thead>
+                        <div>
+                            <p class="section-label">BREAKDOWN</p>
+                            <h3>Difficulty Analysis</h3>
+                        </div>
 
-                            <tr>
-                                <th>Topic</th>
-                                <th>Questions Solved</th>
-                                <th>Progress</th>
-                            </tr>
+                    </div>
 
-                        </thead>
-
-
-                        <tbody id="topicTableBody">
-
-                            <!-- JS -->
-
-                        </tbody>
-
-                    </table>
+                    <div id="difficultyContainer">
+                        <!-- Generated by JavaScript -->
+                    </div>
 
                 </div>
 
@@ -554,53 +295,53 @@
 
     </main>
 
-
-    <!-- =====================================================
-         MOBILE BOTTOM NAV
-    ====================================================== -->
-
-    <nav class="mobileBottomNav">
-
-        <a href="./Dashboard.html">
-
-            <span>⌂</span>
-            <small>Home</small>
-
-        </a>
+</div>
 
 
-        <a
-            href="./dashboardOfDsa.html"
-            class="selected"
+<!-- MOBILE BOTTOM NAVIGATION -->
+<nav class="mobile-nav">
+
+    <a href="./Dashboard.html" class="mobile-nav-item">
+        <span>⌂</span>
+        <small>Home</small>
+    </a>
+
+    <a href="./dashboardOfDsa.html" class="mobile-nav-item active">
+        <span>◇</span>
+        <small>DSA</small>
+    </a>
+
+    <!-- Selected technologies generated by JavaScript -->
+    <div id="mobileTechnologyNavigation"></div>
+
+    <!-- Overflow technologies -->
+    <div class="mobile-more-wrapper">
+
+        <button
+            type="button"
+            class="mobile-nav-item"
+            id="mobileMoreBtn"
+            aria-label="More navigation options"
         >
-
-            <span>◇</span>
-            <small>DSA</small>
-
-        </a>
-
-
-        <a href="./mern.html">
-
-            <span>○</span>
-            <small>MERN</small>
-
-        </a>
-
-
-        <a href="#">
-
             <span>•••</span>
             <small>More</small>
+        </button>
 
-        </a>
+        <div
+            class="mobile-more-menu"
+            id="mobileMoreMenu"
+        >
+            <!-- Extra technologies generated by JavaScript -->
+        </div>
 
-    </nav>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</nav>
 
-    <script src="../javascript/DSaDashScript.js"></script>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="../javascript/DSaDashScript.js"></script>
 
 </body>
-
 </html>

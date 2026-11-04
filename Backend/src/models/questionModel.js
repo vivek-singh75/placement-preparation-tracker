@@ -19,6 +19,7 @@ const questinSchema = new mongoose.Schema({
     Difficulty_Level:{
         type: String,
         enum : ['Easy', 'Medium', 'Hard'],
+        required: true
     },
     Platform:{
         type: String,

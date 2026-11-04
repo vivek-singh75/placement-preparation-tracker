@@ -1,363 +1,545 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>DevTrack - Skill Tracker</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>DevTrack | Dashboard</title>
 
-    <link rel="stylesheet" href="../css/mainDashboard.css">
+    <link
+        rel="stylesheet"
+        href="../css/mainDashboard.css"
+    >
 </head>
 
 <body>
 
-<div id="app" class="min-h-screen">
+<div class="app">
 
-    <!-- ================= SIDEBAR ================= -->
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
 
-    <aside id="sidebar">
+        <!-- LOGO -->
+        <a href="./Dashboard.html" class="sidebar-logo">
 
-    <a href="./Dashboard.html" class="sidebar-logo" style="text-decoration: none; color: inherit;">
+            <div class="logo-icon">
+                &lt;/&gt;
+            </div>
 
-        <div class="logo-icon">
-            &lt;/&gt;
-        </div>
+            <div>
+                <h1>DevTrack</h1>
+                <p>Skill Tracker</p>
+            </div>
 
-        <div>
-            <h1>DevTrack</h1>
-            <p>Skill Tracker</p>
-        </div>
+        </a>
 
-    </a>
+        <!-- NAVIGATION -->
+        <nav class="navigation">
 
-        <nav class="sidebar-nav">
+            <!-- DASHBOARD -->
+            <a href="./Dashboard.html" class="nav-item active">
 
-            <a href="Dashboard.html" class="nav-link active">
-                <span>⌂</span>
+                <span class="nav-icon">⌂</span>
+
                 <span>Dashboard</span>
+
             </a>
 
-            <a href="./dashboardOfDsa.html" class="nav-link">
-                <span>◇</span>
+            <!-- DSA -->
+            <a href="dashboardOfDsa.html" class="nav-item">
+
+                <span class="nav-icon">◈</span>
+
                 <span>DSA</span>
+
             </a>
 
-            <a href="./mern.html" class="nav-link">
-                <span>○</span>
-                <span>MERN Stack</span>
+            <!-- PREPARATION -->
+            <div class="nav-section-title">
+                PREPARATION
+            </div>
+
+            <!-- DYNAMIC TECHNOLOGIES -->
+            <div
+                id="technologyNavigation"
+                class="technology-navigation"
+            ></div>
+
+            <!-- DIVIDER -->
+            <div class="nav-divider"></div>
+
+            <!-- ANALYTICS -->
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">◔</span>
+
+                <span>Analytics</span>
+
             </a>
 
-            <a href="#" class="nav-link">
-                <span>◉</span>
-                <span>Data Science</span>
+            <!-- SETTINGS -->
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">⚙</span>
+
+                <span>Settings</span>
+
             </a>
 
-            <a href="#" class="nav-link">
-                <span>☕</span>
-                <span>Java / Spring Boot</span>
-            </a>
+        </nav>
 
-            <a href="#" class="nav-link">
-                <span>◈</span>
-                <span>Cyber Security</span>
-            </a>
+        <!-- SIDEBAR BOTTOM -->
+        <div class="sidebar-bottom">
 
-            <a href="#" class="nav-link">
-                <span>▣</span>
-                <span>App Development</span>
-            </a>
+            <div class="sidebar-profile">
 
+                <div
+                    class="avatar"
+                    id="sidebarAvatar"
+                >
+                    V
+                </div>
 
-            <div class="nav-divider">
+                <div class="profile-info">
+
+                    <strong id="sidebarName">
+                        User
+                    </strong>
+
+                    <span id="sidebarUsername">
+                        @user
+                    </span>
+
+                </div>
 
             </div>
-        </nav>
 
-        <div class="sidebar-quote">
-            <div class="quote-icon">🚀</div>
-
-            <p>Keep Consistency!</p>
-
-            <span>
-                Small progress every day becomes a big result.
-            </span>
         </div>
 
-
-    <nav class="sidebar-nav">
-            <a href="#" class="nav-link">
-                <span>▤</span>
-                <span>Projects</span>
-            </a>
-
-            <a href="#" class="nav-link">
-                <span>◷</span>
-                <span>Goals</span>
-            </a>
-
-            <a href="#" class="nav-link">
-                <span>▥</span>
-                <span>Analytics</span>
-            </a>
-
-            <a href="#" class="nav-link">
-                <span>⚙</span>
-                <span>Settings</span>
-            </a>
-
-        </nav>
     </aside>
 
-    <!-- Mobile Overlay -->
+    <!-- MOBILE OVERLAY -->
+    <div
+        id="overlay"
+        class="overlay"
+    ></div>
 
-    <div id="overlay"></div>
+    <!-- MAIN -->
+    <main class="main">
 
+        <!-- TOPBAR -->
+        <header class="topbar">
 
-    <!-- ================= MAIN ================= -->
+            <div class="topbar-left">
 
-    <main id="mainContent">
-
-
-        <!-- ================= HEADER ================= -->
-
-        <header id="topbar">
-
-            <div class="top-left">
-
-                <button id="menuBtn" >
+                <!-- MOBILE MENU BUTTON -->
+                <button
+                    id="menuBtn"
+                    class="menu-btn"
+                    type="button"
+                    aria-label="Open navigation"
+                >
                     ☰
                 </button>
 
-                <a href="./Dashboard.html" style="text-decoration: none; color: inherit;">
-                    <h2 class="mobile-logo">
-                        <span>Dev</span>Track
-                    </h2>
-                </a>
+                <div class="heading-wrapper">
 
+                    <p class="page-label">
+                        PLACEMENT PREPARATION
+                    </p>
 
-                <div class="search-box">
-
-                    <span>⌕</span>
-
-                    <input
-                        type="text"
-                        placeholder="Search anything..."
-                    >
+                    <h1>Dashboard</h1>
 
                 </div>
 
             </div>
 
+            <div class="topbar-right">
 
-            <div class="top-right">
-
-                <button class="top-button">
+                <!-- NOTIFICATION -->
+                <button
+                    class="notification-btn"
+                    type="button"
+                >
                     🔔
                 </button>
 
-                <button
-                    id="themeBtn"
-                    class="top-button"
-                >
-                    🌙
-                </button>
+                <!-- PROFILE -->
+                <a  href="./profile.html" class="profile">
 
-               <a href="./profile.html" class="profile">
-                    <div class="profile-avatar">
-                        <span id="profileAvatar"></span>
+                    <div
+                        class="avatar"
+                        id="headerAvatar"
+                    >
+                        V
                     </div>
-                    <span id="profileName"></span>
+
+                    <div class="profile-info">
+
+                        <strong id="headerName">
+                            User
+                        </strong>
+
+                        <span id="headerUsername">
+                            @user
+                        </span>
+
+                    </div>
+
                 </a>
+
             </div>
+
         </header>
 
-
-        <!-- ================= CONTENT ================= -->
-
+        <!-- CONTENT -->
         <div class="content">
 
-
-            <!-- Welcome -->
-
+            <!-- WELCOME -->
             <section class="welcome">
-                <h1>
-                    Welcome back,
-                    <span id="welcomeName"></span>
-                </h1>
 
-                <p>
-                    Track your progress and build your skills consistently.
-                </p>
+                <div class="welcome-content">
 
-            </section>
+                    <p class="welcome-small">
+                        Welcome back 👋
+                    </p>
 
+                    <h2 id="welcomeName">
+                        Let's continue your preparation.
+                    </h2>
 
-            <!-- ================= STATS ================= -->
-
-            <section class="stats-grid">
-
-
-                <div class="stat-card">
-
-                    <div class="stat-icon green-icon">
-                        ✓
-                    </div>
-
-                    <div>
-                        <p>Questions Solved</p>
-
-                        <h2 id="solvedQuestions">
-                            
-                        </h2>
-
-                        <small class="blue-text">
-                            63.1% of total
-                        </small>
-                    </div>
+                    <p class="welcome-description">
+                        Keep building your skills and stay consistent
+                        with your placement preparation.
+                    </p>
 
                 </div>
 
+                <button
+                    class="continue-btn"
+                    id="continueBtn"
+                    type="button"
+                >
+                    Continue Preparation
+                    <span>→</span>
+                </button>
 
+            </section>
+
+            <!-- OVERVIEW -->
+            <section class="overview-grid">
+
+                <!-- OVERALL -->
                 <div class="stat-card">
 
-                    <div class="stat-icon purple">
-                        ◉
+                    <div class="stat-top">
+
+                        <span>Overall Progress</span>
+
+                        <div class="stat-icon purple">
+                            ◉
+                        </div>
+
                     </div>
 
-                    <div>
-                        <p>Current Streak</p>
+                    <div
+                        class="stat-value"
+                        id="overallPercentage"
+                    >
+                        0%
+                    </div>
 
-                        <h2 class="currntStreak">
-                            
-                        </h2>
+                    <div class="progress-line">
 
-                        <small class="orange">
-                            Keep it up!
+                        <div
+                            id="overallBar"
+                            class="progress-fill purple-fill"
+                        ></div>
+
+                    </div>
+
+                    <p class="stat-description">
+                        Combined preparation progress
+                    </p>
+
+                </div>
+
+                <!-- DSA -->
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span>DSA Questions</span>
+
+                        <div class="stat-icon blue">
+                            ◆
+                        </div>
+
+                    </div>
+
+                    <div class="stat-value">
+
+                        <span id="solvedQuestions">
+                            0
+                        </span>
+
+                        <small id="totalQuestions">
+                            / 0
                         </small>
+
                     </div>
+
+                    <div class="progress-line">
+
+                        <div
+                            id="dsaBar"
+                            class="progress-fill blue-fill"
+                        ></div>
+
+                    </div>
+
+                    <p class="stat-description">
+                        Questions solved
+                    </p>
+
+                </div>
+
+                <!-- STREAK -->
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span>Current Streak</span>
+
+                        <div class="stat-icon orange">
+                            🔥
+                        </div>
+
+                    </div>
+
+                    <div class="stat-value">
+
+                        <span id="currentStreak">
+                            0
+                        </span>
+
+                        <small>days</small>
+
+                    </div>
+
+                    <p class="stat-description">
+                        Keep the streak alive
+                    </p>
+
+                </div>
+
+                <!-- ACTIVE TRACKS -->
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span>Active Tracks</span>
+
+                        <div class="stat-icon green">
+                            ✓
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="activeTracks"
+                    >
+                        0
+                    </div>
+
+                    <p class="stat-description">
+                        Technologies you're preparing
+                    </p>
 
                 </div>
 
             </section>
 
-
-            <!-- ================= SKILLS ================= -->
-
-            <section class="skills-section">
+            <!-- PREPARATION TRACKS -->
+            <section class="section">
 
                 <div class="section-header">
 
-                    <h2>
-                        Your Skills Overview
-                    </h2>
+                    <div>
 
-                    <a href="#">
-                        View All Analytics →
-                    </a>
+                        <p class="section-label">
+                            YOUR PREPARATION
+                        </p>
+
+                        <h2>Preparation Tracks</h2>
+
+                        <p class="section-description">
+                            Track your progress across DSA and
+                            selected technologies.
+                        </p>
+
+                    </div>
 
                 </div>
-
 
                 <div
                     id="skillsContainer"
                     class="skills-grid"
-                ></div>
+                >
+                    <!-- JS GENERATED -->
+                </div>
 
             </section>
 
+            <!-- ANALYTICS -->
+            <section class="analytics-grid">
 
-            <!-- ================= BOTTOM ================= -->
+                <!-- OVERALL BREAKDOWN -->
+                <div class="panel">
 
-            <section class="bottom-grid">
+                    <div class="panel-header">
 
+                        <div>
 
-                <!-- Overall -->
+                            <p class="section-label">
+                                OVERVIEW
+                            </p>
 
-                <div class="dashboard-card">
+                            <h3>
+                                Preparation Breakdown
+                            </h3>
 
-                    <h2>
-                        Overall Progress
-                    </h2>
+                        </div>
 
+                        <span class="panel-badge">
+                            Overall
+                        </span>
 
-                    <div class="circle-container">
+                    </div>
+
+                    <div class="overall-content">
 
                         <div class="progress-circle">
 
-                            <div class="circle-inner" >
+                            <div class="circle-inner">
 
-                                <strong class="circle-innerMain" id="overallPercentage">
-                                    
+                                <strong id="circlePercentage">
+                                    0%
                                 </strong>
 
-                                <span>
-                                    Overall
-                                </span>
+                                <span>Complete</span>
 
                             </div>
 
                         </div>
 
+                        <div
+                            id="progressLegend"
+                            class="progress-legend"
+                        >
+                            <!-- JS -->
+                        </div>
+
                     </div>
-
-
-                    <div id="progressLegend"></div>
-
-                    <p class="bottom-message">
-                        Keep going! 🚀
-                    </p>
 
                 </div>
 
+                <!-- FOCUS AREAS -->
+                <div class="panel">
 
-                <!-- Recent -->
+                    <div class="panel-header">
 
-                <div class="dashboard-card">
+                        <div>
 
-                    <div class="section-header">
+                            <p class="section-label">
+                                IMPROVEMENT
+                            </p>
 
-                        <h2>
-                            Recent Activity
-                        </h2>
+                            <h3>Focus Areas</h3>
 
-                        <button>
-                            View All
-                        </button>
+                        </div>
+
+                        <span class="panel-badge warning">
+                            Improve
+                        </span>
 
                     </div>
 
-
-                    <div id="recentActivity"></div>
+                    <div
+                        id="weakTopics"
+                        class="focus-list"
+                    >
+                        <!-- JS -->
+                    </div>
 
                 </div>
 
+            </section>
 
-                <!-- Weak Topics -->
+            <!-- RECENT ACTIVITY -->
+            <section class="section">
 
-                <div class="dashboard-card">
+                <div class="section-header">
 
-                    <div class="section-header">
+                    <div>
 
-                        <h2>
-                            Weak Topics
-                        </h2>
+                        <p class="section-label">
+                            ACTIVITY
+                        </p>
 
-                        <button>
-                            View All
-                        </button>
+                        <h2>Recent Activity</h2>
+
+                        <p class="section-description">
+                            Your latest preparation activities.
+                        </p>
 
                     </div>
 
+                </div>
 
-                    <div id="weakTopics"></div>
+                <div class="panel activity-panel">
 
+                    <div id="recentActivity">
+                        <!-- JS -->
+                    </div>
 
-                    <p class="weak-message">
-                        Focus on weak topics to improve your skills. 🎯
-                    </p>
+                </div>
 
+            </section>
+
+            <!-- QUICK ACTIONS -->
+            <section class="section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <p class="section-label">
+                            QUICK ACTIONS
+                        </p>
+
+                        <h2>Continue Preparing</h2>
+
+                        <p class="section-description">
+                            Jump directly into your preparation
+                            tracks.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div
+                    id="quickActions"
+                    class="quick-actions"
+                >
+                    <!-- JS -->
                 </div>
 
             </section>
@@ -368,36 +550,61 @@
 
 </div>
 
-
-<!-- ================= MOBILE NAV ================= -->
-
+<!-- MOBILE BOTTOM NAVIGATION -->
 <nav class="mobile-nav">
 
-    <a href="Dashboard.html" class="selected">
+    <a
+        href="./Dashboard.html"
+        class="mobile-nav-item active"
+    >
+
         <span>⌂</span>
+
         <small>Home</small>
+
     </a>
 
-    <a href="dashboardOfDsa.html">
-        <span>◇</span>
+    <a
+        href="./dashboardOfDsa.html"
+        class="mobile-nav-item"
+    >
+
+        <span>◈</span>
+
         <small>DSA</small>
+
     </a>
 
-    <a href="./mern.html">
-        <span>○</span>
-        <small>MERN</small>
+    <a
+        href="#"
+        class="mobile-nav-item"
+    >
+
+        <span>+</span>
+
+        <small>Prepare</small>
+
     </a>
 
-    <a href="#">
+    <a
+        href="#"
+        class="mobile-nav-item"
+    >
+
         <span>•••</span>
+
         <small>More</small>
+
     </a>
 
 </nav>
 
+<!-- AXIOS -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+<!-- DASHBOARD JS -->
 <script src="../javascript/mainDashboard.js"></script>
 
 </body>
+
 </html>
