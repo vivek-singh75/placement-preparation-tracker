@@ -2,7 +2,8 @@
 // MAIN DASHBOARD
 // =====================================================
 
-const API_URL = "http://localhost:3000";
+//const API_URL = "http://localhost:3000";
+const API_URL = "https://placement-preparation-tracker-ltlg.onrender.com";
 
 let dashboardData = null;
 

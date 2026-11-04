@@ -1,5 +1,6 @@
 
-const API_URL = "http://localhost:3000";
+//const API_URL = "http://localhost:3000";
+const API_URL = "https://placement-preparation-tracker-ltlg.onrender.com";
 
 // API Endpoints
 const PROFILE_API = `${API_URL}/api/user/userDetails`;
